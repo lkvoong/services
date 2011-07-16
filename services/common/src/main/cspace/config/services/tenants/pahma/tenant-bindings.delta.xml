@@ -1,22 +1,37 @@
+<!-- Michael T. Black; July 16, 2011, 11:50 am -->
+
 <?xml version="1.0" encoding="UTF-8"?>
 <tenant:TenantBindingConfig
 	xmlns:merge='http://xmlmerge.el4j.elca.ch'
 	xmlns:tenant='http://collectionspace.org/services/common/tenant'>
-	    	 
-  <tenant:tenantBinding id="3" name="pahma.collectionspace.org" displayName="Pahma Tenant" version="0.1">
-
-    <tenant:repositoryDomain name="default-domain" storageName="pahma-domain" repositoryClient="nuxeo-java" />
 	
-	<tenant:serviceBindings merge:matcher="id" id="CollectionObjects">
-		<service:object xmlns:service="http://collectionspace.org/services/common/service" >
-			<service:part id="3" merge:matcher="skip" merge:action="insert" control_group="Managed" versionable="true" auditable="false" label="collectionobjects_naturalhistory" updated="" order="3">
-			  <service:content contentType="application/xml">
-				<service:xmlContent namespaceURI="http://collectionspace.org/services/collectionobject/domain/naturalhistory" schemaLocation="http://collectionspace.org/services/collectionobject/domain/naturalhistory http://collectionspace.org/services/collectionobject/domain/collectionobjects_naturalhistory.xsd" />
-			  </service:content>
-			</service:part>
-		</service:object>
-	</tenant:serviceBindings>
+	<tenant:tenantBinding id="3" name="pahma.collectionspace.org" displayName="PAHMA Tenant" version="0.1"> <!-- I'm assuming that this id is the tenant id for PAHMA (tenant #3) -->
+		
+		<tenant:repositoryDomain name="default-domain" storageName="pahma-domain" repositoryClient="nuxeo-java" />
+		
+		<tenant:serviceBindings merge:matcher="id" id="CollectionObjects">
+			<service:object xmlns:service="http://collectionspace.org/services/common/service" >
+				<!-- In addition to the core and common schemas, include the domain schema for lifesci-specific schema extensions: -->
+				<service:part id="2" merge:matcher="skip" merge:action="insert" control_group="Managed" versionable="true" auditable="false" label="collectionobjects_naturalhistory" updated="" order="2">
+					<service:content contentType="application/xml">
+						<service:xmlContent namespaceURI="http://collectionspace.org/services/collectionobject/domain/naturalhistory" schemaLocation="http://collectionspace.org/services/collectionobject/domain/naturalhistory http://collectionspace.org/services/collectionobject/domain/collectionobjects_naturalhistory.xsd" />
+					</service:content>
+				</service:part>
+				<!-- Also include the domain schema for anthropology-specific schema extensions: -->
+				<service:part id="3" merge:matcher="skip" merge:action="insert" control_group="Managed" versionable="true" auditable="false" label="collectionobjects_anthropology" updated="" order="3">
+					<service:content contentType="application/xml">
+						<service:xmlContent namespaceURI="http://collectionspace.org/services/collectionobject/domain/anthropology" schemaLocation="http://collectionspace.org/services/collectionobject/domain/anthropology http://collectionspace.org/services/collectionobject/domain/collectionobjects_anthropology.xsd" />
+					</service:content>
+				</service:part>
+				<!-- Finally, include the local schema for PAHMA-specific schema extensions: -->
+				<service:part id="4" merge:matcher="skip" merge:action="insert" control_group="Managed" versionable="true" auditable="false" label="collectionobjects_pahma" updated="" order="4">
+					<service:content contentType="application/xml">
+						<service:xmlContent namespaceURI="http://collectionspace.org/services/collectionobject/local/pahma" schemaLocation="http://collectionspace.org/services/collectionobject/local/pahma http://collectionspace.org/services/collectionobject/local/collectionobjects_pahma.xsd" />
+					</service:content>
+				</service:part>
+			</service:object>
+		</tenant:serviceBindings>
+		
+	</tenant:tenantBinding>
 	
-  </tenant:tenantBinding>
-	    	       
 </tenant:TenantBindingConfig>
