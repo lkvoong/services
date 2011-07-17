@@ -1,12 +1,9 @@
-<!-- Michael T. Black; July 16, 2011, 12:32 pm -->
-<!-- am reverting to original state for debugging of introduced glitch -->
-
 <?xml version="1.0" encoding="UTF-8"?>
 <tenant:TenantBindingConfig
 	xmlns:merge='http://xmlmerge.el4j.elca.ch'
 	xmlns:tenant='http://collectionspace.org/services/common/tenant'>
 	
-	<tenant:tenantBinding id="3" name="pahma.collectionspace.org" displayName="Pahma Tenant" version="0.1">
+	<tenant:tenantBinding id="3" name="pahma.collectionspace.org" displayName="PAHMA Anthropology Demo Tenant" version="0.1">
 		
 		<tenant:repositoryDomain name="default-domain" storageName="pahma-domain" repositoryClient="nuxeo-java" />
 		
