@@ -12,52 +12,50 @@
 -->
 
 <xs:schema 
-  xmlns:xs="http://www.w3.org/2001/XMLSchema"
-  xmlns:ns="http://collectionspace.org/services/collectionobject/domain/naturalhistory"
-  xmlns="http://collectionspace.org/services/collectionobject/domain/naturalhistory"
-  targetNamespace="http://collectionspace.org/services/collectionobject/domain/naturalhistory"
-  version="0.1">
-
-  <!-- used for testing
-  <xs:element name="nh-string" type="xs:string" />
-  <xs:element name="nh-int" type="xs:int"/>
-  <xs:element name="nh-long" type="xs:long"/>
-  <xs:element name="nh-date" type="xs:dateTime"/>
-  <xs:element name="nh-note" type="xs:string"/>
-  -->
-
-  <!--  These items are being moved to common
-  <xs:element name="fieldCollector" type="xs:string"/>
-  <xs:element name="fieldCollectionDate" type="xs:string"/>
-  <xs:element name="fieldLocPlace" type="xs:string"/>
-  <xs:element name="catalogDate" type="xs:string"/>
-  -->
-  <xs:element name="newFieldOne" type="xs:string"/>
-  <xs:element name="newFieldTwo" type="xs:string"/>
-
-  <xs:element name="labelHeader" type="xs:string"/>
-  <xs:element name="labelFooter" type="xs:string"/>
-
-  <xs:element name="fieldLocVerbatim" type="xs:string"/>
-  <xs:element name="fieldCollectionDateEarliest" type="xs:string"/>
-  <xs:element name="fieldCollectionDateLatest" type="xs:string"/>
-  <xs:element name="fieldLocLatDecimal" type="xs:string"/>
-  <xs:element name="fieldLocLongDecimal" type="xs:string"/>
-  <xs:element name="fieldLocElevation" type="xs:string"/>
-
-  <!-- These will become controlled lists -->
-  <xs:element name="fieldLocGeodeticDatum" type="xs:string"/>
-  <xs:element name="fieldLocCoordinateSystem" type="xs:string"/>
-  <xs:element name="fieldLocCounty" type="xs:string"/>
-  <xs:element name="fieldLocState" type="xs:string"/>
-  <xs:element name="fieldLocCountry" type="xs:string"/>
-  <xs:element name="fieldLocHigherGeography" type="xs:string"/>
-
-  <xs:element name="taxonomicIdentGroupList" type="taxonomicIdentGroupList"/>
-  <xs:element name="typeSpecimenGroupList" type="typeSpecimenGroupList"/>
-  <xs:element name="fieldCollElevationGroupList" type="fieldCollElevationGroupList"/>
-  <xs:element name="fieldCollDepthGroupList" type="fieldCollDepthGroupList"/>
-  <xs:element name="associatedTaxaGroupList" type="associatedTaxaGroupList"/>
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:ns="http://collectionspace.org/services/collectionobject/domain/naturalhistory"
+	xmlns="http://collectionspace.org/services/collectionobject/domain/naturalhistory"
+	targetNamespace="http://collectionspace.org/services/collectionobject/domain/naturalhistory"
+	version="0.1">
+	
+	<!-- used for testing
+	<xs:element name="nh-string" type="xs:string" />
+	<xs:element name="nh-int" type="xs:int"/>
+	<xs:element name="nh-long" type="xs:long"/>
+	<xs:element name="nh-date" type="xs:dateTime"/>
+	<xs:element name="nh-note" type="xs:string"/>
+	-->
+	
+	<!--  These items are being moved to common
+	<xs:element name="fieldCollector" type="xs:string"/>
+	<xs:element name="fieldCollectionDate" type="xs:string"/>
+	<xs:element name="fieldLocPlace" type="xs:string"/>
+	<xs:element name="catalogDate" type="xs:string"/>
+	-->
+  
+	<xs:element name="labelHeader" type="xs:string"/>
+	<xs:element name="labelFooter" type="xs:string"/>
+	
+	<xs:element name="fieldLocVerbatim" type="xs:string"/>
+	<xs:element name="fieldLocLatDecimal" type="xs:string"/>
+	<xs:element name="fieldLocLongDecimal" type="xs:string"/>
+	<xs:element name="fieldLocElevation" type="xs:string"/>
+	<xs:element name="fieldCollectionDateEarliest" type="xs:string"/>
+	<xs:element name="fieldCollectionDateLatest" type="xs:string"/>
+	
+	<!-- These will become controlled lists -->
+	<xs:element name="fieldLocGeodeticDatum" type="xs:string"/>
+	<xs:element name="fieldLocCoordinateSystem" type="xs:string"/>
+	<xs:element name="fieldLocCounty" type="xs:string"/>
+	<xs:element name="fieldLocState" type="xs:string"/>
+	<xs:element name="fieldLocCountry" type="xs:string"/>
+	<xs:element name="fieldLocHigherGeography" type="xs:string"/>
+	
+	<xs:element name="taxonomicIdentGroupList" type="taxonomicIdentGroupList"/>
+	<xs:element name="typeSpecimenGroupList" type="typeSpecimenGroupList"/>
+	<xs:element name="fieldCollElevationGroupList" type="fieldCollElevationGroupList"/>
+	<xs:element name="fieldCollDepthGroupList" type="fieldCollDepthGroupList"/>
+	<xs:element name="associatedTaxaGroupList" type="associatedTaxaGroupList"/>
 
 	<xs:complexType name="taxonomicIdentGroupList">
 			<xs:sequence>
@@ -66,17 +64,17 @@
 			</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="taxonomicIdentGroup">
-			<xs:sequence>
-					<xs:element name="taxon" type="xs:string"/>
-					<xs:element name="qualifier" type="xs:string"/>
-					<xs:element name="identBy" type="xs:string"/>
-					<xs:element name="identDate" type="xs:string"/>
-					<xs:element name="institution" type="xs:string"/>
-					<xs:element name="identKind" type="xs:string"/>
-					<xs:element name="reference" type="xs:string"/>
-					<xs:element name="refPage" type="xs:string"/>
-					<xs:element name="notes" type="xs:string"/>
-			 </xs:sequence>
+		<xs:sequence>
+			<xs:element name="taxonTaxon" type="xs:string"/>
+			<xs:element name="taxonQualifier" type="xs:string"/>
+			<xs:element name="taxonIdentBy" type="xs:string"/>
+			<xs:element name="taxonIdentDate" type="xs:string"/>
+			<xs:element name="taxonInstitution" type="xs:string"/>
+			<xs:element name="taxonIdentKind" type="xs:string"/>
+			<xs:element name="taxonReference" type="xs:string"/>
+			<xs:element name="taxonRefPage" type="xs:string"/>
+			<xs:element name="taxonNotes" type="xs:string"/>
+		 </xs:sequence>
 	</xs:complexType>
 
 	<xs:complexType name="typeSpecimenGroupList">
