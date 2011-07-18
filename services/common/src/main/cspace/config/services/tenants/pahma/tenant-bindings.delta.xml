@@ -14,26 +14,19 @@
 						<service:xmlContent namespaceURI="http://collectionspace.org/services/collectionobject/domain/naturalhistory" schemaLocation="http://collectionspace.org/services/collectionobject/domain/naturalhistory http://collectionspace.org/services/collectionobject/domain/collectionobjects_naturalhistory.xsd" />
 					</service:content>
 				</service:part>
-			</service:object>
-		</tenant:serviceBindings>
-		
-		<tenant:serviceBindings merge:matcher="id" id="CollectionObjects">
-			<service:object xmlns:service="http://collectionspace.org/services/common/service" >
+				
 				<service:part id="4" merge:matcher="skip" merge:action="insert" control_group="Managed" versionable="true" auditable="false" label="collectionobjects_anthropology" updated="" order="4">
 					<service:content contentType="application/xml">
 						<service:xmlContent namespaceURI="http://collectionspace.org/services/collectionobject/domain/anthropology" schemaLocation="http://collectionspace.org/services/collectionobject/domain/anthropology http://collectionspace.org/services/collectionobject/domain/collectionobjects_anthropology.xsd" />
 					</service:content>
 				</service:part>
-			</service:object>
-		</tenant:serviceBindings>
-		
-		<tenant:serviceBindings merge:matcher="id" id="CollectionObjects">
-			<service:object xmlns:service="http://collectionspace.org/services/common/service" >
+				
 				<service:part id="5" merge:matcher="skip" merge:action="insert" control_group="Managed" versionable="true" auditable="false" label="collectionobjects_pahma" updated="" order="5">
 					<service:content contentType="application/xml">
 						<service:xmlContent namespaceURI="http://collectionspace.org/services/collectionobject/local/pahma" schemaLocation="http://collectionspace.org/services/collectionobject/local/pahma http://collectionspace.org/services/collectionobject/local/collectionobjects_pahma.xsd" />
 					</service:content>
 				</service:part>
+				
 			</service:object>
 		</tenant:serviceBindings>
 		
