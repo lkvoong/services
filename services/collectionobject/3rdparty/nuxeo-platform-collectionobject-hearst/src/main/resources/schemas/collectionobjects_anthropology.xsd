@@ -24,7 +24,7 @@
 	<xs:element name="culturalCareNote" type="xs:string"/>
 	
 	<xs:element name="anthroNagpraClaimsGroupList" type="anthroNagpraClaimsGroupList"/>
-	<xs:element name="accessRestrictionRecommendationsGroupList" type="accessRestrictionRecommendationsGroupList"/>
+	<xs:element name="accessRestrictionsGroupList" type="accessRestrictionsGroupList"/>
 
 	<xs:complexType name="anthroNagpraClaimsGroupList">
 		<xs:sequence>
@@ -33,24 +33,24 @@
 	</xs:complexType>
 	<xs:complexType name="anthroNagpraClaimsGroup">
 		<xs:sequence>
-			<xs:element name="claimName" type="xs:string"/>
-			<xs:element name="claimStatus" type="xs:string"/>
-			<xs:element name="claimNote" type="xs:string"/>
+			<xs:element name="nagpraClaimName" type="xs:string"/>
+			<xs:element name="nagpraClaimStatus" type="xs:string"/>
+			<xs:element name="nagpraClaimNote" type="xs:string"/>
 		</xs:sequence>
 	</xs:complexType>
 	
-	<xs:complexType name="accessRestrictionRecommendationsGroupList">
+	<xs:complexType name="accessRestrictionsGroupList">
 		<xs:sequence>
-			<xs:element name="accessRestrictionRecommendationsGroup" type="accessRestrictionRecommendationsGroup" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="accessRestrictionsGroup" type="accessRestrictionsGroup" minOccurs="0" maxOccurs="unbounded"/>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:complexType name="accessRestrictionRecommendationsGroup">
+	<xs:complexType name="accessRestrictionsGroup">
 		<xs:sequence>
-			<xs:element name="accessRestrictionRecommendationType" type="xs:string"/>
-			<xs:element name="accessRestrictionRecommendationDetails" type="xs:string"/>
-			<xs:element name="accessRestrictionRecommendationRequestor" type="xs:string"/>
-			<xs:element name="accessRestrictionRecommendationOnBehalfOf" type="xs:string"/>
-			<xs:element name="accessRestrictionRecommendationDate" type="xs:string"/>
+			<xs:element name="accessRestrictionType" type="xs:string"/>
+			<xs:element name="accessRestrictionDetails" type="xs:string"/>
+			<xs:element name="accessRestrictionRequestor" type="xs:string"/>
+			<xs:element name="accessRestrictionOnBehalfOf" type="xs:string"/>
+			<xs:element name="accessRestrictionDate" type="xs:string"/>
 		</xs:sequence>
 	</xs:complexType>
 	
