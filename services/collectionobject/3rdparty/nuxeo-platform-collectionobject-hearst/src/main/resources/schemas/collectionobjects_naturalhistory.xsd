@@ -65,15 +65,15 @@
 	</xs:complexType>
 	<xs:complexType name="taxonomicIdentGroup">
 		<xs:sequence>
-			<xs:element name="taxonTaxon" type="xs:string"/>
-			<xs:element name="taxonQualifier" type="xs:string"/>
-			<xs:element name="taxonIdentBy" type="xs:string"/>
-			<xs:element name="taxonIdentDate" type="xs:string"/>
-			<xs:element name="taxonInstitution" type="xs:string"/>
-			<xs:element name="taxonIdentKind" type="xs:string"/>
-			<xs:element name="taxonReference" type="xs:string"/>
-			<xs:element name="taxonRefPage" type="xs:string"/>
-			<xs:element name="taxonNotes" type="xs:string"/>
+			<xs:element name="taxon" type="xs:string"/>
+			<xs:element name="qualifier" type="xs:string"/>
+			<xs:element name="identBy" type="xs:string"/>
+			<xs:element name="identDate" type="xs:string"/>
+			<xs:element name="institution" type="xs:string"/>
+			<xs:element name="identKind" type="xs:string"/>
+			<xs:element name="reference" type="xs:string"/>
+			<xs:element name="refPage" type="xs:string"/>
+			<xs:element name="notes" type="xs:string"/>
 		 </xs:sequence>
 	</xs:complexType>
 
