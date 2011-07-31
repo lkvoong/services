@@ -15,7 +15,7 @@
 					</service:content>
 				</service:part>
 				
-				<!--<service:part id="4" merge:matcher="skip" merge:action="insert" control_group="Managed" versionable="true" auditable="false" label="collectionobjects_anthropology" updated="" order="4">
+				<service:part id="4" merge:matcher="skip" merge:action="insert" control_group="Managed" versionable="true" auditable="false" label="collectionobjects_anthropology" updated="" order="4">
 					<service:content contentType="application/xml">
 						<service:xmlContent namespaceURI="http://collectionspace.org/services/collectionobject/domain/anthropology" schemaLocation="http://collectionspace.org/services/collectionobject/domain/anthropology http://collectionspace.org/services/collectionobject/domain/collectionobjects_anthropology.xsd" />
 					</service:content>
@@ -25,7 +25,7 @@
 					<service:content contentType="application/xml">
 						<service:xmlContent namespaceURI="http://collectionspace.org/services/collectionobject/local/pahma" schemaLocation="http://collectionspace.org/services/collectionobject/local/pahma http://collectionspace.org/services/collectionobject/local/collectionobjects_pahma.xsd" />
 					</service:content>
-				</service:part>-->
+				</service:part>
 				
 			</service:object>
 		</tenant:serviceBindings>
