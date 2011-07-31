@@ -1275,8 +1275,7 @@
     <!-- end taxonomyauthority service meta-data -->
     <!-- begin Taxon (the 'item' child of TaxonomyAuthority) service meta-data.
              Note there is no Taxon service, but there is a
-             Repository workspace so we have to configure that.
-        -->
+             Repository workspace so we have to configure that. -->
     <tenant:serviceBindings name="Taxon" version="0.1">
       <service:repositoryDomain xmlns:service="http://collectionspace.org/services/common/service">default-domain</service:repositoryDomain>
       <service:documentHandler xmlns:service="http://collectionspace.org/services/common/service">org.collectionspace.services.taxonomy.nuxeo.TaxonDocumentModelHandler</service:documentHandler>
@@ -1317,7 +1316,7 @@
       </service:object>
     </tenant:serviceBindings>
     <!-- end taxon service meta-data -->
-    <!-- begin acquisition service meta-data -->
+  	<!-- begin acquisition service meta-data -->
     <tenant:serviceBindings name="Acquisitions" type="procedure" version="0.1">
       <service:uriPath xmlns:service="http://collectionspace.org/services/common/service">/acquisitions/*/workflow/</service:uriPath>
       <!-- other URI paths using which this service could be accessed -->
