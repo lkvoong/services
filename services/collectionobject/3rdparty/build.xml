@@ -11,6 +11,7 @@
 	<property name="nuxeo-platform-collectionobjects_common" value="nuxeo-platform-collectionobjects_common"/>
 	<property name="nuxeo-platform-cs-collectionobject" value="nuxeo-platform-cs-collectionobject"/>
 	<property name="nuxeo-platform-collectionobject-hearst" value="nuxeo-platform-collectionobject-hearst"/>
+	<property name="nuxeo-platform-collectionobject-pahma" value="nuxeo-platform-collectionobject-pahma"/>
     <property name="mvn.opts" value="" />
     <property name="src" location="src"/>
     <property name="build" location="build"/>
@@ -116,8 +117,9 @@
     <target name="deploy" depends="install"
     description="deploy collectionobject in ${jboss.server.nuxeo}">
         <ant antfile="${nuxeo-platform-collectionobjects_common}/build.xml" target="deploy" inheritall="false"/>
-        <ant antfile="${nuxeo-platform-cs-collectionobject}/build.xml" target="deploy" inheritall="false"/>
-        <ant antfile="${nuxeo-platform-collectionobject-hearst}/build.xml" target="deploy" inheritall="false"/>
+    	<ant antfile="${nuxeo-platform-cs-collectionobject}/build.xml" target="deploy" inheritall="false"/>
+    	<ant antfile="${nuxeo-platform-collectionobject-hearst}/build.xml" target="deploy" inheritall="false"/>
+    	<ant antfile="${nuxeo-platform-collectionobject-pahma}/build.xml" target="deploy" inheritall="false"/>
     </target>
 
     <target name="undeploy"
@@ -125,6 +127,7 @@
         <ant antfile="${nuxeo-platform-collectionobjects_common}/build.xml" target="undeploy" inheritall="false"/>
         <ant antfile="${nuxeo-platform-cs-collectionobject}/build.xml" target="undeploy" inheritall="false"/>
         <ant antfile="${nuxeo-platform-collectionobject-hearst}/build.xml" target="undeploy" inheritall="false"/>
+    	<ant antfile="${nuxeo-platform-collectionobject-pahma}/build.xml" target="undeploy" inheritall="false"/>
     </target>
 
     <target name="dist"
@@ -132,6 +135,7 @@
         <ant antfile="${nuxeo-platform-collectionobjects_common}/build.xml" target="dist" inheritall="false"/>
         <ant antfile="${nuxeo-platform-cs-collectionobject}/build.xml" target="dist" inheritall="false"/>
         <ant antfile="${nuxeo-platform-collectionobject-hearst}/build.xml" target="dist" inheritall="false"/>
+    	<ant antfile="${nuxeo-platform-collectionobject-pahma}/build.xml" target="dist" inheritall="false"/>
     </target>
 
     <target name="dist_installer"
@@ -139,6 +143,7 @@
         <ant antfile="${nuxeo-platform-collectionobjects_common}/build.xml" target="dist_installer" inheritall="false"/>
         <ant antfile="${nuxeo-platform-cs-collectionobject}/build.xml" target="dist_installer" inheritall="false"/>
         <ant antfile="${nuxeo-platform-collectionobject-hearst}/build.xml" target="dist_installer" inheritall="false"/>
+    	<ant antfile="${nuxeo-platform-collectionobject-pahma}/build.xml" target="dist_installer" inheritall="false"/>
     </target>
 
 </project>
