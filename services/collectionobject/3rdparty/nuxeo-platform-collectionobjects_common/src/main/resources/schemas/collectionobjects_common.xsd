@@ -89,7 +89,7 @@
     <!-- Did not find the dateAssociation field in the wiki schemas, however.  -->
     <!-- contentDate is itself a structured date field, containing a dateAssociation -->
     <!-- field, so perhaps this may merely be a product of some confusion. -->
-    <xs:element name="contentDate" type="xs:string"/>
+	<xs:element name="contentDate" type="xs:string"/> <!-- RECAST AS A STRUCTURED DATE IN collectionsobjects_anthropology.xsd -->
     <xs:element name="contentDescription" type="xs:string"/>
     <xs:element name="contentEventNameGroupList" type="contentEventNameGroupList"/>
     <xs:element name="contentNote" type="xs:string"/>
@@ -172,7 +172,7 @@
     <!-- in response to the renaming of this group to Textual inscription -->
     <xs:element name="inscriptionContent" type="xs:string"/>
     <xs:element name="inscriptionContentInscriber" type="xs:string"/>
-    <xs:element name="inscriptionContentDate" type="xs:string"/>
+	<xs:element name="inscriptionContentDate" type="xs:string"/>  <!-- RECAST AS A STRUCTURED DATE IN collectionsobjects_anthropology.xsd -->
     <xs:element name="inscriptionContentInterpretation" type="xs:string"/>
     <xs:element name="inscriptionContentLanguage" type="xs:string"/>
     <xs:element name="inscriptionContentMethod" type="xs:string"/>
@@ -188,7 +188,7 @@
     <!-- in response to the renaming of this group to Non-textual inscription -->
     <xs:element name="inscriptionDescription" type="xs:string"/>
     <xs:element name="inscriptionDescriptionInscriber" type="xs:string"/>
-    <xs:element name="inscriptionDescriptionDate" type="xs:string"/>
+	<xs:element name="inscriptionDescriptionDate" type="xs:string"/>  <!-- RECAST AS A STRUCTURED DATE IN collectionsobjects_anthropology.xsd -->
     <xs:element name="inscriptionDescriptionInterpretation" type="xs:string"/>
     <xs:element name="inscriptionDescriptionMethod" type="xs:string"/>
     <xs:element name="inscriptionDescriptionPosition" type="xs:string"/>
@@ -300,7 +300,7 @@
     <xs:element name="ownershipCategory" type="xs:string"/>
     <!-- FIXME Make into a repeatable, structured date ("date units of information") -->
     <!-- field, when structured dates are introduced -->
-    <xs:element name="ownershipDates" type="xs:string"/>
+    <xs:element name="ownershipDates" type="xs:string"/> <!-- RECAST AS A STRUCTURED DATE IN collectionsobjects_anthropology.xsd -->
     <xs:element name="ownershipExchangeMethod" type="xs:string"/>
     <xs:element name="ownershipExchangeNote" type="xs:string"/>
     <xs:element name="ownershipExchangePriceCurrency" type="xs:string"/>
@@ -671,7 +671,7 @@
     </xs:complexType>
     <xs:complexType name="assocDateGroup">
         <xs:sequence>
-            <xs:element name="assocDate" type="xs:string"/>
+        	<xs:element name="assocDate" type="xs:string"/> <!-- NEEDS TO BE RECAST AS A STRUCTURED DATE -->
             <xs:element name="assocDateType" type="xs:string"/>
             <xs:element name="assocDateNote" type="xs:string"/>
         </xs:sequence>
@@ -774,7 +774,7 @@
 	</xs:complexType>
     
     <!-- Object Description Date Information -->
-    <!-- This appears to be a placeholder structured date -->
+	<!-- This appears to be a placeholder structured date --> <!-- RECAST AS A STRUCTURED DATE IN collectionsobjects_anthropology.xsd -->
     <xs:element name="dateAssociation" type="xs:string"/>
     <xs:element name="dateEarliestSingle" type="xs:string"/>
     <xs:element name="dateEarliestSingleCertainty" type="xs:string"/>

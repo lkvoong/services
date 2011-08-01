@@ -37,13 +37,13 @@
   <xs:element name="labelFooter" type="xs:string"/>
 
   <xs:element name="fieldLocVerbatim" type="xs:string"/>
-  <xs:element name="fieldCollectionDateEarliest" type="xs:string"/>
-  <xs:element name="fieldCollectionDateLatest" type="xs:string"/>
   <xs:element name="fieldLocLatDecimal" type="xs:string"/>
   <xs:element name="fieldLocLongDecimal" type="xs:string"/>
   <xs:element name="fieldLocElevation" type="xs:string"/>
+	<xs:element name="fieldCollectionDateEarliest" type="xs:string"/>
+	<xs:element name="fieldCollectionDateLatest" type="xs:string"/>
 
-  <!-- These will become contolled lists -->
+	<!-- These will become controlled lists -->
   <xs:element name="fieldLocGeodeticDatum" type="xs:string"/>
   <xs:element name="fieldLocCoordinateSystem" type="xs:string"/>
   <xs:element name="fieldLocCounty" type="xs:string"/>

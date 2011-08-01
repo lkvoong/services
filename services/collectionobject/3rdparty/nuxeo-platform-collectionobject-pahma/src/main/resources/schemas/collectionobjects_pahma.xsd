@@ -21,5 +21,31 @@
 	<xs:element name="pahmaNagpraCodeLegacy" type="xs:string"/>
 	<xs:element name="pahmaEthnographicFileCode" type="xs:string"/>
 	<xs:element name="pahmaTms2003DataSource" type="xs:string"/>
+	<xs:element name="pahmaContextOfUse" type="xs:string"/>
+	
+	
+	<xs:element name="pahmaContextOfUses">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="pahmaContextOfUse" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="pahmaNagpraCodeLegacys">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="pahmaNagpraCodeLegacy" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="pahmaEthnographicFileCodes">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="pahmaEthnographicFileCode" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
 	
 </xs:schema>

@@ -13,7 +13,7 @@
     <name>services.collectionobject.CollectionObjectTenant2.nuxeo</name>
     <packaging>jar</packaging>
     <description>
-        CollectionObject Nuxeo document type for Tenant ID = "1"
+        CollectionObject Nuxeo document type for Tenant ID = "2"
     </description>
 
     <build>
