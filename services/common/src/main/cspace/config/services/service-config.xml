@@ -21,7 +21,10 @@
         <port>62474</port> <!-- java -->
         <!--port>8080</port--> <!-- rest -->
         <user>Administrator</user>
+        <!--
         <password>Ph02b2</password>
+        -->
+        <password>Administrator</password>
         <client-type>java</client-type>
         <client-class>org.collectionspace.services.nuxeo.client.java.RepositoryJavaClientImpl</client-class>
         <properties>
