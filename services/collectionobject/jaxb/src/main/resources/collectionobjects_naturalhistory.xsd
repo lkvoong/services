@@ -21,41 +21,41 @@
     <!-- collection-object for museum of natural history  -->
     <xs:element name="collectionobjects_naturalhistory">
         <xs:complexType>
-                    <xs:sequence>
+            <xs:sequence>
 
-        <!--
-            <xs:complexType>
-                <xs:sequence>
-                    <xs:element name="nh-string" type="xs:string" />
-                    <xs:element name="nh-int" type="xs:int"/>
-                    <xs:element name="nh-long" type="xs:long"/>
-                    <xs:element name="nh-date" type="xs:dateTime"/>
-                    <xs:element name="nh-note" type="xs:string"/>
-                </xs:sequence>
-            </xs:complexType>
-        -->
-            
-        <xs:element name="fieldLocVerbatim" type="xs:string"/>
-        <xs:element name="fieldCollectionDateEarliest" type="xs:string"/>
-        <xs:element name="fieldCollectionDateLatest" type="xs:string"/>
-        <xs:element name="fieldLocLatDecimal" type="xs:string"/>
-        <xs:element name="fieldLocLongDecimal" type="xs:string"/>
-        <xs:element name="fieldLocElevation" type="xs:string"/>
+			    <!--
+			        <xs:complexType>
+			            <xs:sequence>
+			                <xs:element name="nh-string" type="xs:string" />
+			                <xs:element name="nh-int" type="xs:int"/>
+			                <xs:element name="nh-long" type="xs:long"/>
+			                <xs:element name="nh-date" type="xs:dateTime"/>
+			                <xs:element name="nh-note" type="xs:string"/>
+			            </xs:sequence>
+			        </xs:complexType>
+			    -->
+			        
+			    <xs:element name="fieldLocVerbatim" type="xs:string"/>
+			    <xs:element name="fieldCollectionDateEarliest" type="xs:string"/>
+			    <xs:element name="fieldCollectionDateLatest" type="xs:string"/>
+			    <xs:element name="fieldLocLatDecimal" type="xs:string"/>
+			    <xs:element name="fieldLocLongDecimal" type="xs:string"/>
+			    <xs:element name="fieldLocElevation" type="xs:string"/>
+			
+			    <!-- These will become contolled lists -->
+			    <xs:element name="fieldLocCounty" type="xs:string"/>
+			    <xs:element name="fieldLocState" type="xs:string"/>
+			    <xs:element name="fieldLocCountry" type="xs:string"/>
+			    <xs:element name="fieldHigherGeography" type="xs:string"/>
+			
+			    <xs:element name="taxonomicIdentGroupList" type="taxonomicIdentGroupList"/>
+			    <xs:element name="typeSpecimenGroupList" type="typeSpecimenGroupList"/>
+			    <xs:element name="fieldCollElevationGroupList" type="fieldCollElevationGroupList"/>
+			    <xs:element name="fieldCollDepthGroupList" type="fieldCollDepthGroupList"/>
+			    <xs:element name="associatedTaxaGroupList" type="associatedTaxaGroupList"/>
 
-        <!-- These will become contolled lists -->
-        <xs:element name="fieldLocCounty" type="xs:string"/>
-        <xs:element name="fieldLocState" type="xs:string"/>
-        <xs:element name="fieldLocCountry" type="xs:string"/>
-        <xs:element name="fieldHigherGeography" type="xs:string"/>
-
-        <xs:element name="taxonomicIdentGroupList" type="taxonomicIdentGroupList"/>
-        <xs:element name="typeSpecimenGroupList" type="typeSpecimenGroupList"/>
-        <xs:element name="fieldCollElevationGroupList" type="fieldCollElevationGroupList"/>
-        <xs:element name="fieldCollDepthGroupList" type="fieldCollDepthGroupList"/>
-        <xs:element name="associatedTaxaGroupList" type="associatedTaxaGroupList"/>
-
-    </xs:sequence>
-   </xs:complexType>
+    		</xs:sequence>
+   		</xs:complexType>
    </xs:element>
 
     <xs:complexType name="taxonomicIdentGroupList">
