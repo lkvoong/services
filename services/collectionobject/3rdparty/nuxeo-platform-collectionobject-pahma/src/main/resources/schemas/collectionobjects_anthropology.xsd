@@ -54,7 +54,7 @@
 		</xs:sequence>
 	</xs:complexType>
 	
-</xs:schema>	<xs:element name="nagpraInventorys">
+	<xs:element name="nagpraInventorys">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="nagpraInventory" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
@@ -215,3 +215,4 @@
 		</xs:sequence>
 	</xs:complexType>
 	
+</xs:schema>
