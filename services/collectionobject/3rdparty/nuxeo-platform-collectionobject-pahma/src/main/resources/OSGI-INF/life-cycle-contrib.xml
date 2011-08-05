@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<component name="org.collectionspace.CollectionObjectTenant3.ecm.platform.LifeCycleManagerExtensions">
+
+  <extension target="org.nuxeo.ecm.core.lifecycle.LifeCycleService"
+             point="types">
+    <types>
+      <type name="CollectionObjectTenant3">default</type>
+    </types>
+  </extension>
+
+</component>

@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<!--
+	CollectionObject schema (XSD)
+	
+	Entity  : CollectionObject
+	Part    : Domain - Anthropology
+	Used for: Nuxeo EP core document type
+	
+	$LastChangedRevision: 4929 $
+	$LastChangedDate: 2011-06-07 13:26:32 -0700 (Tue, 07 Jun 2011) $
+-->
+
+<xs:schema 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:ns="http://collectionspace.org/services/collectionobject/domain/anthropology"
+	xmlns="http://collectionspace.org/services/collectionobject/domain/anthropology"
+	targetNamespace="http://collectionspace.org/services/collectionobject/domain/anthropology"
+	version="0.1">
+	
+	<xs:element name="nagpraInventoryName" type="xs:string"/>
+	<xs:element name="nagpraApplicability" type="xs:string"/>
+	<xs:element name="nagpraCulturalDetermination" type="xs:string"/>
+	<xs:element name="culturalCareNote" type="xs:string"/>
+	
+	<xs:element name="nagpraClaimsMadeGroupList" type="nagpraClaimsMadeGroupList"/>
+	<xs:element name="accessRestrictionGroupList" type="accessRestrictionGroupList"/>
+
+	<xs:complexType name="nagpraClaimsMadeGroupList">
+		<xs:sequence>
+			<xs:element name="nagpraClaimsMadeGroup" type="nagpraClaimsMadeGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="nagpraClaimsMadeGroup">
+		<xs:sequence>
+			<xs:element name="nagpraClaimName" type="xs:string"/>
+			<xs:element name="nagpraClaimStatus" type="xs:string"/>
+			<xs:element name="nagpraClaimNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="accessRestrictionGroupList">
+		<xs:sequence>
+			<xs:element name="accessRestrictionGroup" type="accessRestrictionGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="accessRestrictionGroup">
+		<xs:sequence>
+			<xs:element name="accessRestrictionType" type="xs:string"/>
+			<xs:element name="accessRestrictionDetails" type="xs:string"/>
+			<xs:element name="accessRestrictionRequestor" type="xs:string"/>
+			<xs:element name="accessRestrictionOnBehalfOf" type="xs:string"/>
+			<xs:element name="accessRestrictionDate" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:element name="nagpraInventorys">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="nagpraInventory" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="nagpraApplicabilitys">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="nagpraApplicability" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="nagpraCulturalDeterminations">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="nagpraCulturalDetermination" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="culturalCareNotes">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="culturalCareNote" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<!-- MAKE NEW FIELDS REPEATING -->
+	<!--<xs:complexType name="technicalAttributeGroupList">
+		<xs:sequence>
+			<xs:element name="technicalAttributeGroup" type="technicalAttributeGroup" minOccurs="0"
+				maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="technicalAttributeGroup">
+		<xs:sequence>
+			<xs:element name="technicalAttribute" type="xs:string"/>
+			<xs:element name="technicalAttributeMeasurement" type="xs:string"/>
+			<xs:element name="technicalAttributeMeasurementUnit" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>-->
+	
+	<!-- ############################## STRUCTURED DATES FOR REPLACING CALENDAR DATES ############################## -->
+	<!--PRODUCTION DATE WAS ONLY STRUCTURED DATE as of July 20, 2011 -->
+	<!--OTHER DATES, AS THEY EXISTED IN collectionobjects_common.xsd, JULY 20, 2011: -->
+	
+	<!--<xs:element name="inscriptionContentDate" type="xs:string"/> -->
+	<!--<xs:element name="inscriptionDescriptionDate" type="xs:string"/>-->
+	<!--<xs:element name="contentDate" type="xs:string"/>-->
+	<!--<xs:element name="ownershipDates" type="xs:string"/>-->	
+	
+	<xs:element name="inscriptionContentDateGroup" type="inscriptionContentDateGroup"/>
+	<xs:element name="inscriptionDescriptionDateGroup" type="inscriptionDescriptionDateGroup"/>
+	<xs:element name="contentDateGroup" type="contentDateGroup"/>
+	<xs:element name="ownershipDatesGroup" type="ownershipDatesGroup"/>
+	
+	<xs:complexType name="inscriptionContentDateGroup">
+		<xs:sequence>
+			<xs:element name="dateDisplayDate" type="xs:string"/>
+			<xs:element name="dateAssociation" type="xs:string"/>
+			<xs:element name="dateEarliestSingleYear" type="xs:string"/>
+			<xs:element name="dateEarliestSingleMonth" type="xs:string"/>
+			<xs:element name="dateEarliestSingleDay" type="xs:string"/>
+			<xs:element name="dateEarliestSingleEra" type="xs:string"/>
+			<xs:element name="dateEarliestSingleCertainty" type="xs:string"/>
+			<xs:element name="dateEarliestSingleQualifier" type="xs:string"/>
+			<xs:element name="dateEarliestSingleQualifierValue" type="xs:string"/>
+			<xs:element name="dateEarliestSingleQualifierUnit" type="xs:string"/>
+			<xs:element name="dateLatestYear" type="xs:string"/>
+			<xs:element name="dateLatestMonth" type="xs:string"/>
+			<xs:element name="dateLatestDay" type="xs:string"/>
+			<xs:element name="dateLatestEra" type="xs:string"/>
+			<xs:element name="dateLatestCertainty" type="xs:string"/>
+			<xs:element name="dateLatestQualifier" type="xs:string"/>
+			<xs:element name="dateLatestQualifierValue" type="xs:string"/>
+			<xs:element name="dateLatestQualifierUnit" type="xs:string"/>
+			<xs:element name="datePeriod" type="xs:string"/>
+			<xs:element name="dateNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="inscriptionDescriptionDateGroup">
+		<xs:sequence>
+			<xs:element name="dateDisplayDate" type="xs:string"/>
+			<xs:element name="dateAssociation" type="xs:string"/>
+			<xs:element name="dateEarliestSingleYear" type="xs:string"/>
+			<xs:element name="dateEarliestSingleMonth" type="xs:string"/>
+			<xs:element name="dateEarliestSingleDay" type="xs:string"/>
+			<xs:element name="dateEarliestSingleEra" type="xs:string"/>
+			<xs:element name="dateEarliestSingleCertainty" type="xs:string"/>
+			<xs:element name="dateEarliestSingleQualifier" type="xs:string"/>
+			<xs:element name="dateEarliestSingleQualifierValue" type="xs:string"/>
+			<xs:element name="dateEarliestSingleQualifierUnit" type="xs:string"/>
+			<xs:element name="dateLatestYear" type="xs:string"/>
+			<xs:element name="dateLatestMonth" type="xs:string"/>
+			<xs:element name="dateLatestDay" type="xs:string"/>
+			<xs:element name="dateLatestEra" type="xs:string"/>
+			<xs:element name="dateLatestCertainty" type="xs:string"/>
+			<xs:element name="dateLatestQualifier" type="xs:string"/>
+			<xs:element name="dateLatestQualifierValue" type="xs:string"/>
+			<xs:element name="dateLatestQualifierUnit" type="xs:string"/>
+			<xs:element name="datePeriod" type="xs:string"/>
+			<xs:element name="dateNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="contentDateGroup">
+		<xs:sequence>
+			<xs:element name="dateDisplayDate" type="xs:string"/>
+			<xs:element name="dateAssociation" type="xs:string"/>
+			<xs:element name="dateEarliestSingleYear" type="xs:string"/>
+			<xs:element name="dateEarliestSingleMonth" type="xs:string"/>
+			<xs:element name="dateEarliestSingleDay" type="xs:string"/>
+			<xs:element name="dateEarliestSingleEra" type="xs:string"/>
+			<xs:element name="dateEarliestSingleCertainty" type="xs:string"/>
+			<xs:element name="dateEarliestSingleQualifier" type="xs:string"/>
+			<xs:element name="dateEarliestSingleQualifierValue" type="xs:string"/>
+			<xs:element name="dateEarliestSingleQualifierUnit" type="xs:string"/>
+			<xs:element name="dateLatestYear" type="xs:string"/>
+			<xs:element name="dateLatestMonth" type="xs:string"/>
+			<xs:element name="dateLatestDay" type="xs:string"/>
+			<xs:element name="dateLatestEra" type="xs:string"/>
+			<xs:element name="dateLatestCertainty" type="xs:string"/>
+			<xs:element name="dateLatestQualifier" type="xs:string"/>
+			<xs:element name="dateLatestQualifierValue" type="xs:string"/>
+			<xs:element name="dateLatestQualifierUnit" type="xs:string"/>
+			<xs:element name="datePeriod" type="xs:string"/>
+			<xs:element name="dateNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="ownershipDatesGroup">
+		<xs:sequence>
+			<xs:element name="dateDisplayDate" type="xs:string"/>
+			<xs:element name="dateAssociation" type="xs:string"/>
+			<xs:element name="dateEarliestSingleYear" type="xs:string"/>
+			<xs:element name="dateEarliestSingleMonth" type="xs:string"/>
+			<xs:element name="dateEarliestSingleDay" type="xs:string"/>
+			<xs:element name="dateEarliestSingleEra" type="xs:string"/>
+			<xs:element name="dateEarliestSingleCertainty" type="xs:string"/>
+			<xs:element name="dateEarliestSingleQualifier" type="xs:string"/>
+			<xs:element name="dateEarliestSingleQualifierValue" type="xs:string"/>
+			<xs:element name="dateEarliestSingleQualifierUnit" type="xs:string"/>
+			<xs:element name="dateLatestYear" type="xs:string"/>
+			<xs:element name="dateLatestMonth" type="xs:string"/>
+			<xs:element name="dateLatestDay" type="xs:string"/>
+			<xs:element name="dateLatestEra" type="xs:string"/>
+			<xs:element name="dateLatestCertainty" type="xs:string"/>
+			<xs:element name="dateLatestQualifier" type="xs:string"/>
+			<xs:element name="dateLatestQualifierValue" type="xs:string"/>
+			<xs:element name="dateLatestQualifierUnit" type="xs:string"/>
+			<xs:element name="datePeriod" type="xs:string"/>
+			<xs:element name="dateNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+</xs:schema>
