@@ -12,17 +12,17 @@
 -->
 
 <!-- collection-object for anthropology museum  -->
-<xs:element name="collectionobjects_anthropology">
-	<xs:complexType>
-		<xs:sequence>
-				
-			<xs:schema 
-				xmlns:xs="http://www.w3.org/2001/XMLSchema"
-				xmlns:ns="http://collectionspace.org/services/collectionobject/domain/anthropology"
-				xmlns="http://collectionspace.org/services/collectionobject/domain/anthropology"
-				targetNamespace="http://collectionspace.org/services/collectionobject/domain/anthropology"
-				version="0.1">
-				
+
+<xs:schema 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:ns="http://collectionspace.org/services/collectionobject/domain/anthropology"
+	xmlns="http://collectionspace.org/services/collectionobject/domain/anthropology"
+	targetNamespace="http://collectionspace.org/services/collectionobject/domain/anthropology"
+	version="0.1">
+	
+	<xs:element name="collectionobjects_anthropology">
+		<xs:complexType>
+			<xs:sequence>
 				<xs:element name="nagpraInventoryName" type="xs:string"/>
 				<xs:element name="nagpraApplicability" type="xs:string"/>
 				<xs:element name="nagpraCulturalDetermination" type="xs:string"/>
@@ -30,45 +30,19 @@
 				
 				<xs:element name="nagpraClaimsMadeGroupList" type="nagpraClaimsMadeGroupList"/>
 				<xs:element name="accessRestrictionGroupList" type="accessRestrictionGroupList"/>
-			
-				<xs:complexType name="nagpraClaimsMadeGroupList">
-					<xs:sequence>
-						<xs:element name="nagpraClaimsMadeGroup" type="nagpraClaimsMadeGroup" minOccurs="0" maxOccurs="unbounded"/>
-					</xs:sequence>
-				</xs:complexType>
-				<xs:complexType name="nagpraClaimsMadeGroup">
-					<xs:sequence>
-						<xs:element name="nagpraClaimName" type="xs:string"/>
-						<xs:element name="nagpraClaimStatus" type="xs:string"/>
-						<xs:element name="nagpraClaimNote" type="xs:string"/>
-					</xs:sequence>
-				</xs:complexType>
 				
-				<xs:complexType name="accessRestrictionGroupList">
-					<xs:sequence>
-						<xs:element name="accessRestrictionGroup" type="accessRestrictionGroup" minOccurs="0" maxOccurs="unbounded"/>
-					</xs:sequence>
-				</xs:complexType>
-				<xs:complexType name="accessRestrictionGroup">
-					<xs:sequence>
-						<xs:element name="accessRestrictionType" type="xs:string"/>
-						<xs:element name="accessRestrictionDetails" type="xs:string"/>
-						<xs:element name="accessRestrictionRequestor" type="xs:string"/>
-						<xs:element name="accessRestrictionOnBehalfOf" type="xs:string"/>
-						<xs:element name="accessRestrictionDate" type="xs:string"/>
-					</xs:sequence>
-				</xs:complexType>
-				
-			</xs:schema>	
+				<xs:element name="inscriptionContentDateGroup" type="inscriptionContentDateGroup"/>
+				<xs:element name="inscriptionDescriptionDateGroup" type="inscriptionDescriptionDateGroup"/>
+				<xs:element name="contentDateGroup" type="contentDateGroup"/>
+				<xs:element name="ownershipDatesGroup" type="ownershipDatesGroup"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
 
-		</xs:sequence>
-	</xs:complexType>
-</xs:element>
-
-	<xs:element name="nagpraInventorys">
+	<xs:element name="nagpraInventoryNames">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="nagpraInventory" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="nagpraInventoryName" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -97,34 +71,33 @@
 		</xs:complexType>
 	</xs:element>
 	
-	<!-- MAKE NEW FIELDS REPEATING -->
-	<!--<xs:complexType name="technicalAttributeGroupList">
+	<xs:complexType name="nagpraClaimsMadeGroupList">
 		<xs:sequence>
-			<xs:element name="technicalAttributeGroup" type="technicalAttributeGroup" minOccurs="0"
-				maxOccurs="unbounded"/>
+			<xs:element name="nagpraClaimsMadeGroup" type="nagpraClaimsMadeGroup" minOccurs="0" maxOccurs="unbounded"/>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:complexType name="technicalAttributeGroup">
+	<xs:complexType name="nagpraClaimsMadeGroup">
 		<xs:sequence>
-			<xs:element name="technicalAttribute" type="xs:string"/>
-			<xs:element name="technicalAttributeMeasurement" type="xs:string"/>
-			<xs:element name="technicalAttributeMeasurementUnit" type="xs:string"/>
+			<xs:element name="nagpraClaimName" type="xs:string"/>
+			<xs:element name="nagpraClaimStatus" type="xs:string"/>
+			<xs:element name="nagpraClaimNote" type="xs:string"/>
 		</xs:sequence>
-	</xs:complexType>-->
+	</xs:complexType>
 	
-	<!-- ############################## STRUCTURED DATES FOR REPLACING CALENDAR DATES ############################## -->
-	<!--PRODUCTION DATE WAS ONLY STRUCTURED DATE as of July 20, 2011 -->
-	<!--OTHER DATES, AS THEY EXISTED IN collectionobjects_common.xsd, JULY 20, 2011: -->
-	
-	<!--<xs:element name="inscriptionContentDate" type="xs:string"/> -->
-	<!--<xs:element name="inscriptionDescriptionDate" type="xs:string"/>-->
-	<!--<xs:element name="contentDate" type="xs:string"/>-->
-	<!--<xs:element name="ownershipDates" type="xs:string"/>-->	
-	
-	<xs:element name="inscriptionContentDateGroup" type="inscriptionContentDateGroup"/>
-	<xs:element name="inscriptionDescriptionDateGroup" type="inscriptionDescriptionDateGroup"/>
-	<xs:element name="contentDateGroup" type="contentDateGroup"/>
-	<xs:element name="ownershipDatesGroup" type="ownershipDatesGroup"/>
+	<xs:complexType name="accessRestrictionGroupList">
+		<xs:sequence>
+			<xs:element name="accessRestrictionGroup" type="accessRestrictionGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="accessRestrictionGroup">
+		<xs:sequence>
+			<xs:element name="accessRestrictionType" type="xs:string"/>
+			<xs:element name="accessRestrictionDetails" type="xs:string"/>
+			<xs:element name="accessRestrictionRequestor" type="xs:string"/>
+			<xs:element name="accessRestrictionOnBehalfOf" type="xs:string"/>
+			<xs:element name="accessRestrictionDate" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
 	
 	<xs:complexType name="inscriptionContentDateGroup">
 		<xs:sequence>
@@ -226,3 +199,4 @@
 		</xs:sequence>
 	</xs:complexType>
 	
+</xs:schema>
