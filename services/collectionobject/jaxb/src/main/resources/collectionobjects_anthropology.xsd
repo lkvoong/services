@@ -28,7 +28,7 @@
 				<xs:element name="nagpraCulturalDetermination" type="xs:string"/>
 				<xs:element name="culturalCareNote" type="xs:string"/>
 				
-				<xs:element name="nagpraClaimsMadeGroupList" type="nagpraClaimsMadeGroupList"/>
+				<xs:element name="nagpraClaimGroupList" type="nagpraClaimGroupList"/>
 				<xs:element name="accessRestrictionGroupList" type="accessRestrictionGroupList"/>
 				
 				<xs:element name="inscriptionContentDateGroup" type="inscriptionContentDateGroup"/>
@@ -71,12 +71,12 @@
 		</xs:complexType>
 	</xs:element>
 	
-	<xs:complexType name="nagpraClaimsMadeGroupList">
+	<xs:complexType name="nagpraClaimGroupList">
 		<xs:sequence>
-			<xs:element name="nagpraClaimsMadeGroup" type="nagpraClaimsMadeGroup" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="nagpraClaimGroup" type="nagpraClaimGroup" minOccurs="0" maxOccurs="unbounded"/>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:complexType name="nagpraClaimsMadeGroup">
+	<xs:complexType name="nagpraClaimGroup">
 		<xs:sequence>
 			<xs:element name="nagpraClaimName" type="xs:string"/>
 			<xs:element name="nagpraClaimStatus" type="xs:string"/>
