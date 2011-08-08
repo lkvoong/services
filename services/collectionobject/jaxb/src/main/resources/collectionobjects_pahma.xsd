@@ -27,20 +27,15 @@
 				<xs:element name="pahmaEthnographicFileCode" type="xs:string"/>
 				<xs:element name="pahmaTms2003DataSource" type="xs:string"/>
 				<xs:element name="pahmaContextOfUse" type="xs:string"/>
-				<!-- THE FOLLOWING IS TEMPORARY INSERTION TO ALLOW NOTES ON OTHER/ALTERNATE NUMBERS -->
-				<!-- TO BE REMOVED ONCE NOTE IS INCLUDED IN COMMON SCHEMA FOR OTHER NUMBER -->
-				<xs:element name="pahmaAltNumGroupList" type="ns:pahmaAltNumGroupList"/>
-				<!-- ################# END TEMPORARY INSERTION ################# -->
+				<xs:element name="numberNote" type="xs:string"/>
+				<!--<xs:element name="pahmaAltNumGroupList" type="ns:pahmaAltNumGroupList"/>--> <!-- TEMPORARY INSERTION TO ALLOW NOTES ON OTHER/ALTERNATE NUMBERS. TO BE REMOVED ONCE NOTE IS INCLUDED IN COMMON SCHEMA FOR OTHER NUMBER -->
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
 	
-	<!-- THE FOLLOWING IS TEMPORARY INSERTION TO ALLOW NOTES ON OTHER/ALTERNATE NUMBERS -->
-	<!-- TO BE REMOVED ONCE NOTE IS INCLUDED IN COMMON SCHEMA FOR OTHER NUMBER -->
-	<xs:complexType name="pahmaAltNumGroupList">
+	<!--<xs:complexType name="pahmaAltNumGroupList"> <!-\- TEMPORARY INSERTION TO ALLOW NOTES ON OTHER/ALTERNATE NUMBERS. TO BE REMOVED ONCE NOTE IS INCLUDED IN COMMON SCHEMA FOR OTHER NUMBER -\->
 		<xs:sequence>
-			<xs:element name="pahmaAltNumGroup" type="ns:pahmaAltNumGroup" minOccurs="0"
-				maxOccurs="unbounded"/>
+			<xs:element name="pahmaAltNumGroup" type="ns:pahmaAltNumGroup" minOccurs="0" maxOccurs="unbounded"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="pahmaAltNumGroup">
@@ -49,8 +44,7 @@
 			<xs:element name="pahmaAltNumType" type="xs:string"/>
 			<xs:element name="pahmaAltNumNote" type="xs:string"/>
 		</xs:sequence>
-	</xs:complexType>
-	<!-- ################# END TEMPORARY INSERTION ################# -->
+	</xs:complexType>-->
 	
 	<xs:element name="pahmaContextOfUses">
 		<xs:complexType>
