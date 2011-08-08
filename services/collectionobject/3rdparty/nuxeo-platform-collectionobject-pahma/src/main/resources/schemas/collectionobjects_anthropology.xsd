@@ -11,7 +11,7 @@
 	$LastChangedDate: 2011-06-07 13:26:32 -0700 (Tue, 07 Jun 2011) $
 -->
 
-<xs:schema 
+<xs:schema 	
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	xmlns:ns="http://collectionspace.org/services/collectionobject/domain/anthropology"
 	xmlns="http://collectionspace.org/services/collectionobject/domain/anthropology"
@@ -54,10 +54,10 @@
 		</xs:sequence>
 	</xs:complexType>
 	
-	<xs:element name="nagpraInventorys">
+	<xs:element name="nagpraInventoryNames">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="nagpraInventory" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="nagpraInventoryName" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
