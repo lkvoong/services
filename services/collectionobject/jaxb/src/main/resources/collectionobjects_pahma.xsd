@@ -26,16 +26,14 @@
 				<xs:element name="pahmaNagpraCodeLegacy" type="xs:string"/>
 				<xs:element name="pahmaEthnographicFileCode" type="xs:string"/>
 				<xs:element name="pahmaTms2003DataSource" type="xs:string"/>
-				<xs:element name="pahmaContextOfUse" type="xs:string"/>
-				<xs:element name="numberNote" type="xs:string"/>
-				<!--<xs:element name="pahmaAltNumGroupList" type="ns:pahmaAltNumGroupList"/>--> <!-- TEMPORARY INSERTION TO ALLOW NOTES ON OTHER/ALTERNATE NUMBERS. TO BE REMOVED ONCE NOTE IS INCLUDED IN COMMON SCHEMA FOR OTHER NUMBER -->
+				<xs:element name="pahmaAltNumGroupList" type="pahmaAltNumGroupList"/> <!-- TEMPORARY INSERTION TO ALLOW NOTES ON OTHER/ALTERNATE NUMBERS. TO BE REMOVED ONCE NOTE IS INCLUDED IN COMMON SCHEMA FOR OTHER NUMBER -->
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
 	
-	<!--<xs:complexType name="pahmaAltNumGroupList"> <!-\- TEMPORARY INSERTION TO ALLOW NOTES ON OTHER/ALTERNATE NUMBERS. TO BE REMOVED ONCE NOTE IS INCLUDED IN COMMON SCHEMA FOR OTHER NUMBER -\->
+	<xs:complexType name="pahmaAltNumGroupList"> <!-- TEMPORARY INSERTION TO ALLOW NOTES ON OTHER/ALTERNATE NUMBERS. TO BE REMOVED ONCE NOTE IS INCLUDED IN COMMON SCHEMA FOR OTHER NUMBER -->
 		<xs:sequence>
-			<xs:element name="pahmaAltNumGroup" type="ns:pahmaAltNumGroup" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="pahmaAltNumGroup" type="pahmaAltNumGroup" minOccurs="0" maxOccurs="unbounded"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="pahmaAltNumGroup">
@@ -44,17 +42,9 @@
 			<xs:element name="pahmaAltNumType" type="xs:string"/>
 			<xs:element name="pahmaAltNumNote" type="xs:string"/>
 		</xs:sequence>
-	</xs:complexType>-->
+	</xs:complexType>
 	
-	<xs:element name="pahmaContextOfUses">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element name="pahmaContextOfUse" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-	
-	<xs:element name="pahmaNagpraCodeLegacys">
+	<xs:element name="pahmaNagpraCodeLegacyList">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="pahmaNagpraCodeLegacy" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
@@ -62,7 +52,7 @@
 		</xs:complexType>
 	</xs:element>
 	
-	<xs:element name="pahmaEthnographicFileCodes">
+	<xs:element name="pahmaEthnographicFileCodeList">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="pahmaEthnographicFileCode" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
