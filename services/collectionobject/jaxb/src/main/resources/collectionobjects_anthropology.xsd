@@ -31,6 +31,8 @@
 				<xs:element name="nagpraClaimGroupList" type="nagpraClaimGroupList"/>
 				<xs:element name="accessRestrictionGroupList" type="accessRestrictionGroupList"/>
 				
+				<xs:element name="repatriationClaimGroupList" type="repatriationClaimGroupList"/>
+				
 				<xs:element name="inscriptionContentDateGroup" type="inscriptionContentDateGroup"/>
 				<xs:element name="inscriptionDescriptionDateGroup" type="inscriptionDescriptionDateGroup"/>
 				<xs:element name="contentDateGroup" type="contentDateGroup"/>
@@ -39,7 +41,7 @@
 		</xs:complexType>
 	</xs:element>
 
-	<xs:element name="nagpraInventoryNames">
+	<xs:element name="nagpraInventoryNameList">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="nagpraInventoryName" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
@@ -47,7 +49,7 @@
 		</xs:complexType>
 	</xs:element>
 	
-	<xs:element name="nagpraApplicabilitys">
+	<xs:element name="nagpraApplicabilityList">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="nagpraApplicability" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
@@ -55,7 +57,7 @@
 		</xs:complexType>
 	</xs:element>
 	
-	<xs:element name="nagpraCulturalDeterminations">
+	<xs:element name="nagpraCulturalDeterminationList">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="nagpraCulturalDetermination" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
@@ -63,7 +65,7 @@
 		</xs:complexType>
 	</xs:element>
 	
-	<xs:element name="culturalCareNotes">
+	<xs:element name="culturalCareNoteList">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="culturalCareNote" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
@@ -96,6 +98,21 @@
 			<xs:element name="accessRestrictionRequestor" type="xs:string"/>
 			<xs:element name="accessRestrictionOnBehalfOf" type="xs:string"/>
 			<xs:element name="accessRestrictionDate" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="repatriationClaimGroupList">
+		<xs:sequence>
+			<xs:element name="repatriationClaimGroup" type="repatriationClaimGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="repatriationClaimGroup">
+		<xs:sequence>
+			<xs:element name="repatriationClaimName" type="xs:string"/>
+			<xs:element name="repatriationClaimStatus" type="xs:string"/>
+			<xs:element name="repatriationClaimClaimant" type="xs:string"/>
+			<xs:element name="repatriationClaimNote" type="xs:string"/>
+			<xs:element name="repatriationClaimDate" type="xs:string"/>
 		</xs:sequence>
 	</xs:complexType>
 	
