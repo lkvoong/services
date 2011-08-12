@@ -25,7 +25,8 @@
 	
 	<xs:element name="nagpraClaimGroupList" type="nagpraClaimGroupList"/>
 	<xs:element name="accessRestrictionGroupList" type="accessRestrictionGroupList"/>
-
+	<xs:element name="repatriationClaimGroupList" type="repatriationClaimGroupList"/>
+	
 	<xs:complexType name="nagpraClaimGroupList">
 		<xs:sequence>
 			<xs:element name="nagpraClaimGroup" type="nagpraClaimGroup" minOccurs="0" maxOccurs="unbounded"/>
@@ -54,7 +55,22 @@
 		</xs:sequence>
 	</xs:complexType>
 	
-	<xs:element name="nagpraInventoryNames">
+	<xs:complexType name="repatriationClaimGroupList">
+		<xs:sequence>
+			<xs:element name="repatriationClaimGroup" type="repatriationClaimGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="repatriationClaimGroup">
+		<xs:sequence>
+			<xs:element name="repatriationClaimName" type="xs:string"/>
+			<xs:element name="repatriationClaimStatus" type="xs:string"/>
+			<xs:element name="repatriationClaimClaimant" type="xs:string"/>
+			<xs:element name="repatriationClaimNote" type="xs:string"/>
+			<xs:element name="repatriationClaimDate" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:element name="nagpraInventoryNameList">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="nagpraInventoryName" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
@@ -62,7 +78,7 @@
 		</xs:complexType>
 	</xs:element>
 	
-	<xs:element name="nagpraApplicabilitys">
+	<xs:element name="nagpraApplicabilityList">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="nagpraApplicability" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
@@ -70,7 +86,7 @@
 		</xs:complexType>
 	</xs:element>
 	
-	<xs:element name="nagpraCulturalDeterminations">
+	<xs:element name="nagpraCulturalDeterminationList">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="nagpraCulturalDetermination" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
@@ -78,28 +94,13 @@
 		</xs:complexType>
 	</xs:element>
 	
-	<xs:element name="culturalCareNotes">
+	<xs:element name="culturalCareNoteList">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="culturalCareNote" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	
-	<!-- MAKE NEW FIELDS REPEATING -->
-	<!--<xs:complexType name="technicalAttributeGroupList">
-		<xs:sequence>
-			<xs:element name="technicalAttributeGroup" type="technicalAttributeGroup" minOccurs="0"
-				maxOccurs="unbounded"/>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="technicalAttributeGroup">
-		<xs:sequence>
-			<xs:element name="technicalAttribute" type="xs:string"/>
-			<xs:element name="technicalAttributeMeasurement" type="xs:string"/>
-			<xs:element name="technicalAttributeMeasurementUnit" type="xs:string"/>
-		</xs:sequence>
-	</xs:complexType>-->
 	
 	<!-- ############################## STRUCTURED DATES FOR REPLACING CALENDAR DATES ############################## -->
 	<!--PRODUCTION DATE WAS ONLY STRUCTURED DATE as of July 20, 2011 -->
