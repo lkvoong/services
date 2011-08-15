@@ -52,6 +52,7 @@
         <module>location</module>
         <module>taxonomy</module>
         <module>movement</module>
+        <module>nagpraclaim</module>
         <module>report</module>
         <module>dimension</module>
         <module>contact</module>

@@ -784,6 +784,48 @@
       </service:object>
     </tenant:serviceBindings>
     <!-- end movement service meta-data -->
+    <!-- begin NAGPRA Claim service meta-data -->
+    <tenant:serviceBindings name="NagpraClaims" type="procedure" version="0.1">
+      <service:uriPath xmlns:service="http://collectionspace.org/services/common/service">/nagpraclaims/*/workflow/</service:uriPath>
+      <service:repositoryDomain xmlns:service="http://collectionspace.org/services/common/service">default-domain</service:repositoryDomain>
+      <service:documentHandler xmlns:service="http://collectionspace.org/services/common/service">org.collectionspace.services.nagpraclaim.nuxeo.NagpraClaimDocumentModelHandler</service:documentHandler>
+      <service:DocHandlerParams xmlns:service="http://collectionspace.org/services/common/service">
+        <service:params>
+          <service:ListResultsFields>
+            <service:ListResultField>
+              <service:element>nagpraClaimName</service:element>
+              <service:xpath>nagpraClaimName</service:xpath>
+            </service:ListResultField>
+            <service:ListResultField>
+              <service:element>nagpraClaimNumber</service:element>
+              <service:xpath>nagpraClaimNumber</service:xpath>
+            </service:ListResultField>
+          </service:ListResultsFields>
+        </service:params>
+      </service:DocHandlerParams>
+      <service:validatorHandler xmlns:service="http://collectionspace.org/services/common/service">org.collectionspace.services.nagpraclaim.nuxeo.NagpraClaimValidatorHandler</service:validatorHandler>
+      <service:object xmlns:service="http://collectionspace.org/services/common/service" name="NagpraClaim" version="0.1">
+        <service:part id="0" control_group="Managed" versionable="true" auditable="false" label="nagpraclaims-system" updated="" order="0">
+          <service:content contentType="application/xml">
+            <service:xmlContent namespaceURI="http://collectionspace.org/services/common/system" schemaLocation="http://collectionspace.org/services/common/system http://collectionspace.org/services/common/system/system-response.xsd" />
+          </service:content>
+        </service:part>
+        <service:part id="1" control_group="Managed" versionable="true" auditable="false" label="nagpraclaims_common" updated="" order="1">
+          <service:properties>
+              <!-- AuthRef fields can be declared here see other record types for examples -->
+          </service:properties>
+          <service:content contentType="application/xml">
+            <service:xmlContent namespaceURI="http://collectionspace.org/services/nagpraclaim" schemaLocation="http://collectionspace.org/services/nagpraclaim http://services.collectionspace.org/nagpraclaim/nagpraclaims_common.xsd" />
+          </service:content>
+        </service:part>
+        <service:part id="2" control_group="Managed" versionable="true" auditable="false" label="collectionspace_core" updated="" order="2">
+          <service:content contentType="application/xml">
+            <service:xmlContent namespaceURI="http://collectionspace.org/collectionspace_core/" schemaLocation="http://collectionspace.org/collectionspace_core/ http://services.collectionspace.org/collectionspace_core.xsd" />
+          </service:content>
+        </service:part>
+      </service:object>
+    </tenant:serviceBindings>
+    <!-- end nagpraclaim service meta-data -->
     <!-- begin Workflow service meta-data -->
     <tenant:serviceBindings name="Workflow" type="procedure" version="0.1">
       <service:repositoryDomain xmlns:service="http://collectionspace.org/services/common/service">default-domain</service:repositoryDomain>

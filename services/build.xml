@@ -169,6 +169,7 @@
         <ant antfile="taxonomy/build.xml" target="deploy" inheritAll="false"/>
         <ant antfile="media/build.xml" target="deploy" inheritAll="false"/>
         <ant antfile="movement/build.xml" target="deploy" inheritAll="false"/>
+        <ant antfile="nagpraclaim/build.xml" target="deploy" inheritAll="false"/>
         <ant antfile="report/build.xml" target="deploy" inheritAll="false"/>
         <ant antfile="vocabulary/build.xml" target="deploy" inheritAll="false"/>
         <ant antfile="organization/build.xml" target="deploy" inheritAll="false"/>
@@ -195,6 +196,7 @@
         <ant antfile="batch/build.xml" target="undeploy" inheritAll="false"/>
         <ant antfile="report/build.xml" target="undeploy" inheritAll="false"/>
         <ant antfile="movement/build.xml" target="undeploy" inheritAll="false"/>
+        <ant antfile="nagpraclaim/build.xml" target="undeploy" inheritAll="false"/>
         <ant antfile="loanout/build.xml" target="undeploy" inheritAll="false"/>
         <ant antfile="loanin/build.xml" target="undeploy" inheritAll="false"/>
         <ant antfile="media/build.xml" target="undeploy" inheritAll="false"/>
@@ -242,6 +244,7 @@
         <ant antfile="batch/build.xml" target="dist" inheritAll="false"/>
         <ant antfile="media/build.xml" target="dist" inheritAll="false"/>
         <ant antfile="movement/build.xml" target="dist" inheritAll="false"/>
+        <ant antfile="nagpraclaim/build.xml" target="dist" inheritAll="false"/>
         <ant antfile="report/build.xml" target="dist" inheritAll="false"/>
         <ant antfile="vocabulary/build.xml" target="dist" inheritAll="false"/>
         <ant antfile="organization/build.xml" target="dist" inheritAll="false"/>
