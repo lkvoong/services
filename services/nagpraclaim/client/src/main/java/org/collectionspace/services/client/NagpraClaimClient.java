@@ -22,14 +22,14 @@ import org.collectionspace.services.jaxb.AbstractCommonList;
 /**
  * NagpraClaimClient.java
  *
- * $LastChangedRevision: 4763 $
- * $LastChangedDate: 2011-05-13 23:29:40 -0700 (Fri, 13 May 2011) $
- *
+ * $LastChangedRevision: $
+ * $LastChangedDate: $
  */
 public class NagpraClaimClient extends AbstractPoxServiceClientImpl<AbstractCommonList, NagpraClaimProxy> {
     public static final String SERVICE_NAME = "nagpraclaims";
     public static final String SERVICE_PATH_COMPONENT = SERVICE_NAME;
     public static final String SERVICE_PATH = "/" + SERVICE_PATH_COMPONENT;
+    public static final String SERVICE_PAYLOAD_NAME = SERVICE_NAME;
 
     /* (non-Javadoc)
      * @see org.collectionspace.services.client.AbstractServiceClientImpl#getServicePathComponent()

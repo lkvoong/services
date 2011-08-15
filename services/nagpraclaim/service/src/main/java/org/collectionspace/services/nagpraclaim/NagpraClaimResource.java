@@ -32,6 +32,12 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
+/**
+ * NagpraClaimResource.java
+ *
+ * $LastChangedRevision: $
+ * $LastChangedDate: $
+ */
 @Path(NagpraClaimClient.SERVICE_PATH)
 @Consumes("application/xml")
 @Produces("application/xml")
@@ -41,7 +47,7 @@ public class NagpraClaimResource extends ResourceBase {
 
     @Override
     protected String getVersionString() {
-    	final String lastChangeRevision = "$LastChangedRevision: 4763 $";
+    	final String lastChangeRevision = "$LastChangedRevision: $";
     	return lastChangeRevision;
     }
     
@@ -51,8 +57,8 @@ public class NagpraClaimResource extends ResourceBase {
     }
 
     @Override
-    public Class<NagpraClaimsCommon> getCommonPartClass() {
-    	return NagpraClaimsCommon.class;
+    public Class<NagpraclaimsCommon> getCommonPartClass() {
+    	return NagpraclaimsCommon.class;
     }
 }
 

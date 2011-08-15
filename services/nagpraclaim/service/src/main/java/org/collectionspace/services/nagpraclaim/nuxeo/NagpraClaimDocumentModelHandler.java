@@ -23,7 +23,7 @@
  */
 package org.collectionspace.services.nagpraclaim.nuxeo;
 
-import org.collectionspace.services.nagpraclaim.NagpraClaimsCommon;
+import org.collectionspace.services.nagpraclaim.NagpraclaimsCommon;
 import org.collectionspace.services.nuxeo.client.java.DocHandlerBase;
 
 /** NagpraClaimDocumentModelHandler
@@ -31,6 +31,6 @@ import org.collectionspace.services.nuxeo.client.java.DocHandlerBase;
  *  $LastChangedDate: $
  */
 public class NagpraClaimDocumentModelHandler
-        extends DocHandlerBase<NagpraClaimsCommon> {
+        extends DocHandlerBase<NagpraclaimsCommon> {
 }
 
