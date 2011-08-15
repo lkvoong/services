@@ -21,8 +21,9 @@
 	<xs:element name="pahmaTms2003DataSource" type="xs:string"/>
 	
 	<xs:element name="pahmaAltNumGroupList" type="pahmaAltNumGroupList"/> <!-- TEMPORARY INSERTION TO ALLOW NOTES ON OTHER/ALTERNATE NUMBERS. TO BE REMOVED ONCE NOTE IS INCLUDED IN COMMON SCHEMA FOR OTHER NUMBER -->
+	<xs:element name="ownershipHistoryGroupList" type="ownershipHistoryGroupList"/> <!-- TEMPORARY REPLACEMENT UNTIL COMMON SCHEMA HAS REPEATABLE, LINKED OWNERSHIP DETAILS -->
 	
-	<xs:complexType name="pahmaAltNumGroupList">  <!-- TEMPORARY INSERTION TO ALLOW NOTES ON OTHER/ALTERNATE NUMBERS. TO BE REMOVED ONCE NOTE IS INCLUDED IN COMMON SCHEMA FOR OTHER NUMBER -->
+	<xs:complexType name="pahmaAltNumGroupList">
 		<xs:sequence>
 			<xs:element name="pahmaAltNumGroup" type="pahmaAltNumGroup" minOccurs="0" maxOccurs="unbounded"/>
 		</xs:sequence>
@@ -32,6 +33,49 @@
 			<xs:element name="pahmaAltNum" type="xs:string"/>
 			<xs:element name="pahmaAltNumType" type="xs:string"/>
 			<xs:element name="pahmaAltNumNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="ownershipHistoryGroupList">
+		<xs:sequence>
+			<xs:element name="ownershipHistoryGroup" type="ownershipHistoryGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ownershipHistoryGroup">
+		<xs:sequence>
+			<xs:element name="previousOwner" type="xs:string"/>
+			<xs:element name="ownershipDateGroup" type="ownershipDateGroup"/>
+			<xs:element name="ownershipCategory" type="xs:string"/>
+			<xs:element name="ownershipPlace" type="xs:string"/>
+			<xs:element name="ownershipMethod" type="xs:string"/>
+			<xs:element name="ownershipNote" type="xs:string"/>
+			<xs:element name="ownershipPriceCurrency" type="xs:string"/>
+			<xs:element name="ownershipPriceAmount" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="ownershipDateGroup">
+		<xs:sequence>
+			<xs:element name="dateDisplayDate" type="xs:string"/>
+			<xs:element name="dateAssociation" type="xs:string"/>
+			<xs:element name="dateEarliestSingleYear" type="xs:string"/>
+			<xs:element name="dateEarliestSingleMonth" type="xs:string"/>
+			<xs:element name="dateEarliestSingleDay" type="xs:string"/>
+			<xs:element name="dateEarliestSingleEra" type="xs:string"/>
+			<xs:element name="dateEarliestSingleCertainty" type="xs:string"/>
+			<xs:element name="dateEarliestSingleQualifier" type="xs:string"/>
+			<xs:element name="dateEarliestSingleQualifierValue" type="xs:string"/>
+			<xs:element name="dateEarliestSingleQualifierUnit" type="xs:string"/>
+			<xs:element name="dateLatestYear" type="xs:string"/>
+			<xs:element name="dateLatestMonth" type="xs:string"/>
+			<xs:element name="dateLatestDay" type="xs:string"/>
+			<xs:element name="dateLatestEra" type="xs:string"/>
+			<xs:element name="dateLatestCertainty" type="xs:string"/>
+			<xs:element name="dateLatestQualifier" type="xs:string"/>
+			<xs:element name="dateLatestQualifierValue" type="xs:string"/>
+			<xs:element name="dateLatestQualifierUnit" type="xs:string"/>
+			<xs:element name="datePeriod" type="xs:string"/>
+			<xs:element name="dateNote" type="xs:string"/>
 		</xs:sequence>
 	</xs:complexType>
 	
