@@ -804,6 +804,20 @@
       <service:uriPath xmlns:service="http://collectionspace.org/services/common/service">/nagpraclaims/*/workflow/</service:uriPath>
       <service:repositoryDomain xmlns:service="http://collectionspace.org/services/common/service">default-domain</service:repositoryDomain>
       <service:documentHandler xmlns:service="http://collectionspace.org/services/common/service">org.collectionspace.services.nagpraclaim.nuxeo.NagpraClaimDocumentModelHandler</service:documentHandler>
+      <service:DocHandlerParams xmlns:service="http://collectionspace.org/services/common/service">
+        <service:params>
+          <service:ListResultsFields>
+            <service:ListResultField>
+              <service:element>nagpraClaimName</service:element>
+              <service:xpath>nagpraClaimName</service:xpath>
+            </service:ListResultField>
+            <service:ListResultField>
+              <service:element>nagpraClaimNumber</service:element>
+              <service:xpath>nagpraClaimNumber</service:xpath>
+            </service:ListResultField>
+          </service:ListResultsFields>
+        </service:params>
+      </service:DocHandlerParams>
       <service:validatorHandler xmlns:service="http://collectionspace.org/services/common/service">org.collectionspace.services.nagpraclaim.nuxeo.NagpraClaimValidatorHandler</service:validatorHandler>
       <service:object xmlns:service="http://collectionspace.org/services/common/service" name="NagpraClaim" version="0.1">
         <service:part id="0" control_group="Managed" versionable="true" auditable="false" label="nagpraclaims-system" updated="" order="0">
