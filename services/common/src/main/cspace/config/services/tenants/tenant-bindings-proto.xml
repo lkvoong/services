@@ -785,7 +785,7 @@
     </tenant:serviceBindings>
     <!-- end movement service meta-data -->
     <!-- begin Workflow service meta-data -->
-    <tenant:serviceBindings d="Workflow" name="Workflow" type="procedure" version="0.1">
+    <tenant:serviceBindings id="Workflow" name="Workflow" type="procedure" version="0.1">
       <service:repositoryDomain xmlns:service="http://collectionspace.org/services/common/service">default-domain</service:repositoryDomain>
       <service:documentHandler xmlns:service="http://collectionspace.org/services/common/service">org.collectionspace.services.common.workflow.service.nuxeo.WorkflowDocumentModelHandler</service:documentHandler>
       <service:validatorHandler xmlns:service="http://collectionspace.org/services/common/service">org.collectionspace.services.workflow.nuxeo.WorkflowValidatorHandler</service:validatorHandler>
@@ -1634,7 +1634,7 @@
     <!-- begin role-permission service meta-data -->
     <!-- the following service is same as authorization/permissions/permroles service -->
     <!-- except that it is available as a sub resource of the role service -->
-    <tenant:serviceBindings id=authorization/roles/permroles" name="authorization/roles/permroles" version="0.1">
+    <tenant:serviceBindings id="authorization/roles/permroles" name="authorization/roles/permroles" version="0.1">
       <!-- other URI paths using which this service could be accessed -->
       <!--            <service:uriPath xmlns:service='http://collectionspace.org/services/common/service'>
                 /authorization/roles/*/permroles/
