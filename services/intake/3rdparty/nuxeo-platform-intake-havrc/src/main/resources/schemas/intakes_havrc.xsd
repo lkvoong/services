@@ -21,5 +21,20 @@
   <xs:element name="imageSource" type="xs:string"/>
   <xs:element name="orderStatus" type="xs:string"/>
   <xs:element name="numberAccessions" type="xs:string"/>
+  <xs:element name="orderItemsGroupList" type="orderItemsGroupList"/>
 
+  <xs:complexType name="orderItemsGroupList">
+		<xs:sequence>
+			<xs:element name="orderItemsGroup" type="orderItemsGroup" minOccurs="0"
+							maxOccurs="unbounded"/>
+		</xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="orderItemsGroup">
+	    <xs:sequence>
+			<xs:element name="source" type="xs:string"/>
+			<xs:element name="sourceDetail" type="xs:string"/>
+			<xs:element name="itemType" type="xs:string"/>
+			<xs:element name="specialInstructions" type="xs:string"/>
+		</xs:sequence>
+  </xs:complexType>
 </xs:schema>
