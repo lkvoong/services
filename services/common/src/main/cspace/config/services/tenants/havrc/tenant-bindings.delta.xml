@@ -1,22 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tenant:TenantBindingConfig
-	xmlns:merge='http://xmlmerge.el4j.elca.ch'
-	xmlns:tenant='http://collectionspace.org/services/common/tenant'>
-	    	 
-  <tenant:tenantBinding id="3" name="havrc.collectionspace.org" displayName="HAVRC Tenant" version="0.1">
+<tenant:TenantBindingConfig xmlns:merge="http://xmlmerge.el4j.elca.ch" xmlns:tenant="http://collectionspace.org/services/common/tenant">
 
-    <tenant:repositoryDomain name="default-domain" storageName="havrc-domain" repositoryClient="nuxeo-java" />
-	
-	<tenant:serviceBindings merge:matcher="id" id="CollectionObjects">
-		<service:object xmlns:service="http://collectionspace.org/services/common/service" >
-			<service:part id="3" merge:matcher="skip" merge:action="insert" control_group="Managed" versionable="true" auditable="false" label="collectionobjects_havrc" updated="" order="3">
-			  <service:content contentType="application/xml">
-				<service:xmlContent namespaceURI="http://collectionspace.org/services/collectionobject/local/havrc" schemaLocation="http://collectionspace.org/services/collectionobject/local/havrc http://collectionspace.org/services/collectionobject/local/collectionobjects_havrc.xsd" />
-			  </service:content>
-			</service:part>
-		</service:object>
-	</tenant:serviceBindings>
-	
-  </tenant:tenantBinding>
-	    	       
+    <tenant:tenantBinding id="3" name="havrc.collectionspace.org" displayName="HAVRC Tenant" version="0.1">
+
+        <tenant:repositoryDomain name="default-domain" storageName="havrc-domain" repositoryClient="nuxeo-java" />
+
+        <tenant:serviceBindings merge:matcher="id" id="CollectionObjects">
+            <service:object xmlns:service="http://collectionspace.org/services/common/service">
+                <service:part id="3" merge:matcher="skip" merge:action="insert" control_group="Managed" versionable="true"
+                              auditable="false" label="collectionobjects_havrc" updated="" order="3">
+                    <service:content contentType="application/xml">
+                        <service:xmlContent namespaceURI="http://collectionspace.org/services/collectionobject/local/havrc"
+                            schemaLocation="http://collectionspace.org/services/collectionobject/local/havrc
+                            http://collectionspace.org/services/collectionobject/local/collectionobjects_havrc.xsd" />
+                    </service:content>
+                </service:part>
+            </service:object>
+        </tenant:serviceBindings>
+
+        <tenant:serviceBindings merge:matcher="id" id="Intakes">
+            <service:object xmlns:service="http://collectionspace.org/services/common/service">
+                <service:part id="3" merge:matcher="skip" merge:action="insert" control_group="Managed" versionable="true"
+                              auditable="false" label="intakes_havrc" updated="" order="3">
+                    <service:content contentType="application/xml">
+                        <service:xmlContent namespaceURI="http://collectionspace.org/services/intake/local/havrc"
+                            schemaLocation="http://collectionspace.org/services/intake/local/havrc
+                            http://collectionspace.org/services/intake/local/intakes_havrc.xsd" />
+                    </service:content>
+                </service:part>
+            </service:object>
+        </tenant:serviceBindings>
+        
+    </tenant:tenantBinding>
 </tenant:TenantBindingConfig>

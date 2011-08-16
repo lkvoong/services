@@ -20,5 +20,6 @@
 
     <modules>
         <module>nuxeo-platform-cs-intake</module>
+        <module>nuxeo-platform-intake-havrc</module>
     </modules>
 </project>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<!--
+    Intake schema (XSD)
+
+    Entity  : Intake
+    Part    : Local - HAVRC
+    Used for: Nuxeo EP core document type
+
+    $LastChangedRevision: 3474 $
+    $LastChangedDate: 2010-11-10 22:30:30 -0800 (Wed, 10 Nov 2010) $
+-->
+
+<xs:schema 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:ns="http://collectionspace.org/services/intake/local/havrc"
+    xmlns="http://collectionspace.org/services/intake/local/havrc"
+      targetNamespace="http://collectionspace.org/services/intake/local/havrc"
+    version="0.1">
+    
+  <xs:element name="imageSource" type="xs:string"/>
+  <xs:element name="orderStatus" type="xs:string"/>
+  <xs:element name="numberAccessions" type="xs:string"/>
+
+</xs:schema>
