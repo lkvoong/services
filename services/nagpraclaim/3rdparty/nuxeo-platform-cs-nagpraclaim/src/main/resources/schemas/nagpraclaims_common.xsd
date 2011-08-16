@@ -12,14 +12,15 @@
 -->
 
 <xs:schema
-xmlns:xs="http://www.w3.org/2001/XMLSchema"
-xmlns:ns="http://collectionspace.org/services/nagpraclaim/"
-xmlns="http://collectionspace.org/services/nagpracclaim/"
-targetNamespace="http://collectionspace.org/services/nagpraclaim/"
-version="0.1">
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:ns="http://collectionspace.org/services/nagpraclaim/"
+	xmlns="http://collectionspace.org/services/nagpracclaim/"
+	targetNamespace="http://collectionspace.org/services/nagpraclaim/"
+	version="0.1">
 
-<xs:element name="nagpraClaimName" type="xs:string"/>
-<xs:element name="nagpraClaimNumber" type="xs:string"/>
-<xs:element name="nagpraClaimType" type="xs:string"/>
+	<xs:element name="nagpraClaimName" type="xs:string"/>
+	<xs:element name="nagpraClaimNumber" type="xs:string"/>
+	<xs:element name="nagpraClaimType" type="xs:string"/>
+	
 
 </xs:schema>
