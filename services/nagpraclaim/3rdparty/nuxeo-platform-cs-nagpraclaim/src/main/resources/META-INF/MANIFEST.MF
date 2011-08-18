@@ -1,7 +1,7 @@
 Manifest-Version: 1.0 
 Bundle-ManifestVersion: 1 
 Bundle-Name: NuxeoCS
-Bundle-SymbolicName: org.collectionspace.loanin;singleton:=true 
+Bundle-SymbolicName: org.collectionspace.nagpraclaim;singleton:=true 
 Bundle-Version: 1.0.0
 Bundle-Localization: plugin
 Bundle-Vendor: Nuxeo 
@@ -15,7 +15,7 @@ Require-Bundle: org.nuxeo.runtime,
  org.nuxeo.ecm.platform.forms.layout.client,
  org.nuxeo.ecm.platform.ws,
  org.collectionspace.collectionspace_core
-Provide-Package: org.collectionspace.loanin
+Provide-Package: org.collectionspace.nagpraclaim
 Nuxeo-Component: OSGI-INF/core-types-contrib.xml,
  OSGI-INF/life-cycle-contrib.xml,
  OSGI-INF/ecm-types-contrib.xml,
