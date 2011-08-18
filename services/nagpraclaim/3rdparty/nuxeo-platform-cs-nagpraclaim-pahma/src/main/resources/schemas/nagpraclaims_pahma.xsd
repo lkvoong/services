@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<!--
+    NAGPRA Claim schema (XSD)
+    
+    Entity  : NagpraClaim
+    Part    : Local - Phoebe A. Hearst Museum of Anthropology
+    Used for: Nuxeo EP core document type
+
+    $LastChangedRevision: $
+    $LastChangedDate: $
+-->
+
+<!-- PATRICK ADVISES CORE SCHEMA CONSIST OF ONLY:
+	* Date filed (here nagpraClaimReceivedDate; should rename)
+	* Claim number (here nagpraClaimNumber; should rename)
+	* Filed by (here claimantName)
+	* On behalf of (need to add)
+	* Responsible department
+-->
+
+<xs:schema
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:ns="http://collectionspace.org/services/nagpraclaim/local/pahma"
+	xmlns="http://collectionspace.org/services/nagpraclaim/local/pahma"
+	targetNamespace="http://collectionspace.org/services/nagpraclaim/local/pahma"
+	version="0.1">
+
+	<xs:element name="nagpraClaimName" type="xs:string"/> <!-- ANTHROPOLOGY schema extension -->
+	<xs:element name="nagpraClaimNumber" type="xs:string"/> <!-- CORE: Claim number -->
+	<xs:element name="nagpraClaimType" type="xs:string"/> <!-- ANTHROPOLOGY schema extension -->
+
+	<xs:element name="responsibleDepartments"> <!-- CORE: Responsible department -->
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="responsibleDepartment" type="xs:string"
+					minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="nagpraClaimNoteList" type="nagpraClaimNoteList"/> <!-- ANTHROPOLOGY schema extension -->
+	<xs:element name="nagpraClaimAltNameGroupList" type="nagpraClaimAltNameGroupList"/> <!-- ANTHROPOLOGY schema extension -->
+	
+	<xs:element name="nagpraClaimClaimantGroupList" type="nagpraClaimClaimantGroupList"/> <!-- CORE: Filed by; On behalf of -->
+	<xs:element name="nagpraClaimInventoryInvolvedGroupList" type="nagpraClaimInventoryInvolvedGroupList"/> <!-- ANTHROPOLOGY schema extension -->
+	<xs:element name="nagpraClaimSiteInvolvedGroupList" type="nagpraClaimSiteInvolvedGroupList"/> <!-- ANTHROPOLOGY schema extension -->
+	<xs:element name="nagpraClaimPeriodInvolvedGroupGroupList" type="nagpraClaimPeriodInvolvedGroupGroupList"/>  <!-- ANTHROPOLOGY schema extension --> <!-- NOT A TYPO: THIS REALLY IS A LIST OF GROUPS OF GROUPS -->
+	<xs:element name="nagpraClaimGroupInvolvedGroupList" type="nagpraClaimGroupInvolvedGroupList"/>  <!-- ANTHROPOLOGY schema extension -->
+	<xs:element name="accessRecommendationGroupList" type="accessRecommendationGroupList"/> <!-- ANTHROPOLOGY schema extension -->
+	<xs:element name="nagpraClaimReceivedGroupList" type="nagpraClaimReceivedGroupList"/> <!-- CORE: Date filed -->
+	
+	<xs:element name="dateOfInitialResponseGroupList" type="dateOfInitialResponseGroupList"/> <!-- ANTHROPOLOGY schema extension -->
+	<xs:element name="sentToLocalCommitteeGroupList" type="sentToLocalCommitteeGroupList"/> <!-- ANTHROPOLOGY schema extension -->
+	<xs:element name="sentToOversightCommitteeGroupList" type="sentToOversightCommitteeGroupList"/> <!-- PAHMA schema extension -->
+	<xs:element name="sentToNationalNagpraGroupList" type="sentToNationalNagpraGroupList"/> <!-- ANTHROPOLOGY schema extension -->
+	<xs:element name="dateOfNationalNagpraApprovalGroupList" type="dateOfNationalNagpraApprovalGroupList"/> <!-- ANTHROPOLOGY schema extension -->
+	<xs:element name="dateOfThirtyDayNoticeGroupList" type="dateOfThirtyDayNoticeGroupList"/> <!-- ANTHROPOLOGY schema extension -->
+	<xs:element name="transferGroupList" type="transferGroupList"/> <!-- ANTHROPOLOGY schema extension -->
+	
+	<xs:element name="recommendationOfLocalCommitteeGroupList" type="recommendationOfLocalCommitteeGroupList"/> <!-- ANTHROPOLOGY schema extension -->
+	<xs:element name="recommendationOfOversightCommitteeGroupList" type="recommendationOfOversightCommitteeGroupList"/> <!-- PAHMA schema extension -->
+	<xs:element name="responseFromNationalNagpraGroupList" type="responseFromNationalNagpraGroupList"/> <!-- ANTHROPOLOGY schema extension -->
+	
+	<xs:element name="dispositionPossibilitiesDiscussedGroup" type="dispositionPossibilitiesDiscussedGroup"/> <!-- PAHMA schema extension -->
+	<xs:element name="surroundingTribesContactedGroup" type="surroundingTribesContactedGroup"/> <!-- PAHMA schema extension -->
+	<xs:element name="workingTeamNotifiedGroup" type="workingTeamNotifiedGroup"/> <!-- PAHMA schema extension -->
+	<xs:element name="siteFileResearchCompletedGroup" type="siteFileResearchCompletedGroup"/> <!-- PAHMA schema extension -->
+	<xs:element name="accessionFileResearchCompletedGroup" type="accessionFileResearchCompletedGroup"/> <!-- PAHMA schema extension -->
+	<xs:element name="objectsLocatedAndCountedGroup" type="objectsLocatedAndCountedGroup"/> <!-- PAHMA schema extension -->
+	<xs:element name="objectsConsolidatedGroup" type="objectsConsolidatedGroup"/> <!-- PAHMA schema extension -->
+	<xs:element name="objectsPhotographedGroup" type="objectsPhotographedGroup"/> <!-- PAHMA schema extension -->
+	<xs:element name="registrationDocumentsDraftedGroup" type="registrationDocumentsDraftedGroup"/> <!-- PAHMA schema extension -->
+	<xs:element name="tribeContactedForPackingPreferencesGroup" type="tribeContactedForPackingPreferencesGroup"/> <!-- PAHMA schema extension -->
+	<xs:element name="dateArrangedForTransferGroup" type="dateArrangedForTransferGroup"/> <!-- PAHMA schema extension -->
+	<xs:element name="objectsMarkedAsDeaccessionedGroup" type="objectsMarkedAsDeaccessionedGroup"/> <!-- PAHMA schema extension -->
+	<xs:element name="claimDocumentsArchivedGroup" type="claimDocumentsArchivedGroup"/> <!-- ANTHROPOLOGY schema extension -->
+	
+	<xs:complexType name="nagpraClaimAltNameGroupList"> <!-- ANTHROPOLOGY schema extension -->
+		<xs:sequence>
+			<xs:element name="nagpraClaimAltNameGroup" type="nagpraClaimAltNameGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="nagpraClaimAltNameGroup"> <!-- ANTHROPOLOGY schema extension -->
+		<xs:sequence>
+			<xs:element name="nagpraClaimAltName" type="xs:string"/>
+			<xs:element name="nagpraClaimAltNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="nagpraClaimNoteList"> <!-- ANTHROPOLOGY schema extension -->
+		<xs:sequence>
+			<xs:element name="nagpraClaimNote" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="nagpraClaimClaimantGroupList"> <!-- CORE: Filed by; On behalf of -->
+		<xs:sequence>
+			<xs:element name="nagpraClaimClaimantGroup" type="nagpraClaimClaimantGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="nagpraClaimClaimantGroup"> <!-- CORE: Filed by; On behalf of -->
+		<xs:sequence>
+			<xs:element name="claimantName" type="xs:string"/> <!-- CORE: Filed by; On behalf of -->
+			<xs:element name="claimantNote" type="xs:string"/> <!-- SUGGESTED CORE -->
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="nagpraClaimInventoryInvolvedGroupList"> <!-- ANTHROPOLOGY schema extension -->
+		<xs:sequence>
+			<xs:element name="nagpraClaimInventoryInvolvedGroup" type="nagpraClaimInventoryInvolvedGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="nagpraClaimInventoryInvolvedGroup"> <!-- ANTHROPOLOGY schema extension -->
+		<xs:sequence>
+			<xs:element name="inventoryInvolvedName" type="xs:string"/>
+			<xs:element name="inventoryInvolvedNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="nagpraClaimSiteInvolvedGroupList"> <!-- ANTHROPOLOGY schema extension -->
+		<xs:sequence>
+			<xs:element name="nagpraClaimSiteInvolvedGroup" type="nagpraClaimSiteInvolvedGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="nagpraClaimSiteInvolvedGroup"> <!-- ANTHROPOLOGY schema extension -->
+		<xs:sequence>
+			<xs:element name="claimSiteInvolvedName" type="xs:string"/>
+			<xs:element name="claimSiteInvolvedNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="nagpraClaimPeriodInvolvedGroupGroupList"> <!-- ANTHROPOLOGY schema extension -->
+		<xs:sequence>
+			<xs:element name="nagpraClaimPeriodInvolvedGroupGroup" type="nagpraClaimPeriodInvolvedGroupGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="nagpraClaimPeriodInvolvedGroupGroup"> <!-- ANTHROPOLOGY schema extension -->
+		<xs:sequence>
+			<xs:element name="nagpraClaimPeriodInvolvedGroup" type="nagpraClaimPeriodInvolvedGroup"/>
+			<xs:element name="nagpraClaimPeriodInvolvedNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="nagpraClaimPeriodInvolvedGroup"> <!-- ANTHROPOLOGY schema extension -->
+		<xs:sequence>
+			<xs:element name="dateDisplayDate" type="xs:string"/>
+			<xs:element name="dateAssociation" type="xs:string"/>
+			<xs:element name="dateEarliestSingleYear" type="xs:string"/>
+			<xs:element name="dateEarliestSingleMonth" type="xs:string"/>
+			<xs:element name="dateEarliestSingleDay" type="xs:string"/>
+			<xs:element name="dateEarliestSingleEra" type="xs:string"/>
+			<xs:element name="dateEarliestSingleCertainty" type="xs:string"/>
+			<xs:element name="dateEarliestSingleQualifier" type="xs:string"/>
+			<xs:element name="dateEarliestSingleQualifierValue" type="xs:string"/>
+			<xs:element name="dateEarliestSingleQualifierUnit" type="xs:string"/>
+			<xs:element name="dateLatestYear" type="xs:string"/>
+			<xs:element name="dateLatestMonth" type="xs:string"/>
+			<xs:element name="dateLatestDay" type="xs:string"/>
+			<xs:element name="dateLatestEra" type="xs:string"/>
+			<xs:element name="dateLatestCertainty" type="xs:string"/>
+			<xs:element name="dateLatestQualifier" type="xs:string"/>
+			<xs:element name="dateLatestQualifierValue" type="xs:string"/>
+			<xs:element name="dateLatestQualifierUnit" type="xs:string"/>
+			<xs:element name="datePeriod" type="xs:string"/>
+			<xs:element name="dateNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="nagpraClaimGroupInvolvedGroupList"> <!-- ANTHROPOLOGY schema extension -->
+		<xs:sequence>
+			<xs:element name="nagpraClaimGroupInvolvedGroup" type="nagpraClaimGroupInvolvedGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="nagpraClaimGroupInvolvedGroup"> <!-- ANTHROPOLOGY schema extension -->
+		<xs:sequence>
+			<xs:element name="groupInvolvedName" type="xs:string"/>
+			<xs:element name="groupInvolvedNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="accessRecommendationGroupList"> <!-- ANTHROPOLOGY schema extension -->
+		<xs:sequence>
+			<xs:element name="accessRecommendationGroup" type="accessRecommendationGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="accessRecommendationGroup"> <!-- ANTHROPOLOGY schema extension -->
+		<xs:sequence>
+			<xs:element name="accessRecommendationType" type="xs:string"/>
+			<xs:element name="accessRecommendationDetail" type="xs:string"/>
+			<xs:element name="accessRecommendationOrRestriction" type="xs:string"/>
+			<xs:element name="accessRecommendationRequestor" type="xs:string"/>
+			<xs:element name="accessRecommendationNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="nagpraClaimReceivedGroupList"> <!-- CORE: Date filed -->
+		<xs:sequence>
+			<xs:element name="nagpraClaimReceivedGroup" type="nagpraClaimReceivedGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="nagpraClaimReceivedGroup"> <!-- CORE: Date filed -->
+		<xs:sequence>
+			<xs:element name="nagpraClaimReceivedDate" type="xs:string"/> <!-- CORE: Date filed -->
+			<xs:element name="nagpraClaimReceivedNote" type="xs:string"/> <!-- SUGGESTED CORE -->
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="dateOfInitialResponseGroupList"> <!-- ANTHROPOLOGY schema extension -->
+		<xs:sequence>
+			<xs:element name="dateOfInitialResponseGroup" type="dateOfInitialResponseGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="dateOfInitialResponseGroup"> <!-- ANTHROPOLOGY schema extension -->
+		<xs:sequence>
+			<xs:element name="initialResponseDate" type="xs:string"/>
+			<xs:element name="initialResponseNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="sentToLocalCommitteeGroupList"> <!-- ANTHROPOLOGY schema extension -->
+		<xs:sequence>
+			<xs:element name="sentToLocalCommitteeGroup" type="sentToLocalCommitteeGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="sentToLocalCommitteeGroup"> <!-- ANTHROPOLOGY schema extension -->
+		<xs:sequence>
+			<xs:element name="sentToLocalCommitteeDate" type="xs:string"/>
+			<xs:element name="sentToLocalCommitteeNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="sentToOversightCommitteeGroupList"> <!-- PAHMA schema extension -->
+		<xs:sequence>
+			<xs:element name="sentToOversightCommitteeGroup" type="sentToOversightCommitteeGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="sentToOversightCommitteeGroup"> <!-- PAHMA schema extension -->
+		<xs:sequence>
+			<xs:element name="sentToOversightCommitteeDate" type="xs:string"/>
+			<xs:element name="sentToOversightCommitteeNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="sentToNationalNagpraGroupList"> <!-- ANTHROPOLOGY schema extension -->
+		<xs:sequence>
+			<xs:element name="sentToNationalNagpraGroup" type="sentToNationalNagpraGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="sentToNationalNagpraGroup"> <!-- ANTHROPOLOGY schema extension -->
+		<xs:sequence>
+			<xs:element name="sentToNationalNagpraDate" type="xs:string"/>
+			<xs:element name="sentToNationalNagpraNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="dateOfNationalNagpraApprovalGroupList"> <!-- ANTHROPOLOGY schema extension -->
+		<xs:sequence>
+			<xs:element name="dateOfNationalNagpraApprovalGroup" type="dateOfNationalNagpraApprovalGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="dateOfNationalNagpraApprovalGroup"> <!-- ANTHROPOLOGY schema extension -->
+		<xs:sequence>
+			<xs:element name="dateOfNationalNagpraApprovalDate" type="xs:string"/>
+			<xs:element name="dateOfNationalNagpraApprovalNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="dateOfThirtyDayNoticeGroupList"> <!-- ANTHROPOLOGY schema extension -->
+		<xs:sequence>
+			<xs:element name="dateOfThirtyDayNoticeGroup" type="dateOfThirtyDayNoticeGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="dateOfThirtyDayNoticeGroup"> <!-- ANTHROPOLOGY schema extension -->
+		<xs:sequence>
+			<xs:element name="dateOfThirtyDayNoticeDate" type="xs:string"/>
+			<xs:element name="dateOfThirtyDayNoticeType" type="xs:string"/>
+			<xs:element name="dateOfThirtyDayNoticeNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="transferGroupList"> <!-- ANTHROPOLOGY schema extension -->
+		<xs:sequence>
+			<xs:element name="transferGroup" type="transferGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="transferGroup"> <!-- ANTHROPOLOGY schema extension -->
+		<xs:sequence>
+			<xs:element name="transferDate" type="xs:string"/>
+			<xs:element name="transferNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="recommendationOfLocalCommitteeGroupList"> <!-- ANTHROPOLOGY schema extension -->
+		<xs:sequence>
+			<xs:element name="recommendationOfLocalCommitteeGroup" type="recommendationOfLocalCommitteeGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="recommendationOfLocalCommitteeGroup"> <!-- ANTHROPOLOGY schema extension -->
+		<xs:sequence>
+			<xs:element name="recommendationOfLocalCommitteeDate" type="xs:string"/>
+			<xs:element name="recommendationOfLocalCommitteeNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="recommendationOfOversightCommitteeGroupList"> <!-- PAHMA schema extension -->
+		<xs:sequence>
+			<xs:element name="recommendationOfOversightCommitteeGroup" type="recommendationOfOversightCommitteeGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="recommendationOfOversightCommitteeGroup"> <!-- PAHMA schema extension -->
+		<xs:sequence>
+			<xs:element name="recommendationOfOversightCommitteeDate" type="xs:string"/>
+			<xs:element name="recommendationOfOversightCommitteeNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="responseFromNationalNagpraGroupList"> <!-- ANTHROPOLOGY schema extension -->
+		<xs:sequence>
+			<xs:element name="responseFromNationalNagpraGroup" type="responseFromNationalNagpraGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="responseFromNationalNagpraGroup"> <!-- ANTHROPOLOGY schema extension -->
+		<xs:sequence>
+			<xs:element name="responseFromNationalNagpraDate" type="xs:string"/>
+			<xs:element name="responseFromNationalNagpraNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="dispositionPossibilitiesDiscussedGroup"> <!-- PAHMA schema extension -->
+		<xs:sequence>
+			<xs:element name="dispositionPossibilitiesDiscussedCheckbox" type="xs:string"/>
+			<xs:element name="dispositionPossibilitiesDiscussedNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="surroundingTribesContactedGroup"> <!-- PAHMA schema extension -->
+		<xs:sequence>
+			<xs:element name="surroundingTribesContactedCheckbox" type="xs:string"/>
+			<xs:element name="surroundingTribesContactedNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="workingTeamNotifiedGroup"> <!-- PAHMA schema extension -->
+		<xs:sequence>
+			<xs:element name="workingTeamNotifiedCheckbox" type="xs:string"/>
+			<xs:element name="workingTeamNotifiedNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="siteFileResearchCompletedGroup"> <!-- PAHMA schema extension -->
+		<xs:sequence>
+			<xs:element name="siteFileResearchCompletedCheckbox" type="xs:string"/>
+			<xs:element name="siteFileResearchCompletedNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="accessionFileResearchCompletedGroup"> <!-- PAHMA schema extension -->
+		<xs:sequence>
+			<xs:element name="accessionFileResearchCompletedCheckbox" type="xs:string"/>
+			<xs:element name="accessionFileResearchCompletedNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="objectsLocatedAndCountedGroup"> <!-- PAHMA schema extension -->
+		<xs:sequence>
+			<xs:element name="objectsLocatedAndCountedCheckbox" type="xs:string"/>
+			<xs:element name="objectsLocatedAndCountedNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="objectsConsolidatedGroup"> <!-- PAHMA schema extension -->
+		<xs:sequence>
+			<xs:element name="objectsConsolidatedCheckbox" type="xs:string"/>
+			<xs:element name="objectsConsolidatedNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="objectsPhotographedGroup"> <!-- PAHMA schema extension -->
+		<xs:sequence>
+			<xs:element name="objectsPhotographedCheckbox" type="xs:string"/>
+			<xs:element name="objectsPhotographedNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="registrationDocumentsDraftedGroup"> <!-- PAHMA schema extension -->
+		<xs:sequence>
+			<xs:element name="registrationDocumentsDraftedCheckbox" type="xs:string"/>
+			<xs:element name="registrationDocumentsDraftedNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="tribeContactedForPackingPreferencesGroup"> <!-- PAHMA schema extension -->
+		<xs:sequence>
+			<xs:element name="tribeContactedForPackingPreferencesCheckbox" type="xs:string"/>
+			<xs:element name="tribeContactedForPackingPreferencesNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="dateArrangedForTransferGroup"> <!-- PAHMA schema extension -->
+		<xs:sequence>
+			<xs:element name="dateArrangedForTransferCheckbox" type="xs:string"/>
+			<xs:element name="dateArrangedForTransferNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="objectsMarkedAsDeaccessionedGroup"> <!-- PAHMA schema extension -->
+		<xs:sequence>
+			<xs:element name="objectsMarkedAsDeaccessionedCheckbox" type="xs:string"/>
+			<xs:element name="objectsMarkedAsDeaccessionedNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="claimDocumentsArchivedGroup"> <!-- ANTHROPOLOGY schema extension -->
+		<xs:sequence>
+			<xs:element name="claimDocumentsArchivedCheckbox" type="xs:string"/>
+			<xs:element name="claimDocumentsArchivedNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+</xs:schema>
