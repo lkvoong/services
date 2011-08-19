@@ -9,6 +9,7 @@
 		
 		<tenant:serviceBindings merge:matcher="id" id="CollectionObjects">
 			<service:object xmlns:service="http://collectionspace.org/services/common/service" >
+				
 				<service:part id="3" merge:matcher="skip" merge:action="insert" control_group="Managed" versionable="true" auditable="false" label="collectionobjects_naturalhistory" updated="" order="3">
 					<service:content contentType="application/xml">
 						<service:xmlContent namespaceURI="http://collectionspace.org/services/collectionobject/domain/naturalhistory" schemaLocation="http://collectionspace.org/services/collectionobject/domain/naturalhistory http://collectionspace.org/services/collectionobject/domain/collectionobjects_naturalhistory.xsd" />
@@ -26,10 +27,27 @@
 						<service:xmlContent namespaceURI="http://collectionspace.org/services/collectionobject/local/pahma" schemaLocation="http://collectionspace.org/services/collectionobject/local/pahma http://collectionspace.org/services/collectionobject/local/collectionobjects_pahma.xsd" />
 					</service:content>
 				</service:part>
+
+			</service:object>
+		</tenant:serviceBindings>
+		
+		<tenant:serviceBindings merge:matcher="id" id="NagpraClaims">
+			<service:object xmlns:service="http://collectionspace.org/services/common/service" >
+				
+				<service:part id="3" merge:matcher="skip" merge:action="insert" control_group="Managed" versionable="true" auditable="false" label="nagpraclaims_anthropology" updated="" order="3">
+					<service:content contentType="application/xml">
+						<service:xmlContent namespaceURI="http://collectionspace.org/services/nagpraclaim/domain/anthropology" schemaLocation="http://collectionspace.org/services/nagpraclaim/domain/anthropology http://collectionspace.org/services/nagpraclaim/domain/nagpraclaims_anthropology.xsd" />
+					</service:content>
+				</service:part>
+				
+				<service:part id="4" merge:matcher="skip" merge:action="insert" control_group="Managed" versionable="true" auditable="false" label="nagpraclaims_pahma" updated="" order="4">
+					<service:content contentType="application/xml">
+						<service:xmlContent namespaceURI="http://collectionspace.org/services/nagpraclaim/local/pahma" schemaLocation="http://collectionspace.org/services/nagpraclaim/local/pahma http://collectionspace.org/services/nagpraclaim/local/nagpraclaims_pahma.xsd" />
+					</service:content>
+				</service:part>
 				
 			</service:object>
 		</tenant:serviceBindings>
 		
 	</tenant:tenantBinding>
-	
 </tenant:TenantBindingConfig>
