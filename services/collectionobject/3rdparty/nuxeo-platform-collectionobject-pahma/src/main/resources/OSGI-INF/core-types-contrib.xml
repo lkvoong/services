@@ -14,6 +14,12 @@
 			<schema name="collectionobjects_naturalhistory"/>
 			<schema name="collectionobjects_anthropology"/>
 			<schema name="collectionobjects_pahma"/>
+			<prefetch>
+				collectionobjects_common:objectNumber
+				collectionobjects_common:objectNameList
+				collectionobjects_common:title
+				collectionobjects_common:responsibleDepartments
+			</prefetch>
 		</doctype>
 	</extension>
 </component>
