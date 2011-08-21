@@ -838,12 +838,12 @@
             <service:xmlContent namespaceURI="http://collectionspace.org/collectionspace_core/" schemaLocation="http://collectionspace.org/collectionspace_core/ http://services.collectionspace.org/collectionspace_core.xsd" />
           </service:content>
         </service:part>
-        <service:part id="4" control_group="Managed" versionable="true" auditable="false" label="nagpraclaims_anthropology" updated="" order="4">
+        <service:part id="3" control_group="Managed" versionable="true" auditable="false" label="nagpraclaims_anthropology" updated="" order="3">
           <service:content contentType="application/xml">
             <service:xmlContent namespaceURI="http://collectionspace.org/services/nagpraclaim/domain/anthropology" schemaLocation="http://collectionspace.org/services/nagpraclaim/domain/anthropology http://collectionspace.org/services/nagpraclaim/domain/nagpraclaims_anthropology.xsd" />
           </service:content>
         </service:part>
-        <service:part id="5" control_group="Managed" versionable="true" auditable="false" label="nagpraclaims_pahma" updated="" order="5">
+        <service:part id="4" control_group="Managed" versionable="true" auditable="false" label="nagpraclaims_pahma" updated="" order="4">
           <service:content contentType="application/xml">
             <service:xmlContent namespaceURI="http://collectionspace.org/services/nagpraclaim/local/pahma" schemaLocation="http://collectionspace.org/services/nagpraclaim/local/pahma http://collectionspace.org/services/nagpraclaim/local/nagpraclaims_pahma.xsd" />
           </service:content>
