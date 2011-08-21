@@ -50,7 +50,7 @@
 	<xs:element name="recommendationOfLocalCommitteeGroupList" type="recommendationOfLocalCommitteeGroupList"/>
 	<xs:element name="responseFromNationalNagpraGroupList" type="responseFromNationalNagpraGroupList"/>
 	
-		<xs:element name="claimDocumentsArchivedGroup" type="claimDocumentsArchivedGroup"/>
+	<xs:element name="claimDocumentsArchivedGroup" type="claimDocumentsArchivedGroup"/>
 	
 	<xs:complexType name="nagpraClaimAltNameGroupList">
 		<xs:sequence>
@@ -61,6 +61,22 @@
 		<xs:sequence>
 			<xs:element name="nagpraClaimAltName" type="xs:string"/>
 			<xs:element name="nagpraClaimAltNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="accessRestrictionGroupList">
+		<xs:sequence>
+			<xs:element name="accessRestrictionGroup" type="accessRestrictionGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="accessRestrictionGroup">
+		<xs:sequence>
+			<xs:element name="accessRestrictionType" type="xs:string"/>
+			<xs:element name="accessRestrictionLevel" type="xs:string"/>
+			<xs:element name="accessRestrictionDetails" type="xs:string"/>
+			<xs:element name="accessRestrictionRequestor" type="xs:string"/>
+			<xs:element name="accessRestrictionOnBehalfOf" type="xs:string"/>
+			<xs:element name="accessRestrictionDate" type="xs:string"/>
 		</xs:sequence>
 	</xs:complexType>
 	
@@ -139,21 +155,6 @@
 		<xs:sequence>
 			<xs:element name="groupInvolvedName" type="xs:string"/>
 			<xs:element name="groupInvolvedNote" type="xs:string"/>
-		</xs:sequence>
-	</xs:complexType>
-	
-	<xs:complexType name="accessRecommendationGroupList">
-		<xs:sequence>
-			<xs:element name="accessRecommendationGroup" type="accessRecommendationGroup" minOccurs="0" maxOccurs="unbounded"/>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="accessRecommendationGroup">
-		<xs:sequence>
-			<xs:element name="accessRecommendationType" type="xs:string"/>
-			<xs:element name="accessRecommendationDetail" type="xs:string"/>
-			<xs:element name="accessRecommendationOrRestriction" type="xs:string"/>
-			<xs:element name="accessRecommendationRequestor" type="xs:string"/>
-			<xs:element name="accessRecommendationNote" type="xs:string"/>
 		</xs:sequence>
 	</xs:complexType>
 	
