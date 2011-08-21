@@ -45,7 +45,6 @@
 	<xs:element name="dateArrangedForTransferGroup" type="dateArrangedForTransferGroup"/>
 	<xs:element name="objectsMarkedAsDeaccessionedGroup" type="objectsMarkedAsDeaccessionedGroup"/>
 	
-
 	<xs:complexType name="sentToOversightCommitteeGroupList">
 		<xs:sequence>
 			<xs:element name="sentToOversightCommitteeGroup" type="sentToOversightCommitteeGroup" minOccurs="0" maxOccurs="unbounded"/>
