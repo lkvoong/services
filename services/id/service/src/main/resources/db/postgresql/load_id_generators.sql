@@ -82,18 +82,22 @@ without parts.',
      '',
 '<org.collectionspace.services.id.SettableIDGenerator>
   <parts>
-    <org.collectionspace.services.id.YearIDGeneratorPart>
-      <currentValue></currentValue>
-    </org.collectionspace.services.id.YearIDGeneratorPart>
+  	<org.collectionspace.services.id.StringIDGeneratorPart>
+      <initialValue>Acc</initialValue>
+      <currentValue>Acc</currentValue>
+    </org.collectionspace.services.id.StringIDGeneratorPart>
     <org.collectionspace.services.id.StringIDGeneratorPart>
       <initialValue>.</initialValue>
       <currentValue>.</currentValue>
     </org.collectionspace.services.id.StringIDGeneratorPart>
-    <org.collectionspace.services.id.NumericIDGeneratorPart>
-      <maxLength>6</maxLength>
-      <initialValue>1</initialValue>
-      <currentValue>-1</currentValue>
-    </org.collectionspace.services.id.NumericIDGeneratorPart>
+    <org.collectionspace.services.id.StringIDGeneratorPart>
+      <!-- Space character -->
+      <initialValue> </initialValue>
+      <currentValue> </currentValue>
+    </org.collectionspace.services.id.StringIDGeneratorPart>
+    <org.collectionspace.services.id.YearIDGeneratorPart>
+      <currentValue></currentValue>
+    </org.collectionspace.services.id.YearIDGeneratorPart>
     <org.collectionspace.services.id.StringIDGeneratorPart>
       <initialValue>.</initialValue>
       <currentValue>.</currentValue>
