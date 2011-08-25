@@ -115,7 +115,7 @@
 	<xs:element name="inscriptionContentDateGroup" type="inscriptionContentDateGroup"/>
 	<xs:element name="inscriptionDescriptionDateGroup" type="inscriptionDescriptionDateGroup"/>
 	<xs:element name="contentDateGroup" type="contentDateGroup"/>
-	<xs:element name="ownershipDatesGroup" type="ownershipDatesGroup"/>
+	<!--<xs:element name="ownershipDatesGroup" type="ownershipDatesGroup"/> REPLACED BY ownershipDateGroup in collectionobjects_pahma.xsd-->
 	
 	<xs:complexType name="inscriptionContentDateGroup">
 		<xs:sequence>
@@ -192,7 +192,7 @@
 		</xs:sequence>
 	</xs:complexType>
 	
-	<xs:complexType name="ownershipDatesGroup">
+	<!--<xs:complexType name="ownershipDatesGroup"> REPLACED BY ownershipDateGroup in collectionobjects_pahma.xsd
 		<xs:sequence>
 			<xs:element name="dateDisplayDate" type="xs:string"/>
 			<xs:element name="dateAssociation" type="xs:string"/>
@@ -215,6 +215,6 @@
 			<xs:element name="datePeriod" type="xs:string"/>
 			<xs:element name="dateNote" type="xs:string"/>
 		</xs:sequence>
-	</xs:complexType>
+	</xs:complexType>-->
 	
 </xs:schema>
