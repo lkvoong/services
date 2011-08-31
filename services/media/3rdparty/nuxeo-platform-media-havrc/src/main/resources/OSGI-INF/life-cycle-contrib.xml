@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<component name="org.collectionspace.MediaTenant3.ecm.platform.media.LifeCycleManagerExtensions">
+
+  <extension target="org.nuxeo.ecm.core.lifecycle.LifeCycleService"
+             point="types">
+    <types>
+      <type name="MediaTenant3">default</type>
+    </types>
+  </extension>
+
+</component>

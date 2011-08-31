@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<!--
+    Media schema (XSD)
+    
+    Entity  : Media
+    Part    : Local - HAVRC (extends media_common)
+    Used for: Nuxeo EP core document type
+
+    $LastChangedRevision: 2316 $
+    $LastChangedDate: 2010-06-02 16:03:51 -0700 (Wed, 02 Jun 2010) $
+-->
+
+<xs:schema 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:ns="http://collectionspace.org/media/local/havrc"
+    xmlns="http://collectionspace.org/media/local/havrc"
+    targetNamespace="http://collectionspace.org/media/local/havrc"
+    version="0.1">
+    
+    <!-- See http://wiki.collectionspace.org/display/deploy/HAVRC+-+CSpace+1.8+wireframes -->
+
+    <!--  Media Handling Information Group -->
+
+    <xs:element name="imageViewType" type="xs:string"/>
+    <xs:element name="sourceDetail" type="xs:string"/>
+	<xs:element name="viewDateGroup" type="viewDateGroup"/><!--Use for Structured date -->
+
+
+    <xs:complexType name="viewDateGroup">
+        <xs:sequence>
+            <xs:element name="dateDisplayDate" type="xs:string"/>
+            <xs:element name="dateAssociation" type="xs:string"/>
+            <xs:element name="dateEarliestSingleYear" type="xs:string"/>
+            <xs:element name="dateEarliestSingleMonth" type="xs:string"/>
+            <xs:element name="dateEarliestSingleDay" type="xs:string"/>
+            <xs:element name="dateEarliestSingleEra" type="xs:string"/>
+            <xs:element name="dateEarliestSingleCertainty" type="xs:string"/>
+            <xs:element name="dateEarliestSingleQualifier" type="xs:string"/>
+            <xs:element name="dateEarliestSingleQualifierValue" type="xs:string"/>
+            <xs:element name="dateEarliestSingleQualifierUnit" type="xs:string"/>
+            <xs:element name="dateLatestYear" type="xs:string"/>
+            <xs:element name="dateLatestMonth" type="xs:string"/>
+            <xs:element name="dateLatestDay" type="xs:string"/>
+            <xs:element name="dateLatestEra" type="xs:string"/>
+            <xs:element name="dateLatestCertainty" type="xs:string"/>
+            <xs:element name="dateLatestQualifier" type="xs:string"/>
+            <xs:element name="dateLatestQualifierValue" type="xs:string"/>
+            <xs:element name="dateLatestQualifierUnit" type="xs:string"/>
+            <xs:element name="datePeriod" type="xs:string"/>
+            <xs:element name="dateNote" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+	
+</xs:schema>
