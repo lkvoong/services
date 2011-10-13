@@ -9,10 +9,6 @@
       <schema name="dublincore"/>
       <schema name="collectionspace_core"/>
       <schema name="nagpraclaims_common"/>
-      <prefetch>
-      	nagpraclaims_common:nagpraClaimName
-      	nagpraclaims_common:nagpraClaimNumber
-      </prefetch>
     </doctype>
   </extension>
 </component>
