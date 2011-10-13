@@ -18,6 +18,8 @@
     </description>
 
     <modules>
-        <module>nuxeo-platform-cs-nagpraclaim</module>
+    	<module>nuxeo-platform-cs-nagpraclaim</module>
+    	<!--<module>nuxeo-platform-cs-nagpraclaim-pahma</module>-->
+    	<module>nuxeo-platform-nagpraclaim-anthropology</module>
     </modules>
 </project>
