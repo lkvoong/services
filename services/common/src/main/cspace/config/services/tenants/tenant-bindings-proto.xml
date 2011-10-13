@@ -793,8 +793,8 @@
         <service:params>
           <service:ListResultsFields>
             <service:ListResultField>
-              <service:element>nagpraClaimName</service:element>
-              <service:xpath>nagpraClaimName</service:xpath>
+            	<service:element>nagpraclaims_anthropology:nagpraClaimName</service:element>
+            	<service:xpath>nagpraclaims_anthropology:nagpraClaimName</service:xpath>
             </service:ListResultField>
             <service:ListResultField>
               <service:element>nagpraClaimNumber</service:element>
