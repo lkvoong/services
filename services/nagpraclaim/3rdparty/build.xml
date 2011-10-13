@@ -9,7 +9,8 @@
     <property environment="env" />
     <property file="${services.trunk}/build.properties" />
 	<property name="nuxeo-platform-cs-nagpraclaim" value="nuxeo-platform-cs-nagpraclaim"/>
-	<property name="nuxeo-platform-cs-nagpraclaim-pahma" value="nuxeo-platform-cs-nagpraclaim-pahma"/>
+	<!--<property name="nuxeo-platform-cs-nagpraclaim-pahma" value="nuxeo-platform-cs-nagpraclaim-pahma"/>-->
+	<property name="nuxeo-platform-nagpraclaim-anthropology" value="nuxeo-platform-nagpraclaim-anthropology"/>
     <property name="mvn.opts" value="" />
     <property name="src" location="src"/>
 
@@ -113,19 +114,22 @@
     <target name="deploy" depends="install"
         description="deploy nagpraclaim in ${jboss.server.nuxeo}">
     	<ant antfile="nuxeo-platform-cs-nagpraclaim/build.xml" target="deploy" inheritall="false"/>
-    	<ant antfile="nuxeo-platform-cs-nagpraclaim-pahma/build.xml" target="deploy" inheritall="false"/>
+    	<!--<ant antfile="nuxeo-platform-cs-nagpraclaim-pahma/build.xml" target="deploy" inheritall="false"/>-->
+    	<ant antfile="nuxeo-platform-nagpraclaim-anthropology/build.xml" target="deploy" inheritall="false"/>
     </target>
 
     <target name="undeploy"
         description="undeploy nagpraclaim from ${jboss.server.nuxeo}">
     	<ant antfile="nuxeo-platform-cs-nagpraclaim/build.xml" target="undeploy" inheritall="false"/>
-    	<ant antfile="nuxeo-platform-cs-nagpraclaim-pahma/build.xml" target="undeploy" inheritall="false"/>
+    	<!--<ant antfile="nuxeo-platform-cs-nagpraclaim-pahma/build.xml" target="undeploy" inheritall="false"/>-->
+    	<ant antfile="nuxeo-platform-nagpraclaim-anthropology/build.xml" target="undeploy" inheritall="false"/>
     </target>
 
     <target name="dist"
     description="generate distribution for nagpraclaim" depends="package">
     	<ant antfile="nuxeo-platform-cs-nagpraclaim/build.xml" target="dist" inheritall="false"/>
-    	<ant antfile="nuxeo-platform-cs-nagpraclaim-pahma/build.xml" target="dist" inheritall="false"/>
+    	<!--<ant antfile="nuxeo-platform-cs-nagpraclaim-pahma/build.xml" target="dist" inheritall="false"/>-->
+    	<ant antfile="nuxeo-platform-nagpraclaim-anthropology/build.xml" target="dist" inheritall="false"/>
     </target>
 
 </project>
