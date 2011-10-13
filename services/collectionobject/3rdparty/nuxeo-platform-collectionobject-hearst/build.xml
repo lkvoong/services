@@ -1,8 +1,8 @@
-
 <project name="nuxeo-platform-collectionobject-hearst" default="package" basedir=".">
     <description>
         Collectionobject nuxeo document type for the Hearst tenant
     </description>
+	
     <!-- set global properties for this build -->
     <property name="services.trunk" value="../../../.."/>
     <!-- environment should be declared before reading build.properties -->
@@ -57,7 +57,7 @@
     </target>
 
     <target name="install" depends="install-unix,install-windows"
-  description="Install" />
+  			description="Install" />
     <target name="install-unix" if="osfamily-unix">
         <exec executable="mvn" failonerror="true">
             <arg value="install" />
