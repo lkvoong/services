@@ -808,8 +808,8 @@
         <service:params>
           <service:ListResultsFields>
             <service:ListResultField>
-              <service:element>nagpraClaimName</service:element>
-              <service:xpath>nagpraClaimName</service:xpath>
+              <service:element>nagpraclaims_anthropology:nagpraClaimName</service:element>
+              <service:xpath>nagpraclaims_anthropology:nagpraClaimName</service:xpath>
             </service:ListResultField>
             <service:ListResultField>
               <service:element>nagpraClaimNumber</service:element>
@@ -843,11 +843,12 @@
             <service:xmlContent namespaceURI="http://collectionspace.org/services/nagpraclaim/domain/anthropology" schemaLocation="http://collectionspace.org/services/nagpraclaim/domain/anthropology http://collectionspace.org/services/nagpraclaim/domain/nagpraclaims_anthropology.xsd" />
           </service:content>
         </service:part>
-        <service:part id="4" control_group="Managed" versionable="true" auditable="false" label="nagpraclaims_pahma" updated="" order="4">
-          <service:content contentType="application/xml">
-            <service:xmlContent namespaceURI="http://collectionspace.org/services/nagpraclaim/local/pahma" schemaLocation="http://collectionspace.org/services/nagpraclaim/local/pahma http://collectionspace.org/services/nagpraclaim/local/nagpraclaims_pahma.xsd" />
-          </service:content>
-        </service:part>
+        <!--<service:part id="4" merge:matcher="skip" merge:action="insert" control_group="Managed" versionable="true" auditable="false" label="nagpraclaims_pahma" updated="" order="4">
+					<service:content contentType="application/xml">
+						<service:xmlContent namespaceURI="http://collectionspace.org/services/nagpraclaim/local/pahma" 
+											schemaLocation="http://collectionspace.org/services/nagpraclaim/local/pahma http://collectionspace.org/services/nagpraclaim/local/nagpraclaims_pahma.xsd" />
+					</service:content>
+				</service:part>-->
       </service:object>
     </tenant:serviceBindings>
     <!-- end nagpraclaim service meta-data -->
