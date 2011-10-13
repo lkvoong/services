@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<!--
+    NAGPRA Claim schema (XSD)
+    
+    Entity  : NagpraClaim
+    Part    : Anthropology domain
+    Used for: Nuxeo EP core document type
+
+    $LastChangedRevision: $
+    $LastChangedDate: $
+-->
+
+<xs:schema
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:ns="http://collectionspace.org/services/nagpraclaim/domain/anthropology"
+	xmlns="http://collectionspace.org/services/nagpraclaim/domain/anthropology"
+	targetNamespace="http://collectionspace.org/services/nagpraclaim/domain/anthropology"
+	version="0.1">
+	
+	<xs:element name="nagpraClaimName" type="xs:string"/>
+	<xs:element name="nagpraClaimType" type="xs:string"/>
+	
+	<xs:element name="nagpraClaimNoteList" type="nagpraClaimNoteList"/>
+	<xs:element name="nagpraClaimAltNameGroupList" type="nagpraClaimAltNameGroupList"/>
+	
+	<xs:element name="nagpraClaimInventoryInvolvedGroupList" type="nagpraClaimInventoryInvolvedGroupList"/>
+	<xs:element name="nagpraClaimSiteInvolvedGroupList" type="nagpraClaimSiteInvolvedGroupList"/>
+	<xs:element name="nagpraClaimPeriodInvolvedGroupGroupList" type="nagpraClaimPeriodInvolvedGroupGroupList"/>  <!-- NOT A TYPO: THIS REALLY *IS* A LIST OF GROUPS OF GROUPS -->
+	<xs:element name="nagpraClaimGroupInvolvedGroupList" type="nagpraClaimGroupInvolvedGroupList"/>
+	
+	<xs:element name="dateOfInitialResponseGroupList" type="dateOfInitialResponseGroupList"/>
+	<xs:element name="sentToLocalCommitteeGroupList" type="sentToLocalCommitteeGroupList"/>
+	<xs:element name="sentToOversightCommitteeGroupList" type="sentToOversightCommitteeGroupList"/>
+	<xs:element name="recommendationOfOversightCommitteeGroupList" type="recommendationOfOversightCommitteeGroupList"/>
+	<xs:element name="sentToNationalNagpraGroupList" type="sentToNationalNagpraGroupList"/>
+	<xs:element name="dateOfNationalNagpraApprovalGroupList" type="dateOfNationalNagpraApprovalGroupList"/>
+	<xs:element name="dateOfThirtyDayNoticeGroupList" type="dateOfThirtyDayNoticeGroupList"/>
+	<xs:element name="transferGroupList" type="transferGroupList"/>
+	
+	<xs:element name="recommendationOfLocalCommitteeGroupList" type="recommendationOfLocalCommitteeGroupList"/>
+	<xs:element name="responseFromNationalNagpraGroupList" type="responseFromNationalNagpraGroupList"/>
+	
+	<xs:element name="claimDocumentsArchivedGroup" type="claimDocumentsArchivedGroup"/>
+	
+	<xs:complexType name="nagpraClaimAltNameGroupList">
+		<xs:sequence>
+			<xs:element name="nagpraClaimAltNameGroup" type="nagpraClaimAltNameGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="nagpraClaimAltNameGroup">
+		<xs:sequence>
+			<xs:element name="nagpraClaimAltName" type="xs:string"/>
+			<xs:element name="nagpraClaimAltNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<!--<xs:complexType name="accessRestrictionGroupList">
+		<xs:sequence>
+			<xs:element name="accessRestrictionGroup" type="accessRestrictionGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="accessRestrictionGroup">
+		<xs:sequence>
+			<xs:element name="accessRestrictionType" type="xs:string"/>
+			<xs:element name="accessRestrictionLevel" type="xs:string"/>
+			<xs:element name="accessRestrictionDetails" type="xs:string"/>
+			<xs:element name="accessRestrictionRequestor" type="xs:string"/>
+			<xs:element name="accessRestrictionOnBehalfOf" type="xs:string"/>
+			<xs:element name="accessRestrictionDate" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>-->
+	
+	<xs:complexType name="nagpraClaimNoteList">
+		<xs:sequence>
+			<xs:element name="nagpraClaimNote" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="nagpraClaimInventoryInvolvedGroupList">
+		<xs:sequence>
+			<xs:element name="nagpraClaimInventoryInvolvedGroup" type="nagpraClaimInventoryInvolvedGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="nagpraClaimInventoryInvolvedGroup">
+		<xs:sequence>
+			<xs:element name="inventoryInvolvedName" type="xs:string"/>
+			<xs:element name="inventoryInvolvedNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="nagpraClaimSiteInvolvedGroupList">
+		<xs:sequence>
+			<xs:element name="nagpraClaimSiteInvolvedGroup" type="nagpraClaimSiteInvolvedGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="nagpraClaimSiteInvolvedGroup">
+		<xs:sequence>
+			<xs:element name="claimSiteInvolvedName" type="xs:string"/>
+			<xs:element name="claimSiteInvolvedNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="nagpraClaimPeriodInvolvedGroupGroupList">
+		<xs:sequence>
+			<xs:element name="nagpraClaimPeriodInvolvedGroupGroup" type="nagpraClaimPeriodInvolvedGroupGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="nagpraClaimPeriodInvolvedGroupGroup">
+		<xs:sequence>
+			<!--<xs:element name="nagpraClaimPeriodInvolvedGroup" type="nagpraClaimPeriodInvolvedGroup"/>-->
+			<xs:element name="nagpraClaimPeriodInvolvedGroup" type="xs:string"/>
+			<xs:element name="nagpraClaimPeriodInvolvedNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!--<xs:complexType name="nagpraClaimPeriodInvolvedGroup">
+		<xs:sequence>
+			<xs:element name="dateDisplayDate" type="xs:string"/>
+			<xs:element name="dateAssociation" type="xs:string"/>
+			<xs:element name="dateEarliestSingleYear" type="xs:string"/>
+			<xs:element name="dateEarliestSingleMonth" type="xs:string"/>
+			<xs:element name="dateEarliestSingleDay" type="xs:string"/>
+			<xs:element name="dateEarliestSingleEra" type="xs:string"/>
+			<xs:element name="dateEarliestSingleCertainty" type="xs:string"/>
+			<xs:element name="dateEarliestSingleQualifier" type="xs:string"/>
+			<xs:element name="dateEarliestSingleQualifierValue" type="xs:string"/>
+			<xs:element name="dateEarliestSingleQualifierUnit" type="xs:string"/>
+			<xs:element name="dateLatestYear" type="xs:string"/>
+			<xs:element name="dateLatestMonth" type="xs:string"/>
+			<xs:element name="dateLatestDay" type="xs:string"/>
+			<xs:element name="dateLatestEra" type="xs:string"/>
+			<xs:element name="dateLatestCertainty" type="xs:string"/>
+			<xs:element name="dateLatestQualifier" type="xs:string"/>
+			<xs:element name="dateLatestQualifierValue" type="xs:string"/>
+			<xs:element name="dateLatestQualifierUnit" type="xs:string"/>
+			<xs:element name="datePeriod" type="xs:string"/>
+			<xs:element name="dateNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>-->
+	
+	<xs:complexType name="nagpraClaimGroupInvolvedGroupList">
+		<xs:sequence>
+			<xs:element name="nagpraClaimGroupInvolvedGroup" type="nagpraClaimGroupInvolvedGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="nagpraClaimGroupInvolvedGroup">
+		<xs:sequence>
+			<xs:element name="groupInvolvedName" type="xs:string"/>
+			<xs:element name="groupInvolvedNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="dateOfInitialResponseGroupList">
+		<xs:sequence>
+			<xs:element name="dateOfInitialResponseGroup" type="dateOfInitialResponseGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="dateOfInitialResponseGroup">
+		<xs:sequence>
+			<xs:element name="initialResponseDate" type="xs:string"/>
+			<xs:element name="initialResponseNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="sentToLocalCommitteeGroupList">
+		<xs:sequence>
+			<xs:element name="sentToLocalCommitteeGroup" type="sentToLocalCommitteeGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="sentToLocalCommitteeGroup">
+		<xs:sequence>
+			<xs:element name="sentToLocalCommitteeDate" type="xs:string"/>
+			<xs:element name="sentToLocalCommitteeNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="sentToOversightCommitteeGroupList">
+		<xs:sequence>
+			<xs:element name="sentToOversightCommitteeGroup" type="sentToOversightCommitteeGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="sentToOversightCommitteeGroup">
+		<xs:sequence>
+			<xs:element name="sentToOversightCommitteeDate" type="xs:string"/>
+			<xs:element name="sentToOversightCommitteeNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="recommendationOfOversightCommitteeGroupList">
+		<xs:sequence>
+			<xs:element name="recommendationOfOversightCommitteeGroup" type="recommendationOfOversightCommitteeGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="recommendationOfOversightCommitteeGroup">
+		<xs:sequence>
+			<xs:element name="recommendationOfOversightCommitteeDate" type="xs:string"/>
+			<xs:element name="recommendationOfOversightCommitteeNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="sentToNationalNagpraGroupList">
+		<xs:sequence>
+			<xs:element name="sentToNationalNagpraGroup" type="sentToNationalNagpraGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="sentToNationalNagpraGroup">
+		<xs:sequence>
+			<xs:element name="sentToNationalNagpraDate" type="xs:string"/>
+			<xs:element name="sentToNationalNagpraNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="dateOfNationalNagpraApprovalGroupList">
+		<xs:sequence>
+			<xs:element name="dateOfNationalNagpraApprovalGroup" type="dateOfNationalNagpraApprovalGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="dateOfNationalNagpraApprovalGroup">
+		<xs:sequence>
+			<xs:element name="dateOfNationalNagpraApprovalDate" type="xs:string"/>
+			<xs:element name="dateOfNationalNagpraApprovalNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="dateOfThirtyDayNoticeGroupList">
+		<xs:sequence>
+			<xs:element name="dateOfThirtyDayNoticeGroup" type="dateOfThirtyDayNoticeGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="dateOfThirtyDayNoticeGroup">
+		<xs:sequence>
+			<xs:element name="dateOfThirtyDayNoticeDate" type="xs:string"/>
+			<xs:element name="dateOfThirtyDayNoticeType" type="xs:string"/>
+			<xs:element name="dateOfThirtyDayNoticeNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="transferGroupList">
+		<xs:sequence>
+			<xs:element name="transferGroup" type="transferGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="transferGroup">
+		<xs:sequence>
+			<xs:element name="transferDate" type="xs:string"/>
+			<xs:element name="transferNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="recommendationOfLocalCommitteeGroupList">
+		<xs:sequence>
+			<xs:element name="recommendationOfLocalCommitteeGroup" type="recommendationOfLocalCommitteeGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="recommendationOfLocalCommitteeGroup">
+		<xs:sequence>
+			<xs:element name="recommendationOfLocalCommitteeDate" type="xs:string"/>
+			<xs:element name="recommendationOfLocalCommitteeNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="responseFromNationalNagpraGroupList">
+		<xs:sequence>
+			<xs:element name="responseFromNationalNagpraGroup" type="responseFromNationalNagpraGroup" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="responseFromNationalNagpraGroup">
+		<xs:sequence>
+			<xs:element name="responseFromNationalNagpraDate" type="xs:string"/>
+			<xs:element name="responseFromNationalNagpraNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="claimDocumentsArchivedGroup">
+		<xs:sequence>
+			<xs:element name="claimDocumentsArchivedCheckbox" type="xs:string"/>
+			<xs:element name="claimDocumentsArchivedNote" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+</xs:schema>
