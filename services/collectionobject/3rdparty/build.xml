@@ -1,11 +1,11 @@
-
 <project name="collectionobject.3rdparty" default="package" basedir=".">
     <description>
         collectionobject service 3rd party
     </description>
-  <!-- set global properties for this build -->
+	
+  	<!-- set global properties for this build -->
     <property name="services.trunk" value="../../.."/>
-     <!-- enviornment should be declared before reading build.properties -->
+     <!-- environnment should be declared before reading build.properties -->
     <property environment="env" />
     <property file="${services.trunk}/build.properties" />
 	<property name="nuxeo-platform-collectionobjects_common" value="nuxeo-platform-collectionobjects_common"/>
