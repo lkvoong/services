@@ -125,8 +125,8 @@
     	<ant antfile="nuxeo-platform-nagpraclaim-anthropology/build.xml" target="undeploy" inheritall="false"/>
     </target>
 
-    <target name="dist"
-    description="generate distribution for nagpraclaim" depends="package">
+	<target name="dist" depends="package"
+    	description="generate distribution for nagpraclaim">
     	<ant antfile="nuxeo-platform-cs-nagpraclaim/build.xml" target="dist" inheritall="false"/>
     	<!--<ant antfile="nuxeo-platform-cs-nagpraclaim-pahma/build.xml" target="dist" inheritall="false"/>-->
     	<ant antfile="nuxeo-platform-nagpraclaim-anthropology/build.xml" target="dist" inheritall="false"/>
