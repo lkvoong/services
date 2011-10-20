@@ -14,9 +14,9 @@
 <!-- PATRICK ADVISES CORE SCHEMA CONSIST OF ONLY:
 	* Date filed (here nagpraClaimReceivedDate; should rename)
 	* Claim number (here nagpraClaimNumber; should rename)
-	* Filed by (here claimantName)
-	* On behalf of (need to add)
-	* Responsible department
+	* Filed by (here filedBy)
+	* On behalf of (here filedOnBehalfOf)
+	* Responsible department (here responsibleDepartment)
 -->
 
 <xs:schema
