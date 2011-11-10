@@ -28,7 +28,7 @@
         <module>jaxb</module>
         <module>hyperjaxb</module>
         <module>common</module>
-		<module>authority</module>
+		    <module>authority</module>
         <module>authorization-mgt</module> <!-- relies on authorization -->
         <module>common-test</module>
         <module>account</module> <!-- relies on authorization-mgt.import -->
@@ -50,6 +50,7 @@
         <module>batch</module>
         <module>imports</module>
         <module>location</module>
+        <module>place</module>
         <module>taxonomy</module>
         <module>movement</module>
         <module>report</module>
