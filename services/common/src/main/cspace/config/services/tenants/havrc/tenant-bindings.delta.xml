@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tenant:TenantBindingConfig
+	xmlns:merge='http://xmlmerge.el4j.elca.ch'
+	xmlns:tenant='http://collectionspace.org/services/common/tenant'>
+	    	 
+    <tenant:tenantBinding id="10" name="havrc.cspace.berkeley.edu" displayName="CollectionSpace Havrc Tenant" version="0.1">
+        <tenant:repositoryDomain name="default-domain" storageName="havrc-domain" repositoryClient="nuxeo-java" />
+    	
+    </tenant:tenantBinding>
+	    	       
+</tenant:TenantBindingConfig>
