@@ -23,6 +23,18 @@
 	<xs:element name="handwritten" type="xs:string"/>
 	<xs:element name="postToPublic" type="xs:string"/>
 
+	<xs:element name="elevationMin" type="xs:decimal"/>
+	<xs:element name="elevationMax" type="xs:decimal"/>
+	<xs:element name="elevationUnit" type="xs:string"/>
+	<xs:element name="elevationQualifier" type="xs:string"/>
+	<xs:element name="elevationNote" type="xs:string"/>
+
+	<xs:element name="depthMin" type="xs:decimal"/>
+	<xs:element name="depthMax" type="xs:decimal"/>
+	<xs:element name="depthUnit" type="xs:string"/>
+	<xs:element name="depthQualifier" type="xs:string"/>
+	<xs:element name="depthNote" type="xs:string"/>
+		
 	<xs:element name="ucjepsTypeSpecimenGroupList" type="ucjepsTypeSpecimenGroupList"/>
 
 	<!-- TypeSpecimenGroup NOT REPEATABLE in UCJEPS, but defining the group outside of the list didn't work -->
