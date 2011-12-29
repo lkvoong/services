@@ -132,11 +132,12 @@
 							maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
+
     <xs:complexType name="associatedTaxaGroup">
         <xs:sequence>
             <xs:element name="taxon" type="xs:string"/>
-            <xs:element name="commonName" type="xs:integer"/>
-            <xs:element name="interaction" type="xs:integer"/>
+            <xs:element name="commonName" type="xs:string"/>
+            <xs:element name="interaction" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
 
