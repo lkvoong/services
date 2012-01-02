@@ -33,6 +33,11 @@
   <xs:element name="catalogDate" type="xs:string"/>
   -->
 
+    <xs:element name="typeSpecimenKind" type="xs:string"/>
+    <xs:element name="typeSpecimenReference" type="xs:string"/>
+    <xs:element name="typeSpecimenRefPage" type="xs:string"/>
+    <xs:element name="typeSpecimenNotes" type="xs:string"/>
+
     <xs:element name="labelHeader" type="xs:string"/>
     <xs:element name="labelFooter" type="xs:string"/>
 
@@ -43,7 +48,7 @@
     <xs:element name="fieldLocLongDecimal" type="xs:string"/>
     <xs:element name="fieldLocElevation" type="xs:string"/>
 
-  <!-- These will become contolled lists -->
+    <!-- These will become contolled lists -->
     <xs:element name="fieldLocGeodeticDatum" type="xs:string"/>
     <xs:element name="fieldLocCoordinateSystem" type="xs:string"/>
     <xs:element name="fieldLocCounty" type="xs:string"/>
@@ -52,7 +57,6 @@
     <xs:element name="fieldLocHigherGeography" type="xs:string"/>
 
     <xs:element name="taxonomicIdentGroupList" type="taxonomicIdentGroupList"/>
-    <xs:element name="typeSpecimenGroupList" type="typeSpecimenGroupList"/>
     <xs:element name="fieldCollElevationGroupList" type="fieldCollElevationGroupList"/>
     <xs:element name="fieldCollDepthGroupList" type="fieldCollDepthGroupList"/>
     <xs:element name="associatedTaxaGroupList" type="associatedTaxaGroupList"/>
@@ -74,23 +78,6 @@
             <xs:element name="identKind" type="xs:string"/>
             <xs:element name="reference" type="xs:string"/>
             <xs:element name="refPage" type="xs:string"/>
-            <xs:element name="notes" type="xs:string"/>
-        </xs:sequence>
-    </xs:complexType>
-
-    <xs:complexType name="typeSpecimenGroupList">
-        <xs:sequence>
-            <xs:element name="typeSpecimenGroup" type="typeSpecimenGroup" minOccurs="0"
-							maxOccurs="unbounded"/>
-        </xs:sequence>
-    </xs:complexType>
-    <xs:complexType name="typeSpecimenGroup">
-        <xs:sequence>
-            <xs:element name="kindOfType" type="xs:string"/>
-            <xs:element name="reference" type="xs:string"/>
-            <xs:element name="refPage" type="xs:string"/>
-            <xs:element name="institution" type="xs:string"/>
-            <xs:element name="institutionType" type="xs:string"/>
             <xs:element name="notes" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
@@ -133,7 +120,6 @@
 							maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
-
     <xs:complexType name="associatedTaxaGroup">
         <xs:sequence>
             <xs:element name="taxon" type="xs:string"/>
@@ -148,7 +134,6 @@
 							maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
-
     <xs:complexType name="annotationGroup">
         <xs:sequence>
             <xs:element name="annotationType" type="xs:string"/>

@@ -36,26 +36,4 @@
 	<xs:element name="depthUnit" type="xs:string"/>
 	<xs:element name="depthQualifier" type="xs:string"/>
 	<xs:element name="depthNote" type="xs:string"/>
-	
-	<xs:element name="ucjepsTypeSpecimenGroupList" type="ucjepsTypeSpecimenGroupList"/>
-
-	<!-- TypeSpecimenGroup NOT REPEATABLE in UCJEPS, but defining the group outside of the list didn't work -->
-	<!-- Created ucjepsTypeSpecimenGroup (rather than using existing typeSpecimenGroup in hearst/lifesci tenant) so the fields could have names that distinguish them from similar fields in taxonomicIdentGroup and elsewhere -->
-
-	<xs:complexType name="ucjepsTypeSpecimenGroupList">
-		<xs:sequence>
-			<xs:element name="ucjepsTypeSpecimenGroup" type="ucjepsTypeSpecimenGroup" minOccurs="0" maxOccurs="unbounded"/>
-		</xs:sequence>
-	</xs:complexType>
-
-	<xs:complexType name="ucjepsTypeSpecimenGroup">
-		<xs:sequence>
-			<xs:element name="ucjepsTypeSpecimenKindOfType" type="xs:string"/>
-			<xs:element name="ucjepsTypeSpecimenReference" type="xs:string"/>
-			<xs:element name="ucjepsTypeSpecimenRefPage" type="xs:string"/>
-			<xs:element name="ucjepsTypeSpecimenInstitution" type="xs:string"/>
-			<xs:element name="ucjepsTypeSpecimenInstitutionType" type="xs:string"/>
-			<xs:element name="ucjepsTypeSpecimenNotes" type="xs:string"/>
-		</xs:sequence>
-	</xs:complexType>
 </xs:schema>
