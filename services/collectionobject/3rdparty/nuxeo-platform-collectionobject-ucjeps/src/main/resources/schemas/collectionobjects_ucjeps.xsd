@@ -12,28 +12,8 @@
 -->
 
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns="http://collectionspace.org/services/collectionobject/local/ucjeps" xmlns="http://collectionspace.org/services/collectionobject/local/ucjeps" targetNamespace="http://collectionspace.org/services/collectionobject/local/ucjeps" version="0.1">
-	<!-- used for testing
-	<xs:element name="nh-string" type="xs:string" />
-	<xs:element name="nh-int" type="xs:int"/>
-	<xs:element name="nh-long" type="xs:long"/>
-	<xs:element name="nh-date" type="xs:dateTime"/>
-	<xs:element name="nh-note" type="xs:string"/>
-	-->
 
 	<xs:element name="handwritten" type="xs:string"/>
 	<xs:element name="postToPublic" type="xs:string"/>
 
-	<!-- Redefining elevation and depth, because they're not repeatable in ucjeps. -->
-	
-	<xs:element name="elevationMin" type="xs:decimal"/>
-	<xs:element name="elevationMax" type="xs:decimal"/>
-	<xs:element name="elevationUnit" type="xs:string"/>
-	<xs:element name="elevationQualifier" type="xs:string"/>
-	<xs:element name="elevationNote" type="xs:string"/>
-
-	<xs:element name="depthMin" type="xs:decimal"/>
-	<xs:element name="depthMax" type="xs:decimal"/>
-	<xs:element name="depthUnit" type="xs:string"/>
-	<xs:element name="depthQualifier" type="xs:string"/>
-	<xs:element name="depthNote" type="xs:string"/>
 </xs:schema>
