@@ -1,7 +1,6 @@
-
 <project name="place" default="package" basedir=".">
     <description>
-        Location Authority service
+        Place Authority service
     </description>
   <!-- set global properties for this build -->
     <property name="services.trunk" value="../.."/>
