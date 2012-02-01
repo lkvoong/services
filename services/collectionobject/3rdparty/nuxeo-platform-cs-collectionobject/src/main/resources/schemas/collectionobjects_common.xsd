@@ -342,7 +342,7 @@
 
     <!--  Object Collection Information Group -->
 
-    <xs:element name="fieldCollectionDate" type="xs:string"/>
+    <xs:element name="fieldCollectionDateGroup" type="structuredDateGroup"/> <!-- Patching this until CSPACE-4755 is fixed in 2.1 or 2.2 -->
     <xs:element name="fieldCollectionMethods">
         <xs:complexType>
             <xs:sequence>
