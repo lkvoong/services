@@ -107,30 +107,9 @@ public class ImportsResource extends ResourceBase {
     }
 
     @Override
-    //public Class<ImportsCommon> getCommonPartClass() {
-    public Class getCommonPartClass() {
-    	try {
-            return Class.forName("org.collectionspace.services.imports.ImportsCommon");//.class;
-        } catch (ClassNotFoundException e){
-            return null;
-        }
+    public Class<?> getCommonPartClass() {
+		return ImportsCommon.class;
     }
-
-
-    /* KRUFT:
-
-      1) here is how you can deal with poxpayloads:
-  	        //PoxPayloadIn input = new PoxPayloadIn(xmlPayload);
-        	//ServiceContext<PoxPayloadIn, PoxPayloadOut> ctx = createServiceContext(input);
-      2) here are some notes:
-            //First, save the import request to a local file.
-            // It may be huge. To accept a stream, send it as an upload request; see acceptUpload()
-      3) useful for debugging:
-              System.out.println("\r\n\r\n\r\n=====================\r\n   RUNNING create with xmlPayload: \r\n"+xmlPayload);
-    */
-
-
-    //public static final String TEMPLATE_DIR = "/src/trunk/services/imports/service/src/main/resources/templates";
 
     private static String _templateDir = null;
     public static String getTemplateDir(){
@@ -143,6 +122,7 @@ public class ImportsResource extends ResourceBase {
 
     @POST
     public Response create(@Context UriInfo ui, String xmlPayload) {
+System.out.println("create 1");	
         try {
         	return this.create(xmlPayload);
         } catch (Exception e) {
@@ -157,6 +137,7 @@ public class ImportsResource extends ResourceBase {
     @Consumes("application/xml")
     @Produces("application/xml")
     public javax.ws.rs.core.Response create(String xmlPayload) {
+System.out.println("create 2");
         String result;
         javax.ws.rs.core.Response.ResponseBuilder rb;
         try {
@@ -230,10 +211,12 @@ public class ImportsResource extends ResourceBase {
     }
 
     public static String payloadToFilename(String xmlPayload) throws Exception {
+System.out.println("payloadToFilename");
         xmlPayload = encodeAmpersands(xmlPayload);
         String requestDir = FileTools.createTmpDir("imports-request-").getCanonicalPath();
         File requestFile = FileTools.saveFile(requestDir, "request.xml", xmlPayload, true);
         if (requestFile == null){
+System.out.println("Could not create file in requestDir: "+requestDir);
             throw new FileNotFoundException("Could not create file in requestDir: "+requestDir);
         }
         String requestFilename = requestFile.getCanonicalPath();
@@ -297,6 +280,7 @@ public class ImportsResource extends ResourceBase {
     @Produces("application/xml")
     public javax.ws.rs.core.Response acceptUpload(@Context HttpServletRequest req,
     		                                   MultipartFormDataInput partFormData) {
+System.out.println("acceptUpload");
     	javax.ws.rs.core.Response response = null;
         StringBuffer resultBuf = new StringBuffer();
     	try {
