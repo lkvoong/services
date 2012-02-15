@@ -34,6 +34,18 @@
 		</tenant:serviceBindings>
 		
 		<tenant:serviceBindings merge:matcher="id" id="Media">
+			<service:DocHandlerParams xmlns:service="http://collectionspace.org/services/common/service">
+				<service:params>
+					<service:ListResultsFields>
+						<service:ListResultField merge:matcher="skip" merge:action="insert">
+							<service:element>scientificTaxonomy</service:element>
+							<service:schema>media_ucjeps</service:schema>
+							<service:xpath>scientificTaxonomy</service:xpath>
+						</service:ListResultField>
+					</service:ListResultsFields>
+				</service:params>
+			</service:DocHandlerParams>
+
 			<service:object xmlns:service="http://collectionspace.org/services/common/service" >
 				<service:part id="3" merge:matcher="skip" merge:action="insert" control_group="Managed" versionable="true" auditable="false" label="media_ucjeps" updated="" order="3">
 				  <service:content contentType="application/xml">
