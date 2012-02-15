@@ -6,7 +6,7 @@
     <tenant:tenantBinding id="25" name="botgarden.cspace.berkeley.edu" displayName="CollectionSpace Botanical Garden Tenant" version="0.1">
         <tenant:repositoryDomain name="default-domain" storageName="botgarden-domain" repositoryClient="nuxeo-java" />
 
-		<tenant:serviceBindings merge:matcher="id" id="CollectionObjects">
+		<tenant:serviceBindings merge:matcher="id" id="CollectionObjects">	
 			<service:object xmlns:service="http://collectionspace.org/services/common/service" >
 				<service:part id="3" merge:matcher="skip" merge:action="insert" control_group="Managed" versionable="true" auditable="false" label="collectionobjects_naturalhistory" updated="" order="3">
 				  <service:content contentType="application/xml">
@@ -22,6 +22,13 @@
 		</tenant:serviceBindings>
 		
 		<tenant:serviceBindings merge:matcher="id" id="Media">
+			<service:properties merge:matcher="tag" merge:action="replace" xmlns:service="http://collectionspace.org/services/common/service">
+				<types:item xmlns:types="http://collectionspace.org/services/common/types">
+					<types:key>objectNumberProperty</types:key>
+					<types:value>locationDate</types:value>
+				</types:item>
+			</service:properties>
+
 			<service:object xmlns:service="http://collectionspace.org/services/common/service" >
 				<service:part id="3" merge:matcher="skip" merge:action="insert" control_group="Managed" versionable="true" auditable="false" label="media_botgarden" updated="" order="3">
 				  <service:content contentType="application/xml">
