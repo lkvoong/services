@@ -21,14 +21,36 @@
 
 			<service:object xmlns:service="http://collectionspace.org/services/common/service" >
 				<service:part id="3" merge:matcher="skip" merge:action="insert" control_group="Managed" versionable="true" auditable="false" label="collectionobjects_naturalhistory" updated="" order="3">
-				  <service:content contentType="application/xml">
-					<service:xmlContent namespaceURI="http://collectionspace.org/services/collectionobject/domain/naturalhistory" schemaLocation="http://collectionspace.org/services/collectionobject/domain/naturalhistory http://collectionspace.org/services/collectionobject/domain/collectionobjects_naturalhistory.xsd" />
-				  </service:content>
+					<service:properties>
+						<types:item xmlns:types="http://collectionspace.org/services/common/types">
+							<types:key>authRef</types:key>
+							<types:value>taxonomicIdentGroupList/*/taxon</types:value>
+						</types:item>
+						<types:item xmlns:types="http://collectionspace.org/services/common/types">
+							<types:key>authRef</types:key>
+							<types:value>associatedTaxaGroupList/*/taxon</types:value>
+						</types:item>
+						<types:item xmlns:types="http://collectionspace.org/services/common/types">
+							<types:key>authRef</types:key>
+							<types:value>taxonomicIdentGroupList/*/identBy</types:value>
+						</types:item>
+						<types:item xmlns:types="http://collectionspace.org/services/common/types">
+							<types:key>authRef</types:key>
+							<types:value>taxonomicIdentGroupList/*/institution</types:value>
+						</types:item>
+						<types:item xmlns:types="http://collectionspace.org/services/common/types">
+							<types:key>authRef</types:key>
+							<types:value>annotationGroupList/*/annotationAuthor</types:value>
+						</types:item>
+					</service:properties>
+					<service:content contentType="application/xml">
+						<service:xmlContent namespaceURI="http://collectionspace.org/services/collectionobject/domain/naturalhistory" schemaLocation="http://collectionspace.org/services/collectionobject/domain/naturalhistory http://collectionspace.org/services/collectionobject/domain/collectionobjects_naturalhistory.xsd" />
+					</service:content>
 				</service:part>
 				<service:part id="4" merge:matcher="skip" merge:action="insert" control_group="Managed" versionable="true" auditable="false" label="collectionobjects_ucjeps" updated="" order="4">
-				  <service:content contentType="application/xml">
-					<service:xmlContent namespaceURI="http://collectionspace.org/services/collectionobject/local/ucjeps" schemaLocation="http://collectionspace.org/services/collectionobject/local/ucjeps http://collectionspace.org/services/collectionobject/local/collectionobjects_ucjeps.xsd" />
-				  </service:content>
+					<service:content contentType="application/xml">
+						<service:xmlContent namespaceURI="http://collectionspace.org/services/collectionobject/local/ucjeps" schemaLocation="http://collectionspace.org/services/collectionobject/local/ucjeps http://collectionspace.org/services/collectionobject/local/collectionobjects_ucjeps.xsd" />
+					</service:content>
 				</service:part>
 			</service:object>
 		</tenant:serviceBindings>
@@ -48,9 +70,15 @@
 
 			<service:object xmlns:service="http://collectionspace.org/services/common/service" >
 				<service:part id="3" merge:matcher="skip" merge:action="insert" control_group="Managed" versionable="true" auditable="false" label="media_ucjeps" updated="" order="3">
-				  <service:content contentType="application/xml">
-					<service:xmlContent namespaceURI="http://collectionspace.org/services/media/local/ucjeps" schemaLocation="http://collectionspace.org/services/media/local/ucjeps http://collectionspace.org/services/media/local/media_ucjeps.xsd" />
-				  </service:content>
+					<service:properties>
+						<types:item xmlns:types="http://collectionspace.org/services/common/types">
+							<types:key>authRef</types:key>
+							<types:value>scientificTaxonomy</types:value>
+						</types:item>
+					</service:properties>
+					<service:content contentType="application/xml">
+						<service:xmlContent namespaceURI="http://collectionspace.org/services/media/local/ucjeps" schemaLocation="http://collectionspace.org/services/media/local/ucjeps http://collectionspace.org/services/media/local/media_ucjeps.xsd" />
+					</service:content>
 				</service:part>
 			</service:object>
 		</tenant:serviceBindings>
