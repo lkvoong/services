@@ -73,6 +73,11 @@
               <service:element>responsibleDepartment</service:element>
               <service:xpath>responsibleDepartments/[0]</service:xpath>
             </service:ListResultField>
+            <service:ListResultField>
+              <service:element>taxon</service:element>
+              <service:schema>collectionobjects_naturalhistory</service:schema>
+              <service:xpath>taxonomicIdentGroupList/[0]/taxon</service:xpath>
+            </service:ListResultField>
           </service:ListResultsFields>
         </service:params>
       </service:DocHandlerParams>
@@ -1175,10 +1180,21 @@
               <service:element>blobCsid</service:element>
               <service:xpath>blobCsid</service:xpath>
             </service:ListResultField>
+            <service:ListResultField>
+              <service:element>scientificTaxonomy</service:element>
+              <service:schema>media_ucjeps</service:schema>
+              <service:xpath>scientificTaxonomy</service:xpath>
+            </service:ListResultField>
           </service:ListResultsFields>
         </service:params>
       </service:DocHandlerParams>
       <service:validatorHandler xmlns:service="http://collectionspace.org/services/common/service">org.collectionspace.services.media.nuxeo.MediaValidatorHandler</service:validatorHandler>
+      <service:properties xmlns:service="http://collectionspace.org/services/common/service">
+        <types:item xmlns:types="http://collectionspace.org/services/common/types">
+          <types:key>objectNumberProperty</types:key>
+          <types:value>locationDate</types:value>
+        </types:item>
+      </service:properties>
       <service:object xmlns:service="http://collectionspace.org/services/common/service" name="Media" version="0.1">
         <service:part id="0" control_group="Managed" versionable="true" auditable="false" label="media-system" updated="" order="0">
           <service:content contentType="application/xml">
