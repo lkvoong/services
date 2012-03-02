@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<!--
+    Propagation schema (XSD)
+    
+    Entity  : Propagation
+    Part    : Common
+    Used for: Nuxeo EP core document type
+
+    $LastChangedRevision: 5941 $
+    $LastChangedDate: 2011-11-14 15:38:04 -0800 (Mon, 14 Nov 2011) $
+-->
+
+<xs:schema 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:ns="http://collectionspace.org/propagation/"
+    xmlns="http://collectionspace.org/propagation/"
+    targetNamespace="http://collectionspace.org/propagation/"
+    version="0.1">
+    
+    <!-- See http://wiki.collectionspace.org/display/collectionspace/Location+and+Propagation+Control+Schema -->
+    
+    <!--  Object Location Information Group -->
+    <xs:element name="currentLocation" type="xs:string"/>
+    <xs:element name="currentLocationFitness" type="xs:string"/>
+    <xs:element name="currentLocationNote" type="xs:string"/>
+    <xs:element name="locationDate" type="xs:date"/>
+    <xs:element name="normalLocation" type="xs:string"/>
+    
+    <!--  Propagation Information Group -->
+    <xs:element name="propagationContact" type="xs:string"/>
+    <xs:element name="propagationMethods">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="propagationMethod" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="propagationNote" type="xs:string"/>
+    <xs:element name="propagationReferenceNumber" type="xs:string"/>
+    <xs:element name="plannedRemovalDate" type="xs:date"/>
+    <xs:element name="removalDate" type="xs:date"/>
+    <xs:element name="reasonForMove" type="xs:string"/>
+    
+</xs:schema>
