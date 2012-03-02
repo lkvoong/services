@@ -534,6 +534,28 @@
           </service:content>
         </service:part>
         <service:part id="3" control_group="Managed" versionable="true" auditable="false" label="collectionobjects_naturalhistory" updated="" order="3">
+          <service:properties>
+            <types:item xmlns:types="http://collectionspace.org/services/common/types">
+              <types:key>authRef</types:key>
+              <types:value>taxonomicIdentGroupList/*/taxon</types:value>
+            </types:item>
+            <types:item xmlns:types="http://collectionspace.org/services/common/types">
+              <types:key>authRef</types:key>
+              <types:value>associatedTaxaGroupList/*/taxon</types:value>
+            </types:item>
+            <types:item xmlns:types="http://collectionspace.org/services/common/types">
+              <types:key>authRef</types:key>
+              <types:value>taxonomicIdentGroupList/*/identBy</types:value>
+            </types:item>
+            <types:item xmlns:types="http://collectionspace.org/services/common/types">
+              <types:key>authRef</types:key>
+              <types:value>taxonomicIdentGroupList/*/institution</types:value>
+            </types:item>
+            <types:item xmlns:types="http://collectionspace.org/services/common/types">
+              <types:key>authRef</types:key>
+              <types:value>annotationGroupList/*/annotationAuthor</types:value>
+            </types:item>
+          </service:properties>
           <service:content contentType="application/xml">
             <service:xmlContent namespaceURI="http://collectionspace.org/services/collectionobject/domain/naturalhistory" schemaLocation="http://collectionspace.org/services/collectionobject/domain/naturalhistory http://collectionspace.org/services/collectionobject/domain/collectionobjects_naturalhistory.xsd" />
           </service:content>
@@ -1182,7 +1204,7 @@
             </service:ListResultField>
             <service:ListResultField>
               <service:element>scientificTaxonomy</service:element>
-              <service:schema>media_ucjeps</service:schema>
+              <service:schema>media_botgarden</service:schema>
               <service:xpath>scientificTaxonomy</service:xpath>
             </service:ListResultField>
           </service:ListResultsFields>
@@ -1274,6 +1296,12 @@
           </service:content>
         </service:part>
         <service:part id="3" control_group="Managed" versionable="true" auditable="false" label="media_botgarden" updated="" order="3">
+          <service:properties>
+            <types:item xmlns:types="http://collectionspace.org/services/common/types">
+              <types:key>authRef</types:key>
+              <types:value>scientificTaxonomy</types:value>
+            </types:item>
+          </service:properties>
           <service:content contentType="application/xml">
             <service:xmlContent namespaceURI="http://collectionspace.org/services/media/local/botgarden" schemaLocation="http://collectionspace.org/services/media/local/botgarden http://collectionspace.org/services/media/local/media_botgarden.xsd" />
           </service:content>
@@ -2748,6 +2776,73 @@
         <service:part id="1" control_group="Managed" versionable="true" auditable="false" label="accountroles" updated="" order="1">
           <service:content contentType="application/xml">
             <service:xmlContent namespaceURI="http://collectionspace.org/services/authorization" schemaLocation="http://collectionspace.org/services/authorization http://services.collectionspace.org/authorization/accounts_roles.xsd" />
+          </service:content>
+        </service:part>
+      </service:object>
+    </tenant:serviceBindings>
+    <tenant:serviceBindings id="Propagations" name="Propagations" type="procedure" version="0.1">
+      <service:uriPath xmlns:service="http://collectionspace.org/services/common/service">/propagations/*/workflow/</service:uriPath>
+      <service:repositoryDomain xmlns:service="http://collectionspace.org/services/common/service">default-domain</service:repositoryDomain>
+      <service:documentHandler xmlns:service="http://collectionspace.org/services/common/service">org.collectionspace.services.propagation.nuxeo.PropagationDocumentModelHandler</service:documentHandler>
+      <service:DocHandlerParams xmlns:service="http://collectionspace.org/services/common/service">
+        <service:params>
+          <service:ListResultsFields>
+            <service:ListResultField>
+              <service:element>propagationReferenceNumber</service:element>
+              <service:xpath>propagationReferenceNumber</service:xpath>
+            </service:ListResultField>
+            <service:ListResultField>
+              <service:element>currentLocation</service:element>
+              <service:xpath>currentLocation</service:xpath>
+            </service:ListResultField>
+            <service:ListResultField>
+              <service:element>locationDate</service:element>
+              <service:xpath>locationDate</service:xpath>
+            </service:ListResultField>
+          </service:ListResultsFields>
+        </service:params>
+      </service:DocHandlerParams>
+      <service:validatorHandler xmlns:service="http://collectionspace.org/services/common/service">org.collectionspace.services.propagation.nuxeo.PropagationValidatorHandler</service:validatorHandler>
+      <service:object xmlns:service="http://collectionspace.org/services/common/service" name="Propagation" version="0.1">
+        <service:part id="0" control_group="Managed" versionable="true" auditable="false" label="propagations-system" updated="" order="0">
+          <service:content contentType="application/xml">
+            <service:xmlContent namespaceURI="http://collectionspace.org/services/common/system" schemaLocation="http://collectionspace.org/services/common/system http://collectionspace.org/services/common/system/system-response.xsd" />
+          </service:content>
+        </service:part>
+        <service:part id="1" control_group="Managed" versionable="true" auditable="false" label="propagations_common" updated="" order="1">
+          <service:properties>
+            <types:item xmlns:types="http://collectionspace.org/services/common/types">
+              <types:key>authRef</types:key>
+              <types:value>currentLocation</types:value>
+            </types:item>
+            <types:item xmlns:types="http://collectionspace.org/services/common/types">
+              <types:key>authRef</types:key>
+              <types:value>normalLocation</types:value>
+            </types:item>
+            <types:item xmlns:types="http://collectionspace.org/services/common/types">
+              <types:key>authRef</types:key>
+              <types:value>propagationContact</types:value>
+            </types:item>
+            <types:item xmlns:types="http://collectionspace.org/services/common/types">
+              <types:key>termRef</types:key>
+              <types:value>currentLocationFitness</types:value>
+            </types:item>
+            <types:item xmlns:types="http://collectionspace.org/services/common/types">
+              <types:key>termRef</types:key>
+              <types:value>reasonForMove</types:value>
+            </types:item>
+            <types:item xmlns:types="http://collectionspace.org/services/common/types">
+              <types:key>termRef</types:key>
+              <types:value>propagationMethods|propagationMethod</types:value>
+            </types:item>
+          </service:properties>
+          <service:content contentType="application/xml">
+            <service:xmlContent namespaceURI="http://collectionspace.org/services/propagation" schemaLocation="http://collectionspace.org/services/propagation http://services.collectionspace.org/propagation/propagations_common.xsd" />
+          </service:content>
+        </service:part>
+        <service:part id="2" control_group="Managed" versionable="true" auditable="false" label="collectionspace_core" updated="" order="2">
+          <service:content contentType="application/xml">
+            <service:xmlContent namespaceURI="http://collectionspace.org/collectionspace_core/" schemaLocation="http://collectionspace.org/collectionspace_core/ http://services.collectionspace.org/collectionspace_core.xsd" />
           </service:content>
         </service:part>
       </service:object>

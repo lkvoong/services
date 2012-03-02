@@ -70,6 +70,7 @@
         <module>IntegrationTests</module>
         <module>PerformanceTests</module>
         <module>security</module>
+		<module>propagation</module>
     </modules>
 
     <dependencies>
