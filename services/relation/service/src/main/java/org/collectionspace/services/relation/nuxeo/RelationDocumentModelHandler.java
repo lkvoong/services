@@ -397,13 +397,13 @@ public class RelationDocumentModelHandler
     
     private String getCommonSchemaNameForDocType(String docType) {
     	String common_schema = null;
-    	if("Person".equals(docType))
+    	if(docType.startsWith("Person"))
     		common_schema = PersonAuthorityClient.SERVICE_ITEM_COMMON_PART_NAME;
-    	else if("Organization".equals(docType))
+    	else if(docType.startsWith("Organization"))
     		common_schema = OrgAuthorityClient.SERVICE_ITEM_COMMON_PART_NAME;
-    	else if("Locationitem".equals(docType))
+    	else if(docType.startsWith("Locationitem"))
     		common_schema = LocationAuthorityClient.SERVICE_ITEM_COMMON_PART_NAME;
-    	else if("Taxon".equals(docType))
+    	else if(docType.startsWith("Taxon"))
     		common_schema = TaxonomyAuthorityClient.SERVICE_ITEM_COMMON_PART_NAME;
     	//else leave it null.
     	return common_schema;
