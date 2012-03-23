@@ -73,7 +73,7 @@ public class PropagationAuthRefsTest extends BaseServiceTest {
     private List<String> propagationIdsCreated = new ArrayList<String>();
     private List<String> personIdsCreated = new ArrayList<String>();
     private String personAuthCSID = null;
-    private String propagationContactRefName = null;
+    // private String propagationContactRefName = null;
 
     // FIXME: Can add 'current location' and 'normal location'
     // as authRefs to tests below, and increase the
@@ -113,7 +113,7 @@ public class PropagationAuthRefsTest extends BaseServiceTest {
         String identifier = createIdentifier();
 
         // Create all the person refs and entities
-        createPersonRefs();
+        // createPersonRefs();
 
         // Create a new Propagation resource.
         //
@@ -121,9 +121,9 @@ public class PropagationAuthRefsTest extends BaseServiceTest {
         // references, and will refer to Person resources by their refNames.
         PropagationClient propagationClient = new PropagationClient();
         PoxPayloadOut multipart = createPropagationInstance(
-                "propagationReferenceNumber-" + identifier,
-                GregorianCalendarDateTimeUtils.timestampUTC(),
-                propagationContactRefName);
+                "propagationReferenceNumber-" + identifier);
+		//used to include propagationContactRefName in call to createPropagationInstance
+		//used to include GregorianCalendarDateTimeUtils.timestampUTC() in call to createPropagationInstance
         ClientResponse<Response> res = propagationClient.create(multipart);
         int statusCode = res.getStatus();
 
@@ -154,29 +154,29 @@ public class PropagationAuthRefsTest extends BaseServiceTest {
         propagationIdsCreated.add(extractId(res));
     }
 
-    protected void createPersonRefs(){
-
-        PersonAuthorityClient personAuthClient = new PersonAuthorityClient();
-        // Create a temporary PersonAuthority resource, and its corresponding
-        // refName by which it can be identified.
-    	PoxPayloadOut multipart = PersonAuthorityClientUtils.createPersonAuthorityInstance(
-    	    PERSON_AUTHORITY_NAME, PERSON_AUTHORITY_NAME, personAuthClient.getCommonPartName());
-        ClientResponse<Response> res = personAuthClient.create(multipart);
-        int statusCode = res.getStatus();
-
-        Assert.assertTrue(REQUEST_TYPE.isValidStatusCode(statusCode),
-            invalidStatusCodeMessage(REQUEST_TYPE, statusCode));
-        Assert.assertEquals(statusCode, STATUS_CREATED);
-        personAuthCSID = extractId(res);
-
-        String authRefName = PersonAuthorityClientUtils.getAuthorityRefName(personAuthCSID, null);
-        
-        // Create temporary Person resources, and their corresponding refNames
-        // by which they can be identified.
-       	String csid = createPerson("Melvin", "PropagationContact", "melvinPropagationContact", authRefName);
-        personIdsCreated.add(csid);
-        propagationContactRefName = PersonAuthorityClientUtils.getPersonRefName(personAuthCSID, csid, null);
-    }
+    // protected void createPersonRefs(){
+    // 
+    //     PersonAuthorityClient personAuthClient = new PersonAuthorityClient();
+    //     // Create a temporary PersonAuthority resource, and its corresponding
+    //     // refName by which it can be identified.
+    // 	PoxPayloadOut multipart = PersonAuthorityClientUtils.createPersonAuthorityInstance(
+    // 	    PERSON_AUTHORITY_NAME, PERSON_AUTHORITY_NAME, personAuthClient.getCommonPartName());
+    //     ClientResponse<Response> res = personAuthClient.create(multipart);
+    //     int statusCode = res.getStatus();
+    // 
+    //     Assert.assertTrue(REQUEST_TYPE.isValidStatusCode(statusCode),
+    //         invalidStatusCodeMessage(REQUEST_TYPE, statusCode));
+    //     Assert.assertEquals(statusCode, STATUS_CREATED);
+    //     personAuthCSID = extractId(res);
+    // 
+    //     String authRefName = PersonAuthorityClientUtils.getAuthorityRefName(personAuthCSID, null);
+    //     
+    //     // Create temporary Person resources, and their corresponding refNames
+    //     // by which they can be identified.
+    //    	String csid = createPerson("Melvin", "PropagationContact", "melvinPropagationContact", authRefName);
+    //     personIdsCreated.add(csid);
+    //     propagationContactRefName = PersonAuthorityClientUtils.getPersonRefName(personAuthCSID, csid, null);
+    // }
     
     protected String createPerson(String firstName, String surName, String shortId, String authRefName ) {
         PersonAuthorityClient personAuthClient = new PersonAuthorityClient();
@@ -234,7 +234,7 @@ public class PropagationAuthRefsTest extends BaseServiceTest {
         }
         // Check a couple of fields
         // FIXME
-        Assert.assertEquals(propagationCommon.getPropagationContact(), propagationContactRefName);
+        // Assert.assertEquals(propagationCommon.getPropagationContact(), propagationContactRefName);
         
         // Get the auth refs and check them
         ClientResponse<AuthorityRefList> res2 =
@@ -335,13 +335,11 @@ public class PropagationAuthRefsTest extends BaseServiceTest {
         return SERVICE_PATH_COMPONENT;
     }
 
-   private PoxPayloadOut createPropagationInstance(String propagationReferenceNumber,
-            String locationDate,
-            String propagationContact) {
+   private PoxPayloadOut createPropagationInstance(String propagationReferenceNumber) {
         PropagationsCommon propagationCommon = new PropagationsCommon();
         propagationCommon.setPropagationReferenceNumber(propagationReferenceNumber);
-        propagationCommon.setLocationDate(locationDate);
-        propagationCommon.setPropagationContact(propagationContact);
+        // propagationCommon.setLocationDate(locationDate);
+        // propagationCommon.setPropagationContact(propagationContact);
         PoxPayloadOut multipart = new PoxPayloadOut(this.getServicePathComponent());
         PayloadOutputPart commonPart =
             multipart.addPart(propagationCommon, MediaType.APPLICATION_XML_TYPE);

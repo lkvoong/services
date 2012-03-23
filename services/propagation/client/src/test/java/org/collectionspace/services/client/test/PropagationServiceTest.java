@@ -37,7 +37,7 @@ import org.collectionspace.services.client.CollectionSpaceClient;
 import org.collectionspace.services.client.PropagationClient;
 import org.collectionspace.services.jaxb.AbstractCommonList;
 import org.collectionspace.services.propagation.PropagationsCommon;
-import org.collectionspace.services.propagation.PropagationMethodsList;
+// import org.collectionspace.services.propagation.PropagationMethodsList;
 
 import org.jboss.resteasy.client.ClientResponse;
 
@@ -306,21 +306,21 @@ public class PropagationServiceTest extends AbstractServiceTestImpl {
         // Check selected fields.
 
         // Check the values of one or more date/time fields.
-        if (logger.isDebugEnabled()) {
-            logger.debug("locationDate=" + propagationCommon.getLocationDate());
-            logger.debug("TIMESTAMP_UTC=" + TIMESTAMP_UTC);
-        }
-        Assert.assertTrue(propagationCommon.getLocationDate().equals(TIMESTAMP_UTC));
-        Assert.assertTrue(propagationCommon.getPlannedRemovalDate().equals(TIMESTAMP_UTC));
-        Assert.assertNull(propagationCommon.getRemovalDate());
+        // if (logger.isDebugEnabled()) {
+        //     logger.debug("locationDate=" + propagationCommon.getLocationDate());
+        //     logger.debug("TIMESTAMP_UTC=" + TIMESTAMP_UTC);
+        // }
+        // Assert.assertTrue(propagationCommon.getLocationDate().equals(TIMESTAMP_UTC));
+        // Assert.assertTrue(propagationCommon.getPlannedRemovalDate().equals(TIMESTAMP_UTC));
+        // Assert.assertNull(propagationCommon.getRemovalDate());
         
         // Check the values of fields containing Unicode UTF-8 (non-Latin-1) characters.
        if(logger.isDebugEnabled()){
             logger.debug("UTF-8 data sent=" + getUTF8DataFragment() + "\n"
-                    + "UTF-8 data received=" + propagationCommon.getPropagationNote());
+                    + "UTF-8 data received=" + propagationCommon.getPropComments());
     }
-        Assert.assertEquals(propagationCommon.getPropagationNote(), getUTF8DataFragment(),
-                "UTF-8 data retrieved '" + propagationCommon.getPropagationNote()
+        Assert.assertEquals(propagationCommon.getPropComments(), getUTF8DataFragment(),
+                "UTF-8 data retrieved '" + propagationCommon.getPropComments()
                 + "' does not match expected data '" + getUTF8DataFragment());
 
     }
@@ -436,12 +436,12 @@ public class PropagationServiceTest extends AbstractServiceTestImpl {
 
         // Update its content.
         propagationCommon.setPropagationReferenceNumber("updated-" + propagationCommon.getPropagationReferenceNumber());
-        propagationCommon.setPropagationNote("updated propagation note-" + propagationCommon.getPropagationNote());
-        propagationCommon.setNormalLocation(""); // Test deletion of existing string value
+        propagationCommon.setPropComments("updated propagation note-" + propagationCommon.getPropComments());
+        // propagationCommon.setNormalLocation(""); // Test deletion of existing string value
 
         String currentTimestamp = GregorianCalendarDateTimeUtils.timestampUTC();
-        propagationCommon.setPlannedRemovalDate(""); // Test deletion of existing date or date/time value
-        propagationCommon.setRemovalDate(currentTimestamp);
+        // propagationCommon.setPlannedRemovalDate(""); // Test deletion of existing date or date/time value
+        // propagationCommon.setRemovalDate(currentTimestamp);
 
         if(logger.isDebugEnabled()){
             logger.debug("to be updated object");
@@ -480,31 +480,31 @@ public class PropagationServiceTest extends AbstractServiceTestImpl {
         
         // By submitting an empty string in the update payload, the value of this field
         // in the object created from the response payload will be null.
-        Assert.assertNull(updatedPropagationCommon.getNormalLocation(), "Data in updated object did not match submitted data.");
-        if(logger.isDebugEnabled()){
-            logger.debug("Normal location after update=|" + updatedPropagationCommon.getNormalLocation() + "|");
-        }
+        // Assert.assertNull(updatedPropagationCommon.getNormalLocation(), "Data in updated object did not match submitted data.");
+        // if(logger.isDebugEnabled()){
+        //     logger.debug("Normal location after update=|" + updatedPropagationCommon.getNormalLocation() + "|");
+        // }
 
         Assert.assertEquals(updatedPropagationCommon.getPropagationReferenceNumber(),
             propagationCommon.getPropagationReferenceNumber(),
             "Data in updated object did not match submitted data.");
-        Assert.assertEquals(updatedPropagationCommon.getPropagationNote(),
-            propagationCommon.getPropagationNote(),
+        Assert.assertEquals(updatedPropagationCommon.getPropComments(),
+            propagationCommon.getPropComments(),
             "Data in updated object did not match submitted data.");
-        Assert.assertNull(updatedPropagationCommon.getPlannedRemovalDate());
-        Assert.assertEquals(updatedPropagationCommon.getRemovalDate(),
-            propagationCommon.getRemovalDate(),
-            "Data in updated object did not match submitted data.");
+        // Assert.assertNull(updatedPropagationCommon.getPlannedRemovalDate());
+        // Assert.assertEquals(updatedPropagationCommon.getRemovalDate(),
+            // propagationCommon.getRemovalDate(),
+            // "Data in updated object did not match submitted data.");
 
         if(logger.isDebugEnabled()){
-            logger.debug("UTF-8 data sent=" + propagationCommon.getPropagationNote() + "\n"
-                    + "UTF-8 data received=" + updatedPropagationCommon.getPropagationNote());
+            logger.debug("UTF-8 data sent=" + propagationCommon.getPropComments() + "\n"
+                    + "UTF-8 data received=" + updatedPropagationCommon.getPropComments());
     }
-        Assert.assertTrue(updatedPropagationCommon.getPropagationNote().contains(getUTF8DataFragment()),
-                "UTF-8 data retrieved '" + updatedPropagationCommon.getPropagationNote()
+        Assert.assertTrue(updatedPropagationCommon.getPropComments().contains(getUTF8DataFragment()),
+                "UTF-8 data retrieved '" + updatedPropagationCommon.getPropComments()
                 + "' does not contain expected data '" + getUTF8DataFragment());
-        Assert.assertEquals(updatedPropagationCommon.getPropagationNote(),
-                propagationCommon.getPropagationNote(),
+        Assert.assertEquals(updatedPropagationCommon.getPropComments(),
+                propagationCommon.getPropComments(),
                 "Data in updated object did not match submitted data.");
 
     }
@@ -790,27 +790,26 @@ public class PropagationServiceTest extends AbstractServiceTestImpl {
     @Override
     public PoxPayloadOut createInstance(String propagationReferenceNumber) {
         PropagationsCommon propagationCommon = new PropagationsCommon();
-        // FIXME: Values of currentLocation, normalLocation,
-        // and propagationContact should be refNames.
-        propagationCommon.setCurrentLocation("currentLocation value");
-        propagationCommon.setCurrentLocationFitness("currentLocationFitness value");
-        propagationCommon.setCurrentLocationNote("currentLocationNote value");
-        propagationCommon.setLocationDate(TIMESTAMP_UTC);
-        propagationCommon.setNormalLocation("normalLocation value");
-        propagationCommon.setPropagationContact("propagationContact value");
-        PropagationMethodsList propagationMethodsList = new PropagationMethodsList();
-        List<String> methods = propagationMethodsList.getPropagationMethod();
+        propagationCommon.setPropType("propType value");
+        propagationCommon.setPropComments(getUTF8DataFragment());
+		propagationCommon.setReasonForProp("reasonForProp value");
+		propagationCommon.setExtraSeeds(false);
+		propagationCommon.setNumStarted("numStarted value");
+		propagationCommon.setPropagationReferenceNumber(propagationReferenceNumber);
+
+        // propagationCommon.setLocationDate(TIMESTAMP_UTC);
+        // propagationCommon.setNormalLocation("normalLocation value");
+        // propagationCommon.setPropagationContact("propagationContact value");
+        // PropagationMethodsList propagationMethodsList = new PropagationMethodsList();
+        // List<String> methods = propagationMethodsList.getPropagationMethod();
         // @TODO Use properly formatted refNames for representative propagation
         // methods in this example record. The values below are placeholders.
-        String identifier = createIdentifier();
-        methods.add("First Propagation Method-" + identifier);
-        methods.add("Second Propagation Method-" + identifier);
-        propagationCommon.setPropagationMethods(propagationMethodsList);
-        propagationCommon.setPropagationNote(getUTF8DataFragment());
-        propagationCommon.setPropagationReferenceNumber(propagationReferenceNumber);
-        propagationCommon.setPlannedRemovalDate(TIMESTAMP_UTC);
-        propagationCommon.setRemovalDate(""); // Test empty date value
-        propagationCommon.setReasonForMove("reasonForMove value");
+        // String identifier = createIdentifier();
+        // methods.add("First Propagation Method-" + identifier);
+        // methods.add("Second Propagation Method-" + identifier);
+        // propagationCommon.setPropagationMethods(propagationMethodsList);
+        // propagationCommon.setPlannedRemovalDate(TIMESTAMP_UTC);
+        // propagationCommon.setRemovalDate(""); // Test empty date value
 
         PoxPayloadOut multipart = new PoxPayloadOut(this.getServicePathComponent());
         PayloadOutputPart commonPart =

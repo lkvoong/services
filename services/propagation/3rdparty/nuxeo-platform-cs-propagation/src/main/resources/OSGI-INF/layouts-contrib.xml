@@ -27,110 +27,79 @@ $LastChangedDate: $
             </templates>
             
             <rows>
-                <row><widget>currentLocation</widget></row>
-                <row><widget>currentLocationFitness</widget></row>
-                <row><widget>currentLocationNote</widget></row>
-                <row><widget>locationDate</widget></row>
-                <row><widget>normalLocation</widget></row>
-                <row><widget>propagationContact</widget></row>
-                <!-- FIXME: Add propagationMethods when we determine how to add -->
-                <!-- repeatable fields to Nuxeo layouts -->
-                <row><widget>propagationNote</widget></row>
-                <row><widget>propagationReferenceNumber</widget></row>
-                <row><widget>plannedRemovalDate</widget></row>
-                <row><widget>removalDate</widget></row>
-                <row><widget>reasonForMove</widget></row>
+				<row><widget>propType</widget></row>
+				<row><widget>propComments</widget></row>
+				<row><widget>reasonForProp</widget></row>
+				<row><widget>extraSeeds</widget></row>
+				<row><widget>numStarted</widget></row>
+				
+                <!-- FIXME: Add activityGroup when we determine how to add -->
+                <!-- complex group fields to Nuxeo layouts -->
             </rows>
+            
+            <widget name="propType" type="text">
+                <labels>
+                    <label mode="any">propType</label>
+                </labels>
+                <translated>true</translated>
+                <fields>
+                    <field schema="propagations_common">propType</field>
+                </fields>
+                <properties widgetMode="edit">
+                    <property name="styleClass">dataInputText</property>
+                </properties>
+            </widget>
 
-            <widget name="currentLocation" type="text">
+            <widget name="propComments" type="text">
                 <labels>
-                    <label mode="any">currentLocation</label>
+                    <label mode="any">propComments</label>
                 </labels>
                 <translated>true</translated>
                 <fields>
-                    <field schema="propagations_common">currentLocation</field>
+                    <field schema="propagations_common">propComments</field>
+                </fields>
+                <properties widgetMode="edit">
+                    <property name="styleClass">dataInputText</property>
+                </properties>
+            </widget>
+
+            <widget name="reasonForProp" type="text">
+                <labels>
+                    <label mode="any">reasonForProp</label>
+                </labels>
+                <translated>true</translated>
+                <fields>
+                    <field schema="propagations_common">reasonForProp</field>
+                </fields>
+                <properties widgetMode="edit">
+                    <property name="styleClass">dataInputText</property>
+                </properties>
+            </widget>
+
+			<!-- TODO: probably incorrect, this is a boolean
+				not text (type="text" and widgetMode="edit" bits) -->
+            <widget name="extraSeeds" type="text">
+                <labels>
+                    <label mode="any">extraSeeds</label>
+                </labels>
+                <translated>true</translated>
+                <fields>
+                    <field schema="propagations_common">extraSeeds</field>
                 </fields>
                 <properties widgetMode="edit">
                     <property name="styleClass">dataInputText</property>
                 </properties>
             </widget>
             
-            <widget name="currentLocationFitness" type="text">
+			<!-- TODO: possibly incorrect, this is an integer
+				not text (type="text" and widgetMode="edit" bits) -->
+            <widget name="numStarted" type="text">
                 <labels>
-                    <label mode="any">currentLocationFitness</label>
+                    <label mode="any">numStarted</label>
                 </labels>
                 <translated>true</translated>
                 <fields>
-                    <field schema="propagations_common">currentLocationFitness</field>
-                </fields>
-                <properties widgetMode="edit">
-                    <property name="styleClass">dataInputText</property>
-                </properties>
-            </widget>
-            
-            <widget name="currentLocationNote" type="text">
-                <labels>
-                    <label mode="any">currentLocationNote</label>
-                </labels>
-                <translated>true</translated>
-                <fields>
-                    <field schema="propogations_common">currentLocationNote</field>
-                </fields>
-                <properties widgetMode="edit">
-                    <property name="styleClass">dataInputText</property>
-                </properties>
-            </widget>
-            
-            <widget name="locationDate" type="datetime">
-                <labels>
-                    <label mode="any">locationDate</label>
-                </labels>
-                <translated>true</translated>
-                <fields>
-                    <field schema="propagations_common">locationDate</field>
-                </fields>
-                <properties widgetMode="edit">
-                    <!-- Note spelling of "Formater" in method name. -->
-                    <property name="pattern">#{nxu:basicDateAndTimeFormater()}</property>
-                </properties>
-            </widget>
-            
-            <widget name="normalLocation" type="text">
-                <labels>
-                    <label mode="any">normalLocation</label>
-                </labels>
-                <translated>true</translated>
-                <fields>
-                    <field schema="propagations_common">normalLocation</field>
-                </fields>
-                <properties widgetMode="edit">
-                    <property name="styleClass">dataInputText</property>
-                </properties>
-            </widget>
-            
-            <widget name="movementContact" type="text">
-                <labels>
-                    <label mode="any">propagationContact</label>
-                </labels>
-                <translated>true</translated>
-                <fields>
-                    <field schema="propagations_common">propagationContact</field>
-                </fields>
-                <properties widgetMode="edit">
-                    <property name="styleClass">dataInputText</property>
-                </properties>
-            </widget>
-            
-            <!-- FIXME: Add propagationMethods when we determine how to add -->
-            <!-- repeatable fields to Nuxeo layouts -->
-            
-            <widget name="propagationNote" type="text">
-                <labels>
-                    <label mode="any">propagationNote</label>
-                </labels>
-                <translated>true</translated>
-                <fields>
-                    <field schema="propagations_common">propagationNote</field>
+                    <field schema="propagations_common">numStarted</field>
                 </fields>
                 <properties widgetMode="edit">
                     <property name="styleClass">dataInputText</property>
@@ -150,47 +119,6 @@ $LastChangedDate: $
                 </properties>
             </widget>
             
-            <widget name="plannedRemovalDate" type="datetime">
-                <labels>
-                    <label mode="any">plannedRemovalDate</label>
-                </labels>
-                <translated>true</translated>
-                <fields>
-                    <field schema="propagations_common">plannedRemovalDate</field>
-                </fields>
-                <properties widgetMode="edit">
-                    <!-- Note spelling of "Formater" in method name. -->
-                    <property name="pattern">#{nxu:basicDateAndTimeFormater()}</property>
-                </properties>
-            </widget>
-            
-            <widget name="removalDate" type="datetime">
-                <labels>
-                    <label mode="any">removalDate</label>
-                </labels>
-                <translated>true</translated>
-                <fields>
-                    <field schema="propagations_common">removalDate</field>
-                </fields>
-                <properties widgetMode="edit">
-                    <!-- Note spelling of "Formater" in method name. -->
-                    <property name="pattern">#{nxu:basicDateAndTimeFormater()}</property>
-                </properties>
-            </widget>
-            
-            <widget name="reasonForMove" type="text">
-                <labels>
-                    <label mode="any">reasonForMove</label>
-                </labels>
-                <translated>true</translated>
-                <fields>
-                    <field schema="propagations_common">reasonForMove</field>
-                </fields>
-                <properties widgetMode="edit">
-                    <property name="styleClass">dataInputText</property>
-                </properties>
-            </widget>
-
         </layout>
     </extension>
 </component>

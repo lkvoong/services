@@ -72,7 +72,7 @@ public class PropagationSortByTest extends BaseServiceTest {
     private List<String> propagationIdsCreated = new ArrayList<String>();
     private final String SORT_FIELD_SEPARATOR = ", ";
     private final Locale LOCALE = Locale.US;
-    private final String LOCATION_DATE_EL_NAME = "locationDate";
+    // private final String LOCATION_DATE_EL_NAME = "locationDate";
 
     /* (non-Javadoc)
      * @see org.collectionspace.services.client.test.BaseServiceTest#getClientInstance()
@@ -109,7 +109,7 @@ public class PropagationSortByTest extends BaseServiceTest {
             logger.debug(testBanner(testName, CLASS_NAME));
         }
 
-        String sortFieldName = qualifySortFieldName(PropagationJAXBSchema.PROPAGATION_NOTE);
+        String sortFieldName = qualifySortFieldName(PropagationJAXBSchema.PROP_COMMENTS);
         if (logger.isDebugEnabled()) {
             logger.debug("Sorting on field name=" + sortFieldName);
         }
@@ -127,9 +127,9 @@ public class PropagationSortByTest extends BaseServiceTest {
             // IDs provided in the summary list items. amd then retriving
             // the value of that field from each of those records.
             PropagationsCommon propagation = read(AbstractCommonListUtils.ListItemGetCSID(item));
-            values.add(i, propagation.getPropagationNote());
+            values.add(i, propagation.getPropComments());
             if (logger.isDebugEnabled()) {
-                logger.debug("list-item[" + i + "] propagationNote=" + values.get(i));
+                logger.debug("list-item[" + i + "] propComments=" + values.get(i));
             }
             // Verify that the value of the specified field in the current record
             // is equal to or greater than its value in the previous record,
@@ -162,7 +162,7 @@ public class PropagationSortByTest extends BaseServiceTest {
             logger.debug(testBanner(testName, CLASS_NAME));
         }
 
-        String sortFieldName = qualifySortFieldName(PropagationJAXBSchema.PROPAGATION_NOTE);
+        String sortFieldName = qualifySortFieldName(PropagationJAXBSchema.PROP_COMMENTS);
         if (logger.isDebugEnabled()) {
             logger.debug("Sorting on field name=" + sortFieldName);
         }
@@ -180,9 +180,9 @@ public class PropagationSortByTest extends BaseServiceTest {
             // IDs provided in the summary list items. amd then retriving
             // the value of that field from each of those records.
             PropagationsCommon propagation = read(AbstractCommonListUtils.ListItemGetCSID(item));
-            values.add(i, propagation.getPropagationNote());
+            values.add(i, propagation.getPropComments());
             if (logger.isDebugEnabled()) {
-                logger.debug("list-item[" + i + "] propagationNote=" + values.get(i));
+                logger.debug("list-item[" + i + "] propComments=" + values.get(i));
             }
             // Verify that the value of the specified field in the current record
             // is equal to or greater than its value in the previous record,
@@ -213,7 +213,7 @@ public class PropagationSortByTest extends BaseServiceTest {
         }
 
         String sortFieldName =
-                asDescendingSort(qualifySortFieldName(PropagationJAXBSchema.PROPAGATION_NOTE));
+                asDescendingSort(qualifySortFieldName(PropagationJAXBSchema.PROP_COMMENTS));
         if (logger.isDebugEnabled()) {
             logger.debug("Sorting on field name=" + sortFieldName);
         }
@@ -231,9 +231,9 @@ public class PropagationSortByTest extends BaseServiceTest {
             // IDs provided in the summary list items. amd then retriving
             // the value of that field from each of those records.
             PropagationsCommon propagation = read(AbstractCommonListUtils.ListItemGetCSID(item));
-            values.add(i, propagation.getPropagationNote());
+            values.add(i, propagation.getPropComments());
             if (logger.isDebugEnabled()) {
-                logger.debug("list-item[" + i + "] propagationNote=" + values.get(i));
+                logger.debug("list-item[" + i + "] propComments=" + values.get(i));
             }
             // Verify that the value of the specified field in the current record
             // is less than or equal to than its value in the previous record,
@@ -255,197 +255,197 @@ public class PropagationSortByTest extends BaseServiceTest {
      * Tests whether a list of records, sorted by a dateTime field in
      * ascending order, is returned in the expected order.
      */
-    @Test(dataProvider = "testName", dataProviderClass = AbstractServiceTestImpl.class,
-    dependsOnMethods = {"createList"})
-    public void sortByDateTimeFieldAscending(String testName) throws Exception {
-
-        if (logger.isDebugEnabled()) {
-            logger.debug(testBanner(testName, CLASS_NAME));
-        }
-
-        String sortFieldName = qualifySortFieldName(PropagationJAXBSchema.LOCATION_DATE);
-        if (logger.isDebugEnabled()) {
-            logger.debug("Sorting on field name=" + sortFieldName);
-        }
-        AbstractCommonList list = readSortedList(sortFieldName);
-        List<AbstractCommonList.ListItem> items =
-                list.getListItem();
-
-        ArrayList<String> values = new ArrayList<String>();
-        Comparator<String> comparator = String.CASE_INSENSITIVE_ORDER;
-        int i = 0;
-        for (AbstractCommonList.ListItem item : items) {
-        	String locDate = 
-        		AbstractCommonListUtils.ListItemGetElementValue(item, LOCATION_DATE_EL_NAME);
-        	values.add(i, locDate);
-            if (logger.isDebugEnabled()) {
-                logger.debug("list-item[" + i + "] locationDate=" + values.get(i));
-            }
-            // Verify that the value of the specified field in the current record
-            // is equal to or greater than its value in the previous record.
-            if (i > 0 && values.get(i) != null && values.get(i - 1) != null) {
-                Assert.assertTrue(comparator.compare(values.get(i), values.get(i - 1)) >= 0);
-            }
-            i++;
-        }
-    }
+    // @Test(dataProvider = "testName", dataProviderClass = AbstractServiceTestImpl.class,
+    // dependsOnMethods = {"createList"})
+    // public void sortByDateTimeFieldAscending(String testName) throws Exception {
+    // 
+    //     if (logger.isDebugEnabled()) {
+    //         logger.debug(testBanner(testName, CLASS_NAME));
+    //     }
+    // 
+    //     String sortFieldName = qualifySortFieldName(PropagationJAXBSchema.LOCATION_DATE);
+    //     if (logger.isDebugEnabled()) {
+    //         logger.debug("Sorting on field name=" + sortFieldName);
+    //     }
+    //     AbstractCommonList list = readSortedList(sortFieldName);
+    //     List<AbstractCommonList.ListItem> items =
+    //             list.getListItem();
+    // 
+    //     ArrayList<String> values = new ArrayList<String>();
+    //     Comparator<String> comparator = String.CASE_INSENSITIVE_ORDER;
+    //     int i = 0;
+    //     for (AbstractCommonList.ListItem item : items) {
+    //     	String locDate = 
+    //     		AbstractCommonListUtils.ListItemGetElementValue(item, LOCATION_DATE_EL_NAME);
+    //     	values.add(i, locDate);
+    //         if (logger.isDebugEnabled()) {
+    //             logger.debug("list-item[" + i + "] locationDate=" + values.get(i));
+    //         }
+    //         // Verify that the value of the specified field in the current record
+    //         // is equal to or greater than its value in the previous record.
+    //         if (i > 0 && values.get(i) != null && values.get(i - 1) != null) {
+    //             Assert.assertTrue(comparator.compare(values.get(i), values.get(i - 1)) >= 0);
+    //         }
+    //         i++;
+    //     }
+    // }
 
     /*
      * Tests whether a list of records, sorted by a dateTime field in
      * descending order, is returned in the expected order.
      */
-    @Test(dataProvider = "testName", dataProviderClass = AbstractServiceTestImpl.class,
-    dependsOnMethods = {"createList"})
-    public void sortByDateTimeFieldDescending(String testName) throws Exception {
-
-        if (logger.isDebugEnabled()) {
-            logger.debug(testBanner(testName, CLASS_NAME));
-        }
-
-        String sortFieldName =
-                asDescendingSort(qualifySortFieldName(PropagationJAXBSchema.LOCATION_DATE));
-        if (logger.isDebugEnabled()) {
-            logger.debug("Sorting on field name=" + sortFieldName);
-        }
-        AbstractCommonList list = readSortedList(sortFieldName);
-        List<AbstractCommonList.ListItem> items =
-                list.getListItem();
-
-        ArrayList<String> values = new ArrayList<String>();
-        Comparator<String> comparator = String.CASE_INSENSITIVE_ORDER;
-        int i = 0;
-        for (AbstractCommonList.ListItem item : items) {
-        	String locDate = 
-        		AbstractCommonListUtils.ListItemGetElementValue(item, LOCATION_DATE_EL_NAME);
-        	values.add(i, locDate);
-            if (logger.isDebugEnabled()) {
-                logger.debug("list-item[" + i + "] locationDate=" + values.get(i));
-            }
-            // Verify that the value of the specified field in the current record
-            // is less than or equal to its value in the previous record.
-            if (i > 0 && values.get(i) != null && values.get(i - 1) != null) {
-                Assert.assertTrue(comparator.compare(values.get(i), values.get(i - 1)) <= 0);
-            }
-            i++;
-        }
-    }
+    // @Test(dataProvider = "testName", dataProviderClass = AbstractServiceTestImpl.class,
+    // dependsOnMethods = {"createList"})
+    // public void sortByDateTimeFieldDescending(String testName) throws Exception {
+    // 
+    //     if (logger.isDebugEnabled()) {
+    //         logger.debug(testBanner(testName, CLASS_NAME));
+    //     }
+    // 
+    //     String sortFieldName =
+    //             asDescendingSort(qualifySortFieldName(PropagationJAXBSchema.LOCATION_DATE));
+    //     if (logger.isDebugEnabled()) {
+    //         logger.debug("Sorting on field name=" + sortFieldName);
+    //     }
+    //     AbstractCommonList list = readSortedList(sortFieldName);
+    //     List<AbstractCommonList.ListItem> items =
+    //             list.getListItem();
+    // 
+    //     ArrayList<String> values = new ArrayList<String>();
+    //     Comparator<String> comparator = String.CASE_INSENSITIVE_ORDER;
+    //     int i = 0;
+    //     for (AbstractCommonList.ListItem item : items) {
+    //     	String locDate = 
+    //     		AbstractCommonListUtils.ListItemGetElementValue(item, LOCATION_DATE_EL_NAME);
+    //     	values.add(i, locDate);
+    //         if (logger.isDebugEnabled()) {
+    //             logger.debug("list-item[" + i + "] locationDate=" + values.get(i));
+    //         }
+    //         // Verify that the value of the specified field in the current record
+    //         // is less than or equal to its value in the previous record.
+    //         if (i > 0 && values.get(i) != null && values.get(i - 1) != null) {
+    //             Assert.assertTrue(comparator.compare(values.get(i), values.get(i - 1)) <= 0);
+    //         }
+    //         i++;
+    //     }
+    // }
 
     /*
      * Tests whether a list of records, sorted by two different fields in
      * ascending order, is returned in the expected order.
      */
-    @Test(dataProvider = "testName", dataProviderClass = AbstractServiceTestImpl.class,
-    dependsOnMethods = {"createList"})
-    public void sortByTwoFieldsAscending(String testName) throws Exception {
-
-        if (logger.isDebugEnabled()) {
-            logger.debug(testBanner(testName, CLASS_NAME));
-        }
-
-        String firstSortFieldName = qualifySortFieldName(PropagationJAXBSchema.PROPAGATION_NOTE);
-        String secondSortFieldName = qualifySortFieldName(PropagationJAXBSchema.LOCATION_DATE);
-        if (logger.isDebugEnabled()) {
-            logger.debug("Sorting on field names=" + firstSortFieldName + " and " + secondSortFieldName);
-        }
-        String sortExpression = firstSortFieldName + SORT_FIELD_SEPARATOR + secondSortFieldName;
-        AbstractCommonList list = readSortedList(sortExpression);
-        List<AbstractCommonList.ListItem> items =
-                list.getListItem();
-
-        ArrayList<String> firstFieldValues = new ArrayList<String>();
-        ArrayList<String> secondFieldValues = new ArrayList<String>();
-        Collator localeSpecificCollator = Collator.getInstance(LOCALE);
-        Comparator<String> comparator = String.CASE_INSENSITIVE_ORDER;
-        int i = 0;
-        for (AbstractCommonList.ListItem item : items) {
+    // @Test(dataProvider = "testName", dataProviderClass = AbstractServiceTestImpl.class,
+    // dependsOnMethods = {"createList"})
+    // public void sortByTwoFieldsAscending(String testName) throws Exception {
+    // 
+    //     if (logger.isDebugEnabled()) {
+    //         logger.debug(testBanner(testName, CLASS_NAME));
+    //     }
+    // 
+    //     String firstSortFieldName = qualifySortFieldName(PropagationJAXBSchema.PROPAGATION_NOTE);
+    //     String secondSortFieldName = qualifySortFieldName(PropagationJAXBSchema.LOCATION_DATE);
+    //     if (logger.isDebugEnabled()) {
+    //         logger.debug("Sorting on field names=" + firstSortFieldName + " and " + secondSortFieldName);
+    //     }
+    //     String sortExpression = firstSortFieldName + SORT_FIELD_SEPARATOR + secondSortFieldName;
+    //     AbstractCommonList list = readSortedList(sortExpression);
+    //     List<AbstractCommonList.ListItem> items =
+    //             list.getListItem();
+    // 
+    //     ArrayList<String> firstFieldValues = new ArrayList<String>();
+    //     ArrayList<String> secondFieldValues = new ArrayList<String>();
+    //     Collator localeSpecificCollator = Collator.getInstance(LOCALE);
+    //     Comparator<String> comparator = String.CASE_INSENSITIVE_ORDER;
+    //     int i = 0;
+    //     for (AbstractCommonList.ListItem item : items) {
             // Because propagationNote is not currently a summary field
             // (returned in summary list items), we will need to verify
             // sort order by retrieving full records, using the
             // IDs provided in the summary list items. amd then retriving
             // the value of that field from each of those records.
-            PropagationsCommon propagation = read(AbstractCommonListUtils.ListItemGetCSID(item));
-            firstFieldValues.add(i, propagation.getPropagationNote());
-            secondFieldValues.add(i, propagation.getLocationDate());
-            if (logger.isDebugEnabled()) {
-                logger.debug("list-item[" + i + "] propagationNote=" + firstFieldValues.get(i));
-                logger.debug("list-item[" + i + "] locationDate=" + secondFieldValues.get(i));
-            }
+            // PropagationsCommon propagation = read(AbstractCommonListUtils.ListItemGetCSID(item));
+            // firstFieldValues.add(i, propagation.getPropagationNote());
+            // secondFieldValues.add(i, propagation.getLocationDate());
+            // if (logger.isDebugEnabled()) {
+            //     logger.debug("list-item[" + i + "] propagationNote=" + firstFieldValues.get(i));
+            //     logger.debug("list-item[" + i + "] locationDate=" + secondFieldValues.get(i));
+            // }
             // Verify that the value of the specified field in the current record
             // is less than or greater than its value in the previous record.
-            if (i > 0 && firstFieldValues.get(i) != null && firstFieldValues.get(i - 1) != null) {
-                Assert.assertTrue(localeSpecificCollator.compare(firstFieldValues.get(i), firstFieldValues.get(i - 1)) >= 0);
-                // If the value of the first sort field in the current record is identical to
-                // its value in the previous record, verify that the value of the second sort
-                // field is equal to or greater than its value in the previous record,
-                // using a locale-specific collator.
-                if (localeSpecificCollator.compare(firstFieldValues.get(i), firstFieldValues.get(i - 1)) == 0) {
-                    if (i > 0 && secondFieldValues.get(i) != null && secondFieldValues.get(i - 1) != null) {
-                        Assert.assertTrue(comparator.compare(secondFieldValues.get(i), secondFieldValues.get(i - 1)) >= 0);
-                    }
-                }
-            }
-            i++;
-        }
-    }
+    //         if (i > 0 && firstFieldValues.get(i) != null && firstFieldValues.get(i - 1) != null) {
+    //             Assert.assertTrue(localeSpecificCollator.compare(firstFieldValues.get(i), firstFieldValues.get(i - 1)) >= 0);
+    //             // If the value of the first sort field in the current record is identical to
+    //             // its value in the previous record, verify that the value of the second sort
+    //             // field is equal to or greater than its value in the previous record,
+    //             // using a locale-specific collator.
+    //             if (localeSpecificCollator.compare(firstFieldValues.get(i), firstFieldValues.get(i - 1)) == 0) {
+    //                 if (i > 0 && secondFieldValues.get(i) != null && secondFieldValues.get(i - 1) != null) {
+    //                     Assert.assertTrue(comparator.compare(secondFieldValues.get(i), secondFieldValues.get(i - 1)) >= 0);
+    //                 }
+    //             }
+    //         }
+    //         i++;
+    //     }
+    // }
 
     /*
      * Tests whether a list of records, sorted by one different fields in
      * descending order and a second field in ascending order, is returned in the expected order.
      */
-    @Test(dataProvider = "testName", dataProviderClass = AbstractServiceTestImpl.class,
-    dependsOnMethods = {"createList"})
-    public void sortByOneFieldAscendingOneFieldsDescending(String testName) throws Exception {
-
-       if (logger.isDebugEnabled()) {
-            logger.debug(testBanner(testName, CLASS_NAME));
-        }
-
-        String firstSortFieldName =
-                asDescendingSort(qualifySortFieldName(PropagationJAXBSchema.LOCATION_DATE));
-        String secondSortFieldName = qualifySortFieldName(PropagationJAXBSchema.PROPAGATION_NOTE);
-        if (logger.isDebugEnabled()) {
-            logger.debug("Sorting on field names=" + firstSortFieldName + " and " + secondSortFieldName);
-        }
-        String sortExpression = firstSortFieldName + SORT_FIELD_SEPARATOR + secondSortFieldName;
-        AbstractCommonList list = readSortedList(sortExpression);
-        List<AbstractCommonList.ListItem> items =
-                list.getListItem();
-
-        ArrayList<String> firstFieldValues = new ArrayList<String>();
-        ArrayList<String> secondFieldValues = new ArrayList<String>();
-        Collator localeSpecificCollator = Collator.getInstance(LOCALE);
-        Comparator<String> comparator = String.CASE_INSENSITIVE_ORDER;
-        int i = 0;
-        for (AbstractCommonList.ListItem item : items) {
+    // @Test(dataProvider = "testName", dataProviderClass = AbstractServiceTestImpl.class,
+    // dependsOnMethods = {"createList"})
+    // public void sortByOneFieldAscendingOneFieldsDescending(String testName) throws Exception {
+    // 
+    //    if (logger.isDebugEnabled()) {
+    //         logger.debug(testBanner(testName, CLASS_NAME));
+    //     }
+    // 
+    //     String firstSortFieldName =
+    //             asDescendingSort(qualifySortFieldName(PropagationJAXBSchema.LOCATION_DATE));
+    //     String secondSortFieldName = qualifySortFieldName(PropagationJAXBSchema.PROPAGATION_NOTE);
+    //     if (logger.isDebugEnabled()) {
+    //         logger.debug("Sorting on field names=" + firstSortFieldName + " and " + secondSortFieldName);
+    //     }
+    //     String sortExpression = firstSortFieldName + SORT_FIELD_SEPARATOR + secondSortFieldName;
+    //     AbstractCommonList list = readSortedList(sortExpression);
+    //     List<AbstractCommonList.ListItem> items =
+    //             list.getListItem();
+    // 
+    //     ArrayList<String> firstFieldValues = new ArrayList<String>();
+    //     ArrayList<String> secondFieldValues = new ArrayList<String>();
+    //     Collator localeSpecificCollator = Collator.getInstance(LOCALE);
+    //     Comparator<String> comparator = String.CASE_INSENSITIVE_ORDER;
+    //     int i = 0;
+    //     for (AbstractCommonList.ListItem item : items) {
             // Because propagationNote is not currently a summary field
             // (returned in summary list items), we will need to verify
             // sort order by retrieving full records, using the
             // IDs provided in the summary list items. amd then retriving
             // the value of that field from each of those records.
-            PropagationsCommon propagation = read(AbstractCommonListUtils.ListItemGetCSID(item));
-            firstFieldValues.add(i, propagation.getLocationDate());
-            secondFieldValues.add(i, propagation.getPropagationNote());
-            if (logger.isDebugEnabled()) {
-                logger.debug("list-item[" + i + "] locationDate=" + firstFieldValues.get(i));
-                logger.debug("list-item[" + i + "] propagationNote=" + secondFieldValues.get(i));
-            }
+            // PropagationsCommon propagation = read(AbstractCommonListUtils.ListItemGetCSID(item));
+            // firstFieldValues.add(i, propagation.getLocationDate());
+            // secondFieldValues.add(i, propagation.getPropagationNote());
+            // if (logger.isDebugEnabled()) {
+            //     logger.debug("list-item[" + i + "] locationDate=" + firstFieldValues.get(i));
+            //     logger.debug("list-item[" + i + "] propagationNote=" + secondFieldValues.get(i));
+            // }
             // Verify that the value of the specified field in the current record
             // is less than or equal to than its value in the previous record.
-            if (i > 0 && firstFieldValues.get(i) != null && firstFieldValues.get(i - 1) != null) {
-                Assert.assertTrue(comparator.compare(firstFieldValues.get(i), firstFieldValues.get(i - 1)) <= 0);
+            // if (i > 0 && firstFieldValues.get(i) != null && firstFieldValues.get(i - 1) != null) {
+            //     Assert.assertTrue(comparator.compare(firstFieldValues.get(i), firstFieldValues.get(i - 1)) <= 0);
                 // If the value of the first sort field in the current record is identical to
                 // its value in the previous record, verify that the value of the second sort
                 // field is equal to or greater than its value in the previous record,
                 // using a locale-specific collator.
-                if (comparator.compare(firstFieldValues.get(i), firstFieldValues.get(i - 1)) == 0) {
-                    if (i > 0 && secondFieldValues.get(i) != null && secondFieldValues.get(i - 1) != null) {
-                        Assert.assertTrue(localeSpecificCollator.compare(secondFieldValues.get(i), secondFieldValues.get(i - 1)) >= 0);
-                    }
-                }
-            }
-            i++;
-        }
-    }
+    //             if (comparator.compare(firstFieldValues.get(i), firstFieldValues.get(i - 1)) == 0) {
+    //                 if (i > 0 && secondFieldValues.get(i) != null && secondFieldValues.get(i - 1) != null) {
+    //                     Assert.assertTrue(localeSpecificCollator.compare(secondFieldValues.get(i), secondFieldValues.get(i - 1)) >= 0);
+    //                 }
+    //             }
+    //         }
+    //         i++;
+    //     }
+    // }
 
 
     /*
@@ -486,61 +486,61 @@ public class PropagationSortByTest extends BaseServiceTest {
      * handled as expected.  The field name provided in this test is valid,
      * but has not been qualified by being prefixed by a schema name and delimiter.
      */
-    @Test(dataProvider = "testName", dataProviderClass = AbstractServiceTestImpl.class)
-    public void sortWithUnqualifiedFieldName(String testName) throws Exception {
-
-        if (logger.isDebugEnabled()) {
-            logger.debug(testBanner(testName, CLASS_NAME));
-        }
-        testSetup(STATUS_BAD_REQUEST, ServiceRequestType.READ);
-
-        // Submit the request to the service and store the response.
-        PropagationClient client = new PropagationClient();
-        ClientResponse<AbstractCommonList> res =
-                client.readListSortedBy(PropagationJAXBSchema.LOCATION_DATE);
-        int statusCode = res.getStatus();
-
-        // Check the status code of the response: does it match
-        // the expected response(s)?
-        if (logger.isDebugEnabled()) {
-            logger.debug(testName + ": status = " + statusCode);
-        }
-        Assert.assertTrue(REQUEST_TYPE.isValidStatusCode(statusCode),
-                invalidStatusCodeMessage(REQUEST_TYPE, statusCode));
-        Assert.assertEquals(statusCode, EXPECTED_STATUS_CODE);
-
-    }
+    // @Test(dataProvider = "testName", dataProviderClass = AbstractServiceTestImpl.class)
+    // public void sortWithUnqualifiedFieldName(String testName) throws Exception {
+    // 
+    //     if (logger.isDebugEnabled()) {
+    //         logger.debug(testBanner(testName, CLASS_NAME));
+    //     }
+    //     testSetup(STATUS_BAD_REQUEST, ServiceRequestType.READ);
+    // 
+    //     // Submit the request to the service and store the response.
+    //     PropagationClient client = new PropagationClient();
+    //     ClientResponse<AbstractCommonList> res =
+    //             client.readListSortedBy(PropagationJAXBSchema.LOCATION_DATE);
+    //     int statusCode = res.getStatus();
+    // 
+    //     // Check the status code of the response: does it match
+    //     // the expected response(s)?
+    //     if (logger.isDebugEnabled()) {
+    //         logger.debug(testName + ": status = " + statusCode);
+    //     }
+    //     Assert.assertTrue(REQUEST_TYPE.isValidStatusCode(statusCode),
+    //             invalidStatusCodeMessage(REQUEST_TYPE, statusCode));
+    //     Assert.assertEquals(statusCode, EXPECTED_STATUS_CODE);
+    // 
+    // }
 
     /*
      * Tests whether a request to sort by an invalid identifier for the
      * sort order (ascending or descending) is handled as expected.
      */
-    @Test(dataProvider = "testName", dataProviderClass = AbstractServiceTestImpl.class)
-    public void sortWithInvalidSortOrderIdentifier(String testName) throws Exception {
-
-        if (logger.isDebugEnabled()) {
-            logger.debug(testBanner(testName, CLASS_NAME));
-        }
-        testSetup(STATUS_BAD_REQUEST, ServiceRequestType.READ);
-
-        // Submit the request to the service and store the response.
-        PropagationClient client = new PropagationClient();
-        final String INVALID_SORT_ORDER_IDENTIFIER = "NO_DIRECTION";
-        ClientResponse<AbstractCommonList> res =
-                client.readListSortedBy(PropagationJAXBSchema.LOCATION_DATE
-                + " " + INVALID_SORT_ORDER_IDENTIFIER);
-        int statusCode = res.getStatus();
-
-        // Check the status code of the response: does it match
-        // the expected response(s)?
-        if (logger.isDebugEnabled()) {
-            logger.debug(testName + ": status = " + statusCode);
-        }
-        Assert.assertTrue(REQUEST_TYPE.isValidStatusCode(statusCode),
-                invalidStatusCodeMessage(REQUEST_TYPE, statusCode));
-        Assert.assertEquals(statusCode, EXPECTED_STATUS_CODE);
-
-    }
+    // @Test(dataProvider = "testName", dataProviderClass = AbstractServiceTestImpl.class)
+    // public void sortWithInvalidSortOrderIdentifier(String testName) throws Exception {
+    // 
+    //     if (logger.isDebugEnabled()) {
+    //         logger.debug(testBanner(testName, CLASS_NAME));
+    //     }
+    //     testSetup(STATUS_BAD_REQUEST, ServiceRequestType.READ);
+    // 
+    //     // Submit the request to the service and store the response.
+    //     PropagationClient client = new PropagationClient();
+    //     final String INVALID_SORT_ORDER_IDENTIFIER = "NO_DIRECTION";
+    //     ClientResponse<AbstractCommonList> res =
+    //             client.readListSortedBy(PropagationJAXBSchema.LOCATION_DATE
+    //             + " " + INVALID_SORT_ORDER_IDENTIFIER);
+    //     int statusCode = res.getStatus();
+    // 
+    //     // Check the status code of the response: does it match
+    //     // the expected response(s)?
+    //     if (logger.isDebugEnabled()) {
+    //         logger.debug(testName + ": status = " + statusCode);
+    //     }
+    //     Assert.assertTrue(REQUEST_TYPE.isValidStatusCode(statusCode),
+    //             invalidStatusCodeMessage(REQUEST_TYPE, statusCode));
+    //     Assert.assertEquals(statusCode, EXPECTED_STATUS_CODE);
+    // 
+    // }
 
     /*
      * Tests whether a request to sort by a malformed field name is
@@ -659,9 +659,8 @@ public class PropagationSortByTest extends BaseServiceTest {
      * using values for various fields obtained from the data provider.
      */
     @Test(dataProvider = "unsortedValues")
-    public void createList(int expectedSortOrder, String propagationNote,
-            String locationDate) throws Exception {
-
+    public void createList(int expectedSortOrder, String propComments) throws Exception {
+		// also took argument String locationDate
         String testName = "createList";
         if (logger.isDebugEnabled()) {
             logger.debug(testBanner(testName, CLASS_NAME));
@@ -670,17 +669,17 @@ public class PropagationSortByTest extends BaseServiceTest {
 
         // Iterates through the sets of values returned by the data provider,
         // and creates a corresponding test record for each set of values.
-        create(propagationNote, locationDate);
+        create(propComments);
     }
 
-    private void create(String propagationNote, String locationDate) throws Exception {
-
+    private void create(String propComments) throws Exception {
+		//also took argument String locationDate
         String testName = "create";
         testSetup(STATUS_CREATED, ServiceRequestType.CREATE);
 
         // Submit the request to the service and store the response.
         PoxPayloadOut multipart = createPropagationInstance(createIdentifier(),
-                propagationNote, locationDate);
+                propComments);
         PropagationClient client = new PropagationClient();
         ClientResponse<Response> res = client.create(multipart);
         int statusCode = res.getStatus();
@@ -735,12 +734,12 @@ public class PropagationSortByTest extends BaseServiceTest {
 
     private PoxPayloadOut createPropagationInstance(
             String propagationReferenceNumber,
-            String propagationNote,
-            String locationDate) {
+            String propComments) {
+		// also took argument String locationDate
         PropagationsCommon propagationCommon = new PropagationsCommon();
         propagationCommon.setPropagationReferenceNumber(propagationReferenceNumber);
-        propagationCommon.setPropagationNote(propagationNote);
-        propagationCommon.setLocationDate(locationDate);
+        propagationCommon.setPropComments(propComments);
+        // propagationCommon.setLocationDate(locationDate);
 
         PoxPayloadOut multipart = new PoxPayloadOut(this.getServicePathComponent());
         PayloadOutputPart commonPart =
