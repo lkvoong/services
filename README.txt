@@ -15,6 +15,7 @@ Site Status
 
 The quick brown fox jumped over the lazy dog.
 This is a change to branch v2.2 for testing.
+And this is a second line for more testing.
 
 All good boys deserve fudge.
 
