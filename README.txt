@@ -14,7 +14,7 @@ GitHub Enterprise
 Site Status
 
 The quick brown fox jumped over the lazy dog.
-Another change using SmartGit client.
+This is a v2.2 change to README.txt.
 
 All good boys deserve fudge.
 
