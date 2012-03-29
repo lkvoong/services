@@ -14,7 +14,7 @@ GitHub Enterprise
 Site Status
 
 The quick brown fox jumped over the lazy dog.
-This is a v2.2 change to README.txt.
+This is a change to README.txt in v2.2
 
 All good boys deserve fudge.
 
