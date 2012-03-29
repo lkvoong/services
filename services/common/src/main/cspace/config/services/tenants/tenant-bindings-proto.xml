@@ -1784,6 +1784,15 @@
         <service:params>
           <service:ListResultsFields>
 					<!-- Omit the standard AuthorityItem items (they are handled by the code) -->
+            <service:ListResultField>
+              <service:element>foreName</service:element>
+              <service:xpath>foreName</service:xpath>
+            </service:ListResultField>
+            <service:ListResultField>
+              <service:element>surName</service:element>
+              <service:xpath>surName</service:xpath>
+            </service:ListResultField>
+		            
           </service:ListResultsFields>
         </service:params>
       </service:DocHandlerParams>
@@ -2121,6 +2130,10 @@
         <service:params>
           <service:ListResultsFields>
 					<!-- Omit the standard AuthorityItem items (they are handled by the code) -->
+            <service:ListResultField>
+              <service:element>taxonFullName</service:element>
+              <service:xpath>taxonFullName</service:xpath>
+            </service:ListResultField>
           </service:ListResultsFields>
         </service:params>
       </service:DocHandlerParams>
