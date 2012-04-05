@@ -20,5 +20,6 @@
 
     <modules>
         <module>nuxeo-platform-cs-media</module>
+        <module>nuxeo-platform-cs-media-ucjeps</module>
     </modules>
 </project>

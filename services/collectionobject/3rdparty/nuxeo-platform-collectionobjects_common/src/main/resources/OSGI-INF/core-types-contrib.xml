@@ -1,15 +1,12 @@
 <?xml version="1.0"?>
-<component name="org.collectionspace.collectionobject.coreTypes">
-    <extension target="org.nuxeo.ecm.core.schema.TypeService" point="schema">
-        <schema name="collectionobjects_common" prefix="collectionobjects_common" src="schemas/collectionobjects_common.xsd"/>
-    </extension>
+<component name="org.collectionspace.CollectionObjectTenant1.coreTypes">
     <extension target="org.nuxeo.ecm.core.schema.TypeService" point="doctype">
-        <doctype name="CollectionObject" extends="CollectionSpaceDocument">
-            <prefetch>
-                collectionobjects_common:objectNumber
-                collectionobjects_common:objectNameList
-                collectionobjects_common:responsibleDepartments
-			</prefetch>
+        <doctype name="CollectionObjectTenant1" extends="CollectionObject">
+            <schema name="common"/>
+            <schema name="dublincore"/>
+            <schema name="collectionspace_core"/>
+            <schema name="collectionobjects_common"/>
+            <schema name="collectionobjects_naturalhistory"/>
         </doctype>
     </extension>
 </component>
