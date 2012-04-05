@@ -24,9 +24,11 @@
 		<TenantPrefix>Tenant</TenantPrefix>
 	</properties>
 	
-    <modules>
-    	<module>nuxeo-platform-cs-collectionobject</module>
-        <module>nuxeo-platform-collectionobject-lifesci</module>
-    </modules>
+	<modules>
+		<module>nuxeo-platform-cs-collectionobject</module>
+		<module>nuxeo-platform-collectionobject-lifesci</module>
+		<module>nuxeo-platform-collectionobject-anthropology</module>
+		<module>nuxeo-platform-collectionobject-pahma</module>
+	</modules>
 
 </project>
