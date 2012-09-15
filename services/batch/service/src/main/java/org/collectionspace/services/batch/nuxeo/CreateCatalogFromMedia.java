@@ -1,46 +1,34 @@
 package org.collectionspace.services.batch.nuxeo;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Date;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.StringReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
-import java.util.HashMap;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 import java.util.ListIterator;
+
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 
-import org.collectionspace.services.client.CollectionSpaceClientUtils;
-import org.collectionspace.services.client.CollectionObjectClient;
-import org.collectionspace.services.client.MediaClient;
-import org.collectionspace.services.client.RelationClient;
 import org.collectionspace.services.batch.BatchInvocable;
-import org.collectionspace.services.common.ResourceMap;
+import org.collectionspace.services.client.CollectionObjectClient;
+import org.collectionspace.services.client.CollectionSpaceClientUtils;
+import org.collectionspace.services.client.MediaClient;
+import org.collectionspace.services.client.PayloadOutputPart;
+import org.collectionspace.services.client.PoxPayloadOut;
+import org.collectionspace.services.client.RelationClient;
 import org.collectionspace.services.common.ResourceBase;
+import org.collectionspace.services.common.ResourceMap;
 import org.collectionspace.services.common.invocable.InvocationContext;
 import org.collectionspace.services.common.invocable.InvocationResults;
-
-import org.jboss.resteasy.client.ClientResponse;
-import org.jboss.security.Base64Encoder;
-
-import org.xml.sax.Attributes;
-import org.xml.sax.ContentHandler;
-import org.xml.sax.ErrorHandler;
-import org.xml.sax.InputSource;
-import org.xml.sax.Locator;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
-import org.xml.sax.XMLReader;
-import org.xml.sax.helpers.DefaultHandler;
+import org.collectionspace.services.jaxb.AbstractCommonList;
+import org.dom4j.DocumentException;
+import org.dom4j.Element;
+import org.dom4j.Node;
+import org.jboss.resteasy.specimpl.UriInfoImpl;
 
 public class CreateCatalogFromMedia implements BatchInvocable {
 	private static ArrayList<String> invocationModes = null;
@@ -56,8 +44,8 @@ public class CreateCatalogFromMedia implements BatchInvocable {
 	private String relPayload = null;
 
 	private final String RELATION_TYPE = "affects";
-	private final String CAT_DOCTYPE = "CollectionObject";
-	private final String RELATION_PREDICATE_DISP = "affects";
+	//private final String RELATION_PREDICATE_DISP = "affects";
+	//private final String CAT_DOCTYPE = "CollectionObject";
 	protected final int CREATED_STATUS = Response.Status.CREATED
 			.getStatusCode();
 	protected final int BAD_REQUEST_STATUS = Response.Status.BAD_REQUEST
@@ -113,35 +101,50 @@ public class CreateCatalogFromMedia implements BatchInvocable {
 
 		String mediaCsid = context.getSingleCSID();
 		trace("Looking up: " + mediaCsid);
-		MediaClient client = new MediaClient();
-		trace("Reading client: " + mediaCsid);
-		ClientResponse<String> res = client.read(mediaCsid);
-		trace("Done reading client: " + mediaCsid);
-
-		if (res.getStatus() == Response.Status.OK.getStatusCode())
-			trace("Reading Media with CSID " + mediaCsid + ". "
-					+ "Status code = " + res.getStatus());
-		else
-			trace("Error reading media record. Status code = "
-					+ res.getStatus());
-
+		
 		printContextInfo();
 
+		// We don't have access to the ResourceBase.get method that just returns a PoxPayloadOut,
+		// so we need to call the method that returns a serialized one, and deserialize it.
+
+		ResourceBase resource = resourceMap.get(MediaClient.SERVICE_NAME);
+		byte[] response = resource.get(createUriInfo(), mediaCsid);
+		trace( "ResourceBase resource: " + new String(response));
+		
+		PoxPayloadOut payload = null;		
+		
+		try {
+			payload = new PoxPayloadOut(response);
+		} catch (DocumentException e) {
+			trace(e.getMessage());
+		}
+		
+		String identificationNumber = getFieldValue(payload, "media_common", "identificationNumber");
+		String tenantId = getFieldValue(payload, "collectionspace_core", "tenantId");
+		String title = getFieldValue(payload, "media_common", "title");
+		String scientificTaxonomy = getFieldValue(payload, "media_ucjeps", "scientificTaxonomy");
+
+		trace("identificationNumber: " + identificationNumber);
+		trace("tenantId: " + tenantId);
+		trace("title: " + title);
+		trace("scientificTaxonomy: " + scientificTaxonomy);
+		
+    List<String> collectionObjectsCsids = findCollectionObjectsByObjectNumber(identificationNumber);
+    trace(collectionObjectsCsids.size() + " existing CollectionObjects" );
+
+    for (String csid : collectionObjectsCsids) {
+      trace( "csid: " + csid );
+    }
+
+		MediaInfo mediaInfo = new MediaInfo();
+		mediaInfo.setCsid(mediaCsid);
+		mediaInfo.setIdentificationNumber(identificationNumber);
+		mediaInfo.setTenantId(tenantId);
+		mediaInfo.setTitle(title);
+		mediaInfo.addScientificTaxonomy(scientificTaxonomy);		
+		
 		String statusMsg = "Catalog and Relation creation failed.";
 		completionStatus = STATUS_ERROR;
-
-		String mediaXML = fetchMediaXML(mediaCsid);
-		trace("mediaXML: "
-				+ ((mediaXML == null) ? "No xml document" : mediaXML));
-
-		BatchJobParserHandler handler = null;
-		MediaInfo mediaInfo = null;
-
-		if (mediaXML != null) {
-			handler = new BatchJobParserHandler(mediaXML);
-			handler.parseXMlDocument();
-			mediaInfo = handler.getMediaInfo();
-		}
 
 		if (createCatalogRecord(mediaInfo) == STATUS_COMPLETE) {
 			statusMsg = "Catalog created successfully.";
@@ -171,86 +174,81 @@ public class CreateCatalogFromMedia implements BatchInvocable {
 		traceClose("Closing");
 	}
 
-	private String fetchMediaRecord(String csid) {
-		trace("In fetchMediaRecord with " + csid);
-		UriInfo uriInfo = null;
-		ResourceBase base = resourceMap.get(context);
-		if (base == null)
-			trace("Null base");
-		else {
-			trace("getting Bytes");
-			byte bytes[] = base.get(uriInfo, csid);
-			if (bytes == null)
-				trace("no bytes");
-			else {
-				trace("got some bytes");
-				String bstring = bytes.toString();
-				if (bstring == null)
-					trace("bytes to string was null");
-				else
-					trace("Got bytes: " + bstring);
+  private List<String> findCollectionObjectsByObjectNumber(String objectNumber) {
+    List<String> csids = new ArrayList<String>();
+    ResourceBase resource = resourceMap.get(CollectionObjectClient.SERVICE_NAME);
+    AbstractCommonList list = resource.getList(createObjectNumberSearchUriInfo(objectNumber));
+
+    for (AbstractCommonList.ListItem item : list.getListItem()) {
+      for (org.w3c.dom.Element element : item.getAny()) {
+        if (element.getTagName().equals("csid")) {
+          csids.add(element.getTextContent());
+          break;
+        }
+      }
+    }
+    return csids;
+  }
+
+	/**
+	 * Create a stub UriInfo
+	 */
+    private UriInfo createUriInfo() {
+    	return createUriInfo("");
+    	
+    }
+	private UriInfo createUriInfo(String queryString ) {
+		URI absolutePath = null;
+		URI baseUri = null;
+		
+		try {
+			absolutePath = new URI("");
+			baseUri = new URI("");
+		} catch (URISyntaxException e) {
+			trace(e.getMessage());
+		}
+		
+		return new UriInfoImpl(absolutePath, baseUri, "", queryString, Collections.EMPTY_LIST);
+	}
+
+  private UriInfo createObjectNumberSearchUriInfo( String objectNumber ) {
+    String queryString = "as=( (collectionobjects_common:objectNumber ILIKE \"" +
+                          objectNumber + "\") )&wf_deleted=false";
+
+    URI uri = null;
+
+    try {
+      uri = new URI( null, null, null, queryString, null );
+    } catch (URISyntaxException e ) {
+      trace( e.getMessage() );
+    }
+    trace( "search query: " + uri.getRawQuery() );
+    return createUriInfo( uri.getRawQuery() );
+  }
+
+	/**
+	 * Get a field value from a PoxPayloadOut, given a part name and xpath expression.
+	 * This implementation uses an xpath query on the DOM, but it could in theory
+	 * use a JAXB object (obtained via PoxPayload.toObject), and not deal with the
+	 * DOM at all. The problem with the latter is that we haven't been creating JAXB
+	 * schemas for extensions.
+	 */
+	private String getFieldValue(PoxPayloadOut payload, String partLabel, String fieldPath) {
+		String value = null;
+		PayloadOutputPart part = payload.getPart(partLabel);
+
+		if (part != null) {
+			Element element = part.asElement();
+			Node node = element.selectSingleNode(fieldPath);
+
+			if (node != null) {
+				value = node.getText();
 			}
 		}
-		// return bytes.toString();
-		String res = "All done in fetch";
-		return res;
+		
+		return value;
 	}
 
-	/*
-	 * GET an XML media record from a URL
-	 */
-	private String fetchMediaXML(String csid) {
-		trace("In fetchMediaXML with " + csid);
-		// String userpass = "admin@ucjeps.cspace.berkeley.edu:1ulnaria";
-		String userpass = "admin@ucjeps.cspace.berkeley.edu:Administrator";
-		String host = "http://localhost";
-		String port = "8180";
-		String srvc = "cspace-services/media";
-		String mediaURL = host + ":" + port + "/" + srvc + "/" + csid;
-		trace("getting " + mediaURL);
-		URL url;
-		HttpURLConnection conn = null;
-		BufferedReader br;
-		String line;
-		StringBuilder result = new StringBuilder();
-
-		try {
-			url = new URL(mediaURL);
-			conn = (HttpURLConnection) url.openConnection();
-			conn.setRequestMethod("GET");
-
-			String basicAuth = "Basic " + encodeBase64(userpass.getBytes());
-			trace(basicAuth);
-			conn.setRequestProperty("Authorization", basicAuth);
-			br = new BufferedReader(
-					new InputStreamReader(conn.getInputStream()));
-
-			while ((line = br.readLine()) != null) {
-				result.append(line);
-			}
-		} catch (Exception e) {
-			System.err.println(e.getMessage());
-			return null;
-		} finally {
-			// if( conn != null )
-			// conn.disconnect();
-		}
-		return result.toString();
-	}
-
-	/*
-	 * Utility method for base64 encoding byte arrays
-	 */
-	public String encodeBase64(byte bytes[]) {
-		trace("In encodeBase64");
-		String base64 = null;
-		try {
-			base64 = Base64Encoder.encode(bytes);
-		} catch (Exception e) {
-			base64 = null;
-		}
-		return base64;
-	}
 
 	/*
 	 * Create the payload String used by createCatalogRecord
@@ -390,14 +388,11 @@ public class CreateCatalogFromMedia implements BatchInvocable {
 				errorInfo = new InvocationError(INT_ERROR_STATUS,
 						"CreateCatalogFromMediaBatchJob problem creating new reverse relation!");
 				results.setUserNote(errorInfo.getMessage());
+			} else {
+				completionStatus = STATUS_COMPLETE;
 			}
 		}
-		completionStatus = STATUS_COMPLETE;
 		return completionStatus;
-	}
-
-	private void parseXMLRecord(String document, HashMap<String, String> tags) {
-
 	}
 
 	/**
@@ -493,32 +488,6 @@ public class CreateCatalogFromMedia implements BatchInvocable {
 				trace("End of ListCSIDS");
 			} else
 				trace("Null ListCSIDS");
-
-			// String statusMsg = "Catalog and Relation creation failed.";
-			//
-			// if( createCatalogRecord( "MH-10030", "My Object" ) ==
-			// STATUS_COMPLETE )
-			// {
-			// statusMsg = "Catalog created successfully.";
-			// if( createRelation( "IDNUMBER1", "IDNUMBER2", "affects" ) ==
-			// STATUS_COMPLETE )
-			// {
-			// completionStatus = STATUS_COMPLETE;
-			// statusMsg = "Catalog and Relation created successfully.";
-			// }
-			// else
-			// completionStatus = STATUS_ERROR;
-			// }
-			// else
-			// completionStatus = STATUS_ERROR;
-			//
-			// trace( "CATALOG PAYLOAD: " +
-			// ( catalogPayload == null ?
-			// "No catalog payload" : catalogPayload ));
-			// trace( "RELATION PAYLOADS: " +
-			// ( relPayload == null ?
-			// "No relation payload" : relPayload ));
-			// trace( statusMsg );
 		}
 	}
 
@@ -568,137 +537,6 @@ public class CreateCatalogFromMedia implements BatchInvocable {
 		names.add(RelationClient.SERVICE_NAME);
 		names.add(CollectionObjectClient.SERVICE_NAME);
 		return names;
-	}
-
-	private class BatchJobParserHandler extends DefaultHandler {
-		private SAXParserFactory spf;
-		private SAXParser saxParser;
-		private XMLReader xmlReader;
-		private String xmlDocument;
-		private boolean inUri;
-		private boolean inIdentificationNumber;
-		private boolean inScientificTaxonomy;
-		private boolean inTenantId;
-		private boolean inTitle;
-		private boolean inCommon;
-		private boolean inCore;
-		private boolean inUcjeps;
-		private MediaInfo mi;
-
-		public BatchJobParserHandler(String xmlDocument) {
-			this.xmlDocument = xmlDocument;
-		}
-
-		public MediaInfo getMediaInfo() {
-			return mi;
-		}
-
-		public void parseXMlDocument() {
-			try {
-				spf = SAXParserFactory.newInstance();
-				spf.setNamespaceAware(true);
-				saxParser = spf.newSAXParser();
-				xmlReader = saxParser.getXMLReader();
-				xmlReader.setContentHandler(this);
-				xmlReader.setErrorHandler(this);
-				StringReader r = new StringReader(xmlDocument);
-				xmlReader.parse(new InputSource(r));
-			} catch (ParserConfigurationException e) {
-				System.err.println("ParserConfigurationException: "
-						+ e.getMessage());
-			} catch (SAXException e) {
-				System.err.println("SAXException: " + e.getMessage());
-			} catch (IOException e) {
-				System.err.println("IOException: " + e.getMessage());
-			}
-		}
-
-		public void startDocument() {
-			trace("Start document");
-			inUri = false;
-			inIdentificationNumber = false;
-			inScientificTaxonomy = false;
-			inTenantId = false;
-			inTitle = false;
-			inCommon = false;
-			inCore = false;
-			inUcjeps = false;
-			mi = new MediaInfo();
-		}
-
-		public void endDocument() {
-			trace("End document ");
-		}
-
-		public void startElement(String uri, String localName, String qName,
-				Attributes attr) {
-			trace("Start element: name=" + localName + ", qName=" + qName
-					+ ", uri=" + uri);
-			if (qName.equalsIgnoreCase("ns2:media_common"))
-				inCommon = true;
-			else if (qName.equalsIgnoreCase("ns2:collectionspace_core"))
-				inCore = true;
-			else if (qName.equalsIgnoreCase("ns2:media_ucjeps"))
-				inUcjeps = true;
-			else if (inCommon
-					&& (qName.equalsIgnoreCase("identificationNumber")))
-				inIdentificationNumber = true;
-			else if (inUcjeps && (qName.equalsIgnoreCase("scientificTaxonomy")))
-				inScientificTaxonomy = true;
-			else if (inCore && (qName.equalsIgnoreCase("tenantId")))
-				inTenantId = true;
-			else if (inCommon && (qName.equalsIgnoreCase("title")))
-				inTitle = true;
-			else if (inCore && (qName.equalsIgnoreCase("uri")))
-				inUri = true;
-			else
-				return;
-		}
-
-		public void endElement(String uri, String localName, String qName) {
-			trace("End element: name=" + localName + " qName: " + qName
-					+ " uri: " + uri);
-			if (qName.equalsIgnoreCase("ns2:media_common"))
-				inCommon = false;
-			if (qName.equalsIgnoreCase("ns2:collectionspace_core"))
-				inCore = false;
-			else if (qName.equalsIgnoreCase("ns2:media_ucjeps"))
-				inUcjeps = false;
-			else if (qName.equalsIgnoreCase("identificationnumber"))
-				inIdentificationNumber = false;
-			else if (qName.equalsIgnoreCase("scientificTaxonomy"))
-				inScientificTaxonomy = false;
-			else if (qName.equalsIgnoreCase("tenantId"))
-				inTenantId = false;
-			else if (qName.equalsIgnoreCase("title"))
-				inTitle = false;
-			else if (qName.equalsIgnoreCase("uri"))
-				inUri = false;
-			else
-				return;
-		}
-
-		public void characters(char[] ch, int start, int length) {
-			trace("In characters");
-			String theText = new String(ch, start, length);
-			trace("In characters with string: " + theText);
-
-			if (inIdentificationNumber)
-				mi.setIdentificationNumber(theText);
-			else if (inTenantId)
-				mi.setTenantId(theText);
-			else if (inTitle)
-				mi.setTitle(theText);
-			else if (inScientificTaxonomy)
-				mi.addScientificTaxonomy(theText);
-			else if (inUri) {
-				mi.setCsid(theText.substring(theText.lastIndexOf('/') + 1));
-			}
-		}
-
-		public void ignorableWhitespace(char[] ch, int start, int length) {
-			trace("Ignorable whitespace: " + new String(ch, start, length));
-		}
 	}
 
 	class MediaInfo {
