@@ -42,12 +42,15 @@ public class CreateCatalogFromMedia implements BatchInvocable {
 
 	private String catalogPayload = null;
 	private String relPayload = null;
+	
+	private boolean traceFlag = true;
+	private boolean forceCreate = false;
 
-	private final String RELATION_TYPE = "affects";
-	//private final String RELATION_PREDICATE_DISP = "affects";
-	//private final String CAT_DOCTYPE = "CollectionObject";
+	// private final String RELATION_PREDICATE_DISP = "affects";
+	// private final String CAT_DOCTYPE = "CollectionObject";
 	protected final int CREATED_STATUS = Response.Status.CREATED
 			.getStatusCode();
+	private final String RELATION_TYPE = "affects";
 	protected final int BAD_REQUEST_STATUS = Response.Status.BAD_REQUEST
 			.getStatusCode();
 	protected final int INT_ERROR_STATUS = Response.Status.INTERNAL_SERVER_ERROR
@@ -101,139 +104,171 @@ public class CreateCatalogFromMedia implements BatchInvocable {
 
 		String mediaCsid = context.getSingleCSID();
 		trace("Looking up: " + mediaCsid);
-		
+
 		printContextInfo();
 
-		// We don't have access to the ResourceBase.get method that just returns a PoxPayloadOut,
-		// so we need to call the method that returns a serialized one, and deserialize it.
+		// We don't have access to the ResourceBase.get method that just returns
+		// a PoxPayloadOut,
+		// so we need to call the method that returns a serialized one, and
+		// deserialize it.
 
 		ResourceBase resource = resourceMap.get(MediaClient.SERVICE_NAME);
 		byte[] response = resource.get(createUriInfo(), mediaCsid);
-		trace( "ResourceBase resource: " + new String(response));
-		
-		PoxPayloadOut payload = null;		
-		
+		trace("ResourceBase resource: " + new String(response));
+
+		PoxPayloadOut payload = null;
+
 		try {
 			payload = new PoxPayloadOut(response);
 		} catch (DocumentException e) {
 			trace(e.getMessage());
 		}
-		
-		String identificationNumber = getFieldValue(payload, "media_common", "identificationNumber");
-		String tenantId = getFieldValue(payload, "collectionspace_core", "tenantId");
+
+		String identificationNumber = getFieldValue(payload, "media_common",
+				"identificationNumber");
+		String tenantId = getFieldValue(payload, "collectionspace_core",
+				"tenantId");
 		String title = getFieldValue(payload, "media_common", "title");
-		String scientificTaxonomy = getFieldValue(payload, "media_ucjeps", "scientificTaxonomy");
+		String scientificTaxonomy = getFieldValue(payload, "media_ucjeps",
+				"scientificTaxonomy");
+		String postToPublic = getFieldValue(payload, "media_ucjeps",
+				"postToPublic");
+		String handWritten = getFieldValue(payload, "media_ucjeps",
+				"handwritten");
 
 		trace("identificationNumber: " + identificationNumber);
 		trace("tenantId: " + tenantId);
 		trace("title: " + title);
 		trace("scientificTaxonomy: " + scientificTaxonomy);
-		
-    List<String> collectionObjectsCsids = findCollectionObjectsByObjectNumber(identificationNumber);
-    trace(collectionObjectsCsids.size() + " existing CollectionObjects" );
+		trace("postToPublic: " + postToPublic);
+		trace("handWritten: " + handWritten);
 
-    for (String csid : collectionObjectsCsids) {
-      trace( "csid: " + csid );
-    }
+		List<String> collectionObjectsCsids = findCollectionObjectsByObjectNumber(identificationNumber);
+		trace(collectionObjectsCsids.size() + " existing CollectionObjects");
 
-		MediaInfo mediaInfo = new MediaInfo();
-		mediaInfo.setCsid(mediaCsid);
-		mediaInfo.setIdentificationNumber(identificationNumber);
-		mediaInfo.setTenantId(tenantId);
-		mediaInfo.setTitle(title);
-		mediaInfo.addScientificTaxonomy(scientificTaxonomy);		
-		
-		String statusMsg = "Catalog and Relation creation failed.";
-		completionStatus = STATUS_ERROR;
+		Boolean duplicateObjectNumber = false;
 
-		if (createCatalogRecord(mediaInfo) == STATUS_COMPLETE) {
-			statusMsg = "Catalog created successfully.";
-			String catalogId = results.getPrimaryURICreated();
-			String mediaId = context.getSingleCSID();
+		for (String csid : collectionObjectsCsids) {
+			trace("csid: " + csid);
+			duplicateObjectNumber = true;
+		}
 
-			if (createRelation(catalogId, mediaId, RELATION_TYPE) == STATUS_COMPLETE) {
-				statusMsg = "Catalog and Relation created successfully.";
+		String statusMsg = "";
+		//completionStatus = STATUS_ERROR;
+
+		if (duplicateObjectNumber && ! forceCreate) {
+			statusMsg = "Duplicate objectNumber - catalog record will not be created.";
+			try {
+			  errorInfo = new InvocationError(BAD_REQUEST_STATUS,
+					"Skipping creation of record with duplicate objectNumber");
+			  completionStatus = STATUS_COMPLETE;
+			  
+			  results.setPrimaryURICreated("");  
+			  results.setNumAffected(0);
+			  results.setUserNote(statusMsg);
+			}catch( Exception e ) {
+               trace( "Caught " + e.getMessage() );
+			}
+		} else {
+			MediaInfo mediaInfo = new MediaInfo();
+			mediaInfo.setCsid(mediaCsid);
+			mediaInfo.setIdentificationNumber(identificationNumber);
+			mediaInfo.setTenantId(tenantId);
+			mediaInfo.setTitle(title);
+			mediaInfo.addScientificTaxonomy(scientificTaxonomy);
+			mediaInfo.setHandWritten(handWritten);
+			mediaInfo.setPostToPublic(postToPublic);
+
+			if (createCatalogRecord(mediaInfo) == STATUS_COMPLETE) {
+				statusMsg = "Catalog record created successfully.";
+				String catalogId = results.getPrimaryURICreated();
+				String mediaId = context.getSingleCSID();
+
+				if (createRelation(catalogId, mediaId, RELATION_TYPE) == STATUS_COMPLETE) {
+					statusMsg = "Catalog and Relation created successfully.";
+				} else
+					completionStatus = STATUS_ERROR;
 			} else
 				completionStatus = STATUS_ERROR;
-		} else
-			completionStatus = STATUS_ERROR;
 
-		trace("CATALOG PAYLOAD: "
-				+ ((catalogPayload == null) ? "No catalog payload"
-						: catalogPayload));
+			trace("CATALOG PAYLOAD: "
+					+ ((catalogPayload == null) ? "No catalog payload"
+							: catalogPayload));
 
-		trace("RELATION PAYLOADS: "
-				+ ((relPayload == null) ? "No relation payload" : relPayload));
-
-		results.setNumAffected(1);
-		results.setUserNote("Wrote output to temp file");
-
-		// Temporary, do not leave this here.
-		// completionStatus = STATUS_COMPLETE;
-		trace(statusMsg);
-		traceClose("Closing");
+			trace("RELATION PAYLOADS: "
+					+ ((relPayload == null) ? "No relation payload"
+							: relPayload));
+			results.setNumAffected(1);
+			results.setUserNote(statusMsg);
+		}
+		traceClose("Closing with: " + statusMsg );
 	}
 
-  private List<String> findCollectionObjectsByObjectNumber(String objectNumber) {
-    List<String> csids = new ArrayList<String>();
-    ResourceBase resource = resourceMap.get(CollectionObjectClient.SERVICE_NAME);
-    AbstractCommonList list = resource.getList(createObjectNumberSearchUriInfo(objectNumber));
+	private List<String> findCollectionObjectsByObjectNumber(String objectNumber) {
+		List<String> csids = new ArrayList<String>();
+		ResourceBase resource = resourceMap
+				.get(CollectionObjectClient.SERVICE_NAME);
+		AbstractCommonList list = resource
+				.getList(createObjectNumberSearchUriInfo(objectNumber));
 
-    for (AbstractCommonList.ListItem item : list.getListItem()) {
-      for (org.w3c.dom.Element element : item.getAny()) {
-        if (element.getTagName().equals("csid")) {
-          csids.add(element.getTextContent());
-          break;
-        }
-      }
-    }
-    return csids;
-  }
+		for (AbstractCommonList.ListItem item : list.getListItem()) {
+			for (org.w3c.dom.Element element : item.getAny()) {
+				if (element.getTagName().equals("csid")) {
+					csids.add(element.getTextContent());
+					break;
+				}
+			}
+		}
+		return csids;
+	}
 
 	/**
 	 * Create a stub UriInfo
 	 */
-    private UriInfo createUriInfo() {
-    	return createUriInfo("");
-    	
-    }
-	private UriInfo createUriInfo(String queryString ) {
+	private UriInfo createUriInfo() {
+		return createUriInfo("");
+
+	}
+
+	private UriInfo createUriInfo(String queryString) {
 		URI absolutePath = null;
 		URI baseUri = null;
-		
+
 		try {
 			absolutePath = new URI("");
 			baseUri = new URI("");
 		} catch (URISyntaxException e) {
 			trace(e.getMessage());
 		}
-		
-		return new UriInfoImpl(absolutePath, baseUri, "", queryString, Collections.EMPTY_LIST);
+
+		return new UriInfoImpl(absolutePath, baseUri, "", queryString,
+				Collections.EMPTY_LIST);
 	}
 
-  private UriInfo createObjectNumberSearchUriInfo( String objectNumber ) {
-    String queryString = "as=( (collectionobjects_common:objectNumber ILIKE \"" +
-                          objectNumber + "\") )&wf_deleted=false";
+	private UriInfo createObjectNumberSearchUriInfo(String objectNumber) {
+		String queryString = "as=( (collectionobjects_common:objectNumber ILIKE \""
+				+ objectNumber + "\") )&wf_deleted=false";
 
-    URI uri = null;
+		URI uri = null;
 
-    try {
-      uri = new URI( null, null, null, queryString, null );
-    } catch (URISyntaxException e ) {
-      trace( e.getMessage() );
-    }
-    trace( "search query: " + uri.getRawQuery() );
-    return createUriInfo( uri.getRawQuery() );
-  }
+		try {
+			uri = new URI(null, null, null, queryString, null);
+		} catch (URISyntaxException e) {
+			trace(e.getMessage());
+		}
+		trace("search query: " + uri.getRawQuery());
+		return createUriInfo(uri.getRawQuery());
+	}
 
 	/**
-	 * Get a field value from a PoxPayloadOut, given a part name and xpath expression.
-	 * This implementation uses an xpath query on the DOM, but it could in theory
-	 * use a JAXB object (obtained via PoxPayload.toObject), and not deal with the
-	 * DOM at all. The problem with the latter is that we haven't been creating JAXB
-	 * schemas for extensions.
+	 * Get a field value from a PoxPayloadOut, given a part name and xpath
+	 * expression. This implementation uses an xpath query on the DOM, but it
+	 * could in theory use a JAXB object (obtained via PoxPayload.toObject), and
+	 * not deal with the DOM at all. The problem with the latter is that we
+	 * haven't been creating JAXB schemas for extensions.
 	 */
-	private String getFieldValue(PoxPayloadOut payload, String partLabel, String fieldPath) {
+	private String getFieldValue(PoxPayloadOut payload, String partLabel,
+			String fieldPath) {
 		String value = null;
 		PayloadOutputPart part = payload.getPart(partLabel);
 
@@ -245,27 +280,38 @@ public class CreateCatalogFromMedia implements BatchInvocable {
 				value = node.getText();
 			}
 		}
-		
+
 		return value;
 	}
-
 
 	/*
 	 * Create the payload String used by createCatalogRecord
 	 */
 	private String createCatalogRecordPayload(MediaInfo mediaInfo) {
 		trace("In createCatalogRecordPayload");
-
 		String objectNumber = mediaInfo.getIdentificationNumber();
 		String title = mediaInfo.getTitle();
 		String taxon = mediaInfo.getScientificTaxonomy(0);
+		String handWritten = mediaInfo.getHandWritten();
+		String postToPublic = mediaInfo.getPostToPublic();
 
 		String payload = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
 				+ "<document name=\""
 				+ CollectionObjectClient.SERVICE_NAME
 				+ "\">\n"
+				+ "<ns2:collectionobjects_ucjeps "
+				+ "xmlns:ns2=\"http://collectionspace.org/services/collectionobject/local/ucjeps\" "
+				+ "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
+				+ "<postToPublic>"
+				+ postToPublic
+				+ "</postToPublic>\n"
+				+ "<handwritten>"
+				+ handWritten
+				+ "</handwritten>\n"
+				+ "</ns2:collectionobjects_ucjeps>"
 				+ "<nh:collectionobjects_naturalhistory "
-				+ "xmlns:nh=\"http://collectionspace.org/services/collectionobject/domain/naturalhistory\">\n"
+				+ "xmlns:nh=\"http://collectionspace.org/services/collectionobject/domain/naturalhistory\" "
+				+ "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
 				+ "<taxonomicIdentGroupList>"
 				+ "<taxonomicIdentGroup>"
 				+ "<taxon>"
@@ -296,7 +342,6 @@ public class CreateCatalogFromMedia implements BatchInvocable {
 	private String createRelationPayload(String subjectId, String subjectType,
 			String objectId, String objectType, String relType) {
 		trace("In createRelationPayload");
-
 		String payload = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
 				+ "<document name=\""
 				+ RelationClient.SERVICE_NAME
@@ -329,7 +374,6 @@ public class CreateCatalogFromMedia implements BatchInvocable {
 
 	private int createCatalogRecord(MediaInfo mediaInfo) {
 		trace("In createCatalogRecord");
-
 		catalogPayload = createCatalogRecordPayload(mediaInfo);
 
 		if (catalogPayload == null) {
@@ -425,7 +469,6 @@ public class CreateCatalogFromMedia implements BatchInvocable {
 	 */
 	@Override
 	public InvocationError getErrorInfo() {
-		trace("In getErrorInfo");
 		return errorInfo;
 	}
 
@@ -438,17 +481,14 @@ public class CreateCatalogFromMedia implements BatchInvocable {
 	 */
 	@Override
 	public void setResourceMap(ResourceMap resourceMap) {
-		trace("In setResourceMap");
 		this.resourceMap = resourceMap;
 	}
 
 	// Utility methods for tracing during dev
 	private void printContextInfo() {
-		trace("In printContextInfo");
 		if (context == null)
 			trace("Context is null");
 		else {
-			trace("Context is NOT null");
 			InvocationContext.Params params = context.getParams();
 
 			if (params != null) {
@@ -492,6 +532,9 @@ public class CreateCatalogFromMedia implements BatchInvocable {
 	}
 
 	private void trace(String msg) {
+		if ( ! traceFlag )
+			return;
+		
 		if (traceLog == null) {
 			try {
 				traceLog = new FileWriter(traceLogFile, true);
@@ -545,6 +588,8 @@ public class CreateCatalogFromMedia implements BatchInvocable {
 		private String tenantId;
 		private String identificationNumber;
 		private ArrayList<String> scientificTaxonomy;
+		private String postToPublic;
+		private String handWritten;
 
 		public MediaInfo() {
 			this(null);
@@ -556,6 +601,8 @@ public class CreateCatalogFromMedia implements BatchInvocable {
 			title = null;
 			identificationNumber = null;
 			scientificTaxonomy = new ArrayList<String>();
+			handWritten = null;
+			postToPublic = null;
 		}
 
 		public String getCsid() {
@@ -603,6 +650,22 @@ public class CreateCatalogFromMedia implements BatchInvocable {
 
 		public void setTitle(String title) {
 			this.title = title;
+		}
+
+		public String getPostToPublic() {
+			return this.postToPublic;
+		}
+
+		public void setPostToPublic(String postToPublic) {
+			this.postToPublic = postToPublic;
+		}
+
+		public String getHandWritten() {
+			return this.handWritten;
+		}
+
+		public void setHandWritten(String handWritten) {
+			this.handWritten = handWritten;
 		}
 	}
 }
