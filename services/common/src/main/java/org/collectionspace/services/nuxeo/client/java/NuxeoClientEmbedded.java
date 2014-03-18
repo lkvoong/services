@@ -87,7 +87,7 @@ public final class NuxeoClientEmbedded {
 
     private static final Log log = LogFactory.getLog(NuxeoClientEmbedded.class);
 
-    private static final int DEFAULT_TX_TIMEOUT = 43200; // 12 hours, just to test
+    private static final int DEFAULT_TX_TIMEOUT = 86400; // 24 hours, just to test
     
     /**
      * Constructs a new NuxeoClient. NOTE: Using {@link #getInstance()} instead
@@ -416,8 +416,8 @@ public final class NuxeoClientEmbedded {
     	if (timeoutSeconds > 0) {
     		TransactionManager transactionMgr = TransactionHelper.lookupTransactionManager();
     		transactionMgr.setTransactionTimeout(timeoutSeconds);
-    		if (logger.isInfoEnabled()) {
-    			logger.info(String.format("Changing current request's transaction timeout period to %d seconds",
+    		if (logger.isDebugEnabled()) {
+    			logger.debug(String.format("Changing current request's transaction timeout period to %d seconds",
     					timeoutSeconds));
     		}
     	}
