@@ -28,7 +28,6 @@ import org.collectionspace.services.client.BlobClient;
 import org.collectionspace.services.client.PayloadPart;
 import org.collectionspace.services.client.PoxPayloadIn;
 import org.collectionspace.services.client.PoxPayloadOut;
-import org.collectionspace.services.client.Profiler;
 import org.collectionspace.services.common.FileUtilities;
 import org.collectionspace.services.common.NuxeoBasedResource;
 import org.collectionspace.services.common.ResourceMap;
@@ -227,51 +226,26 @@ public class BlobResource extends NuxeoBasedResource {
     		@Context ResourceMap resourceMap, 
     		@Context UriInfo ui,
     		String xmlPayload) {
-		Response response = null;
-		MultivaluedMap<String, String> queryParams = ui.getQueryParameters();
-		String blobUri = queryParams.getFirst(BlobClient.BLOB_URI_PARAM);
-
-		//
-		// Profiling data
-		//
-		Profiler topProfiler = new Profiler(this, 1);
-		topProfiler.log("Request to create a new blob started");
-		topProfiler.start("");
-
-		try {
-			if (blobUri != null) { // If we were passed a URI than try to create a blob from it
-				ServiceContext<PoxPayloadIn, PoxPayloadOut> ctx = createServiceContext();
-
-				BlobInput blobInput = BlobUtil.getBlobInput(ctx); // We're going to store a reference to the blob in the
-																	// current context for the doc handler to use later
-
-				Profiler profiler = new Profiler(this, 2);
-				profiler.start("createBlobFile begun");
-				blobInput.createBlobFile(blobUri); // This call creates a temp blob file and points our blobInput to it
-				profiler.stop();
-				profiler.log(String.format("createBlobFile finsihed: %d", profiler.getElapsedTime()));
-
-				profiler.start("Nuxeo create blob begun.");
-				response = this.create(null, ctx); // Now finish the create. We'll ignore the xmlPayload since we'll
-													// derive it from the blob itself
-				profiler.stop();
-				profiler.log(String.format("Nuxeo create blob finished: %d", profiler.getElapsedTime()));
-			} else {
-				// No URI was passed in so we're just going to create a blob record
-				response = super.create(resourceMap, ui, xmlPayload);
-			}
-		} catch (Exception e) {
-			throw bigReThrow(e, ServiceMessages.CREATE_FAILED);
-		}
-
-		//
-		// Profiling data
-		//
-		topProfiler.stop();
-		topProfiler.log(String.format("Total time to handle Blob create request: %d", topProfiler.getCumulativeTime()));
-
+    	Response response = null;
+    	MultivaluedMap<String, String> queryParams = ui.getQueryParameters();
+    	String blobUri = queryParams.getFirst(BlobClient.BLOB_URI_PARAM);
+    	
+    	try {
+    		if (blobUri != null) { // If we were passed a URI than try to create a blob from it
+		    	ServiceContext<PoxPayloadIn, PoxPayloadOut> ctx = createServiceContext();
+		    	BlobInput blobInput = BlobUtil.getBlobInput(ctx); // We're going to store a reference to the blob in the current context for the doc handler to use later
+		    	blobInput.createBlobFile(blobUri); // This call creates a temp blob file and points our blobInput to it
+		    	response = this.create(null, ctx); // Now finish the create.  We'll ignore the xmlPayload since we'll derive it from the blob itself
+    		} else {
+    			// No URI was passed in so we're just going to create a blob record
+    			response = super.create(resourceMap, ui, xmlPayload);
+    		}
+    	} catch (Exception e) {
+    		throw bigReThrow(e, ServiceMessages.CREATE_FAILED);
+    	}
+    			
 		return response;
-	}    
+    }    
     
     /**
      * If there is no explicit setting in the Blobs service binding, we'll ask the HTTP client to cache blobs for 1 full day.
