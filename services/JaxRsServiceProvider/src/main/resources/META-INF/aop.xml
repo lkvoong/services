@@ -10,5 +10,6 @@
     <aspects>        
         <!-- weave in just this aspect --> 
         <aspect name="org.collectionspace.services.aspect.JaxbXMLGregorianCalendarMarshal"/>
+        <aspect name="org.collectionspace.services.aspect.BlobProfileAspect"/>
     </aspects>
 </aspectj>
