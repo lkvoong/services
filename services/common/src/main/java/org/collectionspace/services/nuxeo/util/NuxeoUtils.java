@@ -625,7 +625,7 @@ public class NuxeoUtils {
     static private final void appendNXQLOrderBy(StringBuilder query, QueryContext queryContext)
             throws Exception {
         String orderByClause = queryContext.getOrderByClause();
-        appendNXQLOrderBy(query, orderByClause, null);
+//        appendNXQLOrderBy(query, orderByClause, null);
     }
         
     static public final void appendCMISOrderBy(StringBuilder query, QueryContext queryContext)
