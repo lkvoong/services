@@ -1,15 +1,22 @@
 <html>
-<head>
-        <meta charset="UTF-8">
-</head>
-<body>
-        <div id="cspace"></div>
-        <script src="/cspace-ui/cspaceUI@@UI_VERSION@.min.js"></script>
-        <script>
-                cspaceUI({
-                        basename: '/cspace/core',
-                        prettyUrls: true,
-                });
-        </script>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+	</head>
+	<body>
+		<div id="cspace"></div>
+		<script src="/cspace-ui/cspaceUI@@UI_VERSION@.min.js"></script>
+		<script>
+			cspaceUI({
+				tenantId: '@TENANT_ID@',
+				// Logo value should include quotes, or use "undefined" (no quotes) for default logo
+				logo: @LOGO@,
+				messages: {
+					// Override the login page title
+					'about.title': '@MESSAGE_TITLE@',
+				},
+				basename: '@PLUGIN_BASENAME@',
+				prettyUrls: true,
+			});
+		</script>
+	</body>
 </html>
