@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.nuxeo.ecm.core.api.DocumentModel;
+
 import org.collectionspace.services.client.PayloadOutputPart;
 import org.collectionspace.services.client.PoxPayloadOut;
 import org.collectionspace.services.client.RelationClient;
@@ -25,6 +27,9 @@ import org.collectionspace.services.common.invocable.InvocationResults;
 import org.collectionspace.services.common.relation.RelationResource;
 import org.collectionspace.services.common.vocabulary.AuthorityResource;
 import org.collectionspace.services.relation.RelationsCommonList;
+import org.collectionspace.services.common.api.RefName;
+import org.collectionspace.services.common.api.RefNameUtils;
+import org.collectionspace.services.nuxeo.util.NuxeoUtils;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -71,10 +76,13 @@ public class MergeAuthorityItemsBatchJob extends AbstractBatchJob {
 	public void run() {
 		setCompletionStatus(STATUS_MIN_PROGRESS);
 
+		String mode = getInvocationContext().getMode(); 
+
 		try {
 			String docType = null;
-			String targetCsid = null;
+			String targetAuthority = null;
 			List<String> sourceCsids = new ArrayList<String>();
+
 
 			for (Param param : this.getParams()) {
 				String key = param.getKey();
@@ -88,10 +96,27 @@ public class MergeAuthorityItemsBatchJob extends AbstractBatchJob {
 					docType = param.getValue();
 				}
 				else if (key.equals("targetCSID")) {
-					targetCsid = param.getValue();
+					targetAuthority = param.getValue();
+
+					// Check whether a CSID or RefName was passed in. If so, transform it into a CSID 
+					if (RefNameUtils.isTermRefname(targetAuthority)) {
+						DocumentModel refNameModel = NuxeoUtils.getDocModelForRefName(getServiceContext(), targetAuthority, getResourceMap());
+						targetAuthority = refNameModel.getName();
+
+					}
 				}
 				else if (key.equals("sourceCSID")) {
 					sourceCsids.add(param.getValue());
+				}
+			}
+
+			if (mode.equalsIgnoreCase(INVOCATION_MODE_LIST)) {
+				// Now that these appear in the UI, we can fetch the docType and the sourceCSIDlists 
+				if (docType == null) {
+					docType = invocationCtx.getDocType();
+				}
+				if (sourceCsids.size() == 0) {
+					sourceCsids = this.getListCsids();
 				}
 			}
 
@@ -99,15 +124,24 @@ public class MergeAuthorityItemsBatchJob extends AbstractBatchJob {
 				throw new Exception("a docType must be supplied");
 			}
 
-			if (targetCsid == null || targetCsid.equals("")) {
-				throw new Exception("a target csid parameter (targetCSID) must be supplied");
+			if (targetAuthority == null || targetAuthority.equals("")) {
+				throw new Exception("a target csid parameter (targetCSID) must be supplied.");
+			}
+
+			if (sourceCsids.contains(targetAuthority)) {
+				sourceCsids.remove(targetAuthority);
+				logger.warn("Attempted to merge targetCSID of " + targetAuthority + " with itself. The record has been removed from the sourceCSIDs list.");
+				if (sourceCsids.size() == 0) {
+					throw new Exception("Attempted to merge record with itself, resulting in an empty source list. The batch job has been stopped.");
+				}
 			}
 
 			if (sourceCsids.size() == 0) {
 				throw new Exception("a source csid must be supplied");
 			}
+			
 
-			InvocationResults results = merge(docType, targetCsid, sourceCsids);
+			InvocationResults results = merge(docType, targetAuthority, sourceCsids);
 
 			setResults(results);
 			setCompletionStatus(STATUS_COMPLETE);
