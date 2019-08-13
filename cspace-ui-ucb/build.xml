@@ -65,7 +65,7 @@
         <!-- <get src="${cspace.ui.lib.url}" dest="${cspace.ui.lib.download.file}" /> -->
 
         <exec executable="curl" failonerror="true">
-            <arg line="--fail --insecure --location ${cspace.ui.lib.url} -o ${cspace.ui.lib.download.file}"/>
+            <arg line="--fail --insecure --location ${cspace.ui.lib.url} --create-dirs -o ${cspace.ui.lib.download.file}"/>
         </exec>
     </target>
 
