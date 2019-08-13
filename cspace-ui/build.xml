@@ -178,7 +178,6 @@
 
 	<target name="deploy_common" depends="download_common">
 		<move file="${cspace.ui.js}" todir="${jee.deploy.cspace.ui.shared}"></move>
-		<echo>Copied ${cspace.ui.js} to ${jee.deploy.cspace.ui.shared} directory</echo>
 	</target>
 
 	<target name="undeploy_common" description="undeploy collectionspace ui components from ${jee.server.cspace}">
@@ -214,15 +213,14 @@
 		<filter token="MESSAGE_TITLE" value="${cspace.ui.message.title}" />
 		<filter token="LOGO" value="${cspace.ui.logo}" />
 
-		<copy todir="${jee.deploy.cspace}/${cspace.ui.webapp.dest}" filtering="true" overwrite="true">
-			<fileset dir="${cspace.ui.webapp.src}"/>
+		<copy todir="${jee.deploy.cspace}/${cspace.ui.webapp}" filtering="true" overwrite="true">
+			<fileset dir="${cspace.ui.webapp}"/>
 		</copy>
-		<echo>Copied ${cspace.ui.webapp.src} to ${jee.deploy.cspace}/${cspace.ui.webapp.dest} directory</echo>
 	</target>
 
 	<target name="undeploy_core" description="undeploy collectionspace ui components from ${jee.server.cspace}">
 		<!-- Core webapp -->
-		<delete dir="${jee.deploy.cspace}/${cspace.ui.webapp.dest}" />
+		<delete dir="${jee.deploy.cspace}/${cspace.ui.webapp}" />
 		<delete file="${jee.deploy.cspace.ui.shared}/${cspace.ui.js}" />
 	</target>
 
