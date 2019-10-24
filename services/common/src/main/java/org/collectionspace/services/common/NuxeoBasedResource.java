@@ -90,7 +90,7 @@ public abstract class NuxeoBasedResource
     }
 
     //======================= REINDEX ====================================================
-    @GET
+    @POST
     @Path("{csid}/index/{indexid}")
     public Response reindex(
             @Context Request request,
@@ -112,7 +112,7 @@ public abstract class NuxeoBasedResource
 
         if (success == false) {
             Response response = Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(
-                    ServiceMessages.REINDEX_FAILED + ServiceMessages.resourceNotReindexedMsg(csid)).type("text/plain").build();
+                    ServiceMessages.REINDEX_FAILED + ServiceMessages.indexResourceNotFoundMsg(indexid)).type("text/plain").build();
             throw new CSWebApplicationException(response);
         }
 
@@ -120,7 +120,7 @@ public abstract class NuxeoBasedResource
     }
 
     //======================= REINDEX ====================================================
-    @GET
+    @POST
     @Path("index/{indexid}")
     public Response reindex(
             @Context Request request,
@@ -129,11 +129,9 @@ public abstract class NuxeoBasedResource
     	uriInfo = new UriInfoWrapper(uriInfo);
        	Response result = Response.ok().build();
        	boolean success = false;
-       	String docType = null;
 
         try {
             RemoteServiceContext<PoxPayloadIn, PoxPayloadOut> ctx = (RemoteServiceContext<PoxPayloadIn, PoxPayloadOut>) createServiceContext(uriInfo);
-            docType = ctx.getTenantQualifiedDoctype(); // this will used in the error message if an error occurs
             DocumentHandler handler = createDocumentHandler(ctx);
             success = getRepositoryClient(ctx).reindex(handler, indexid);
         } catch (Exception e) {
