@@ -124,5 +124,4 @@ public class QueryManager {
 	static public String createWhereClauseForInvocableByMode(String schema, List<String> modes) {
 		return queryManager.createWhereClauseForInvocableByMode(schema, modes);
 	}
-
 }
