@@ -188,7 +188,6 @@ public class ReportDocumentModelHandler extends NuxeoDocumentModelHandler<Report
 			InvocationContext invContext,
 			StringBuffer outMimeType,
 			StringBuffer outReportFileName) throws Exception {
-
 		CoreSessionInterface repoSession = null;
 		boolean releaseRepoSession = false;
 		
@@ -202,7 +201,6 @@ public class ReportDocumentModelHandler extends NuxeoDocumentModelHandler<Report
 		String invocationMode = invContext.getMode();
 		String modeProperty = null;
 		HashMap<String, Object> params = new HashMap<String, Object>();
-
 		params.put(REPORTS_STD_TENANTID_PARAM, ctx.getTenantId());
 		boolean checkDocType = true;
 		
