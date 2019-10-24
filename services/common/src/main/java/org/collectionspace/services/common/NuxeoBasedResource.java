@@ -127,7 +127,7 @@ public abstract class NuxeoBasedResource
             @Context UriInfo uriInfo,
             @PathParam("indexid") String indexid) {
     	uriInfo = new UriInfoWrapper(uriInfo);
-       	Response result = Response.noContent().build();
+       	Response result = Response.ok().build();
        	boolean success = false;
        	String docType = null;
 
@@ -142,7 +142,7 @@ public abstract class NuxeoBasedResource
 
         if (success == false) {
             Response response = Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(
-                    ServiceMessages.REINDEX_FAILED + ServiceMessages.resourceNotReindexedMsg(docType)).type("text/plain").build();
+                    ServiceMessages.REINDEX_FAILED + ServiceMessages.indexResourceNotFoundMsg(indexid)).type("text/plain").build();
             throw new CSWebApplicationException(response);
         }
 
@@ -485,6 +485,7 @@ public abstract class NuxeoBasedResource
             throw bigReThrow(e, ServiceMessages.LIST_FAILED);
         }
     }
+    
     protected AbstractCommonList finish_getList(ServiceContext<PoxPayloadIn, PoxPayloadOut> ctx,
     		DocumentHandler handler) {
         try {
