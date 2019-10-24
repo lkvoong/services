@@ -34,7 +34,6 @@ import javax.ws.rs.core.Request;
 import javax.ws.rs.core.UriInfo;
 
 import org.collectionspace.authentication.AuthN;
-import org.collectionspace.authentication.spi.AuthNContext;
 import org.collectionspace.services.client.AuthorityClient;
 import org.collectionspace.services.client.CollectionSpaceClient;
 import org.collectionspace.services.client.IClientQueryParams;
@@ -42,7 +41,6 @@ import org.collectionspace.services.client.IQueryManager;
 import org.collectionspace.services.client.workflow.WorkflowClient;
 import org.collectionspace.services.common.ServiceMain;
 import org.collectionspace.services.common.api.Tools;
-import org.collectionspace.services.common.authorization_mgt.AuthorizationCommon;
 import org.collectionspace.services.common.config.PropertyItemUtils;
 import org.collectionspace.services.common.config.ServiceConfigUtils;
 import org.collectionspace.services.common.config.TenantBindingConfigReaderImpl;
@@ -116,7 +114,9 @@ public abstract class AbstractServiceContextImpl<IT, OT>
     private Object currentRepositorySession;
     /** A reference count for the current repository session */
     private int currentRepoSesssionRefCount = 0;
-        
+    /** Should the current transaction be rolled back when an exception is caught */
+    private boolean rollbackOnException = true;
+
     /**
      * Instantiates a new abstract service context impl.
      */
@@ -954,5 +954,14 @@ public abstract class AbstractServiceContextImpl<IT, OT>
 		
 		return forceSync;
     }
-	
+
+    @Override
+    public void setRollbackOnException(boolean rollbackOnException) {
+        this.rollbackOnException = rollbackOnException;
+    }
+
+    @Override
+    public boolean isRollbackOnException() {
+        return this.rollbackOnException;
+    }
 }
