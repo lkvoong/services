@@ -19,7 +19,7 @@ public class ConfigUtils {
     public static final String ELASTICSEARCH_INDEX_EXTENSION_XPATH = String.format(EXTENSION_XPATH, "elasticSearchIndex");
     public static final String ELASTICSEARCH_EXTENSIONS_EXPANDER_STR = "%elasticSearchIndex_extensions%";
     
-    
+
     // Default database names
     
     // public static String DEFAULT_CSPACE_DATABASE_NAME = "cspace";
@@ -40,10 +40,10 @@ public class ConfigUtils {
 					result.add(repoDomain.getRepositoryName());
 			}
 		}
-		
+
     	return result;
     }
-        
+
     public static String getRepositoryName(TenantBindingType tenantBindingType, String domainName) {
 		String result = null;
 		
@@ -59,6 +59,9 @@ public class ConfigUtils {
 			}
 		} else {
 			logger.error(String.format("There was no domain name specified on a call to getRepositoryName() method."));
+			if (logger.isTraceEnabled()) {
+				logger.trace(String.format("There was no domain name specified on a call to getRepositoryName() method."), new Throwable());
+			}
 		}
 		
 		if (result == null && logger.isTraceEnabled()) {
@@ -68,5 +71,5 @@ public class ConfigUtils {
 		
 		return result;
 	}
-    
+
 }
