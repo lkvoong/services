@@ -32,8 +32,7 @@ public class UpdateRelationsOnDelete extends AbstractCSEventListenerImpl {
     final static String RELATIONS_COMMON_OBJECT_CSID_FIELD = "relations_common:objectCsid";
 
     @Override
-	public
-    boolean shouldHandleEvent(Event event) {
+	public boolean shouldHandleEvent(Event event) {
         EventContext eventContext = event.getContext();
 
         // Event must be a soft-delete event

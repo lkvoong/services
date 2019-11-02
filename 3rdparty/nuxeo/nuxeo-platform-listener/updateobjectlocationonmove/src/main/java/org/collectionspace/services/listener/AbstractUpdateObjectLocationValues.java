@@ -456,7 +456,7 @@ public abstract class AbstractUpdateObjectLocationValues extends AbstractCSEvent
     // This method assumes that the relation passed into this method is between a Movement record
     // and a CollectionObject (cataloging) record.
     //
-    private static DocumentModel getMovementDocModelFromRelation(CoreSessionInterface session, DocumentModel relationDocModel) {
+    private DocumentModel getMovementDocModelFromRelation(CoreSessionInterface session, DocumentModel relationDocModel) {
     	String movementCsid = null;
     	
         String subjectDocType = (String) relationDocModel.getProperty(RELATIONS_COMMON_SCHEMA, SUBJECT_DOCTYPE_PROPERTY);
