@@ -18,6 +18,18 @@ public interface CSEventListener extends EventListener {
 	boolean register(String respositoryName, EventListenerConfig eventListenerConfig);
 	
 	/**
+	 * If the listener wants to handle the event, it should return 'true'.
+	 * @param event
+	 * @return
+	 */
+	boolean shouldHandleEvent(Event event);
+	
+	/**
+	 * Processing of the event.
+	 */
+	void handleCSEvent(Event event);
+	
+	/**
 	 * Determines if we are a registered event listener for the given event.
 	 * @param event
 	 * @return
@@ -51,5 +63,5 @@ public interface CSEventListener extends EventListener {
 	 * Returns the name of the event listener as defined during registration -see register() method.
 	 * @return
 	 */
-	String getName(String repositoryName);
+	String getName(String repositoryName);	
 }
