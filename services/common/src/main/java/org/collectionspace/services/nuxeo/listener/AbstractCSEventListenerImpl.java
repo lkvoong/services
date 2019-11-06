@@ -34,7 +34,7 @@ public abstract class AbstractCSEventListenerImpl implements CSEventListener {
             "AND (ecm:currentLifeCycleState <> 'deleted') "
             + NONVERSIONED_NONPROXY_DOCUMENT_WHERE_CLAUSE_FRAGMENT;
     static final String DOCMODEL_CONTEXT_PROPERTY_PREFIX = ScopeType.DEFAULT.getScopePrefix();
-	
+
 	public AbstractCSEventListenerImpl() {
 		// Intentionally left blank
 	}
@@ -185,7 +185,7 @@ public abstract class AbstractCSEventListenerImpl implements CSEventListener {
 	// Return a property in the document model's transient context.
 	//
 	protected Serializable getContextPropertyValue(DocumentEventContext docEventContext, String key) {
-		return docEventContext.getProperties().get(DOCMODEL_CONTEXT_PROPERTY_PREFIX + key);
+		return docEventContext.getProperties().get(key);
 	}
 
 	//
