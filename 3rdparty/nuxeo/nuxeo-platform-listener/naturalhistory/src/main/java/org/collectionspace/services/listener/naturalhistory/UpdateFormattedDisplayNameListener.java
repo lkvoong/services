@@ -7,13 +7,15 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import org.collectionspace.services.client.workflow.WorkflowClient;
 import org.collectionspace.services.common.api.RefName;
 import org.collectionspace.services.common.api.TaxonFormatter;
-import org.collectionspace.services.nuxeo.listener.AbstractCSEventListenerImpl;
+import org.collectionspace.services.nuxeo.listener.AbstractCSEventSyncListenerImpl;
 import org.collectionspace.services.taxonomy.nuxeo.TaxonBotGardenConstants;
 import org.collectionspace.services.taxonomy.nuxeo.TaxonConstants;
 import org.collectionspace.services.taxonomy.nuxeo.TaxonomyAuthorityConstants;
+
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.event.CoreEventConstants;
 import org.nuxeo.ecm.core.api.event.DocumentEventTypes;
@@ -21,7 +23,7 @@ import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.EventContext;
 import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
 
-public class UpdateFormattedDisplayNameListener extends AbstractCSEventListenerImpl {
+public class UpdateFormattedDisplayNameListener extends AbstractCSEventSyncListenerImpl {
 	public static final String RUN_AFTER_MODIFIED_PROPERTY = "UpdateFormattedDisplayNameListener.RUN_AFTER_MODIFIED";
 	static final Log logger = LogFactory.getLog(UpdateFormattedDisplayNameListener.class);
 

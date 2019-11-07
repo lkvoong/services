@@ -6,9 +6,8 @@ import java.util.Map;
 import org.collectionspace.services.config.tenant.EventListenerConfig;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.event.Event;
-import org.nuxeo.ecm.core.event.EventListener;
 
-public interface CSEventListener extends EventListener {
+public interface CSEventListener {
 	/**
 	 * Register ourself as an event listener for the named repository -the repo name corresponds to a specific tenant.
 	 * @param respositoryName - The name of the Nuxeo repository which links us to a CollectionSpace tenant.

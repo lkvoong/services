@@ -25,7 +25,7 @@ import org.collectionspace.services.common.context.ServiceContext;
 import org.collectionspace.services.common.invocable.InvocationResults;
 import org.collectionspace.services.common.relation.nuxeo.RelationConstants;
 import org.collectionspace.services.nuxeo.client.java.CoreSessionWrapper;
-import org.collectionspace.services.nuxeo.listener.AbstractCSEventListenerImpl;
+import org.collectionspace.services.nuxeo.listener.AbstractCSEventSyncListenerImpl;
 import org.collectionspace.services.taxonomy.nuxeo.TaxonBotGardenConstants;
 import org.collectionspace.services.taxonomy.nuxeo.TaxonConstants;
 import org.collectionspace.services.taxonomy.nuxeo.TaxonomyAuthorityConstants;
@@ -47,7 +47,7 @@ import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
  * @author ray
  *
  */
-public class UpdateAccessCodeListener extends AbstractCSEventListenerImpl {
+public class UpdateAccessCodeListener extends AbstractCSEventSyncListenerImpl {
 	static final Log logger = LogFactory.getLog(UpdateAccessCodeListener.class);
 
 	public static final String PREVIOUS_DEAD_FLAG_PROPERTY_NAME = "UpdateAccessCodeListener.previousDeadFlag";

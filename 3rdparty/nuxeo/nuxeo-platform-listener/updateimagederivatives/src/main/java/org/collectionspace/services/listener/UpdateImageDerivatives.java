@@ -8,7 +8,7 @@ import org.apache.commons.logging.LogFactory;
 import org.collectionspace.services.common.api.CommonAPI;
 import org.collectionspace.services.nuxeo.client.java.CoreSessionInterface;
 import org.collectionspace.services.nuxeo.client.java.CoreSessionWrapper;
-import org.collectionspace.services.nuxeo.listener.AbstractCSEventListenerImpl;
+import org.collectionspace.services.nuxeo.listener.AbstractCSEventSyncListenerImpl;
 import org.collectionspace.services.nuxeo.util.NuxeoUtils;
 
 import org.nuxeo.ecm.core.api.Blob;
@@ -19,7 +19,7 @@ import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
 import org.nuxeo.ecm.platform.picture.api.ImagingDocumentConstants;
 
-public class UpdateImageDerivatives extends AbstractCSEventListenerImpl {
+public class UpdateImageDerivatives extends AbstractCSEventSyncListenerImpl {
 
 	// All Nuxeo sessions that get passed around to CollectionSpace code need to
 	// be wrapped inside of a CoreSessionWrapper. For example:

@@ -11,7 +11,7 @@ import org.collectionspace.services.client.workflow.WorkflowClient;
 import org.collectionspace.services.common.document.DocumentException;
 import org.collectionspace.services.nuxeo.client.java.CoreSessionInterface;
 import org.collectionspace.services.nuxeo.client.java.CoreSessionWrapper;
-import org.collectionspace.services.nuxeo.listener.AbstractCSEventListenerImpl;
+import org.collectionspace.services.nuxeo.listener.AbstractCSEventSyncListenerImpl;
 
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
@@ -20,7 +20,7 @@ import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.EventContext;
 import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
 
-public class UpdateRelationsOnDelete extends AbstractCSEventListenerImpl {
+public class UpdateRelationsOnDelete extends AbstractCSEventSyncListenerImpl {
 
     // FIXME: We might experiment here with using log4j instead of Apache Commons Logging;
     // am using the latter to follow Ray's pattern for now

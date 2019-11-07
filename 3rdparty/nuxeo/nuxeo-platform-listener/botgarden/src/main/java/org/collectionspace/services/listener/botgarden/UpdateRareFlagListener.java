@@ -18,7 +18,7 @@ import org.collectionspace.services.common.ResourceMap;
 import org.collectionspace.services.common.context.ServiceContext;
 import org.collectionspace.services.common.invocable.InvocationResults;
 import org.collectionspace.services.nuxeo.client.java.CoreSessionWrapper;
-import org.collectionspace.services.nuxeo.listener.AbstractCSEventListenerImpl;
+import org.collectionspace.services.nuxeo.listener.AbstractCSEventSyncListenerImpl;
 import org.collectionspace.services.taxonomy.nuxeo.TaxonBotGardenConstants;
 import org.collectionspace.services.taxonomy.nuxeo.TaxonConstants;
 import org.collectionspace.services.taxonomy.nuxeo.TaxonomyAuthorityConstants;
@@ -40,7 +40,7 @@ import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
  * @author ray
  *
  */
-public class UpdateRareFlagListener extends AbstractCSEventListenerImpl {
+public class UpdateRareFlagListener extends AbstractCSEventSyncListenerImpl {
 	static final Log logger = LogFactory.getLog(UpdateRareFlagListener.class);
 
 	public static final String PREVIOUS_TAXON_PROPERTY_NAME = "UpdateRareFlagListener.previousTaxon";

@@ -17,7 +17,7 @@ import org.collectionspace.services.common.relation.nuxeo.RelationConstants;
 import org.collectionspace.services.movement.nuxeo.MovementBotGardenConstants;
 import org.collectionspace.services.movement.nuxeo.MovementConstants;
 import org.collectionspace.services.nuxeo.client.java.CoreSessionWrapper;
-import org.collectionspace.services.nuxeo.listener.AbstractCSEventListenerImpl;
+import org.collectionspace.services.nuxeo.listener.AbstractCSEventSyncListenerImpl;
 
 import org.jboss.resteasy.spi.ResteasyProviderFactory;
 
@@ -27,7 +27,7 @@ import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.EventContext;
 import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
 
-public class UpdateDeadFlagListener extends AbstractCSEventListenerImpl {
+public class UpdateDeadFlagListener extends AbstractCSEventSyncListenerImpl {
 	static final Log logger = LogFactory.getLog(UpdateDeadFlagListener.class);
 
     @Override

@@ -13,7 +13,7 @@ import org.collectionspace.services.common.api.RefName;
 import org.collectionspace.services.movement.nuxeo.MovementConstants;
 import org.collectionspace.services.nuxeo.client.java.CoreSessionInterface;
 import org.collectionspace.services.nuxeo.client.java.CoreSessionWrapper;
-import org.collectionspace.services.nuxeo.listener.AbstractCSEventListenerImpl;
+import org.collectionspace.services.nuxeo.listener.AbstractCSEventSyncListenerImpl;
 import org.collectionspace.services.nuxeo.util.NuxeoUtils;
 
 import org.nuxeo.ecm.core.api.ClientException;
@@ -24,7 +24,7 @@ import org.nuxeo.ecm.core.api.impl.DocumentModelListImpl;
 import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
 
-public abstract class AbstractUpdateObjectLocationValues extends AbstractCSEventListenerImpl {
+public abstract class AbstractUpdateObjectLocationValues extends AbstractCSEventSyncListenerImpl {
     // FIXME: Make the following message, or its equivalent, a constant usable by all event listeners
     private final static String NO_FURTHER_PROCESSING_MESSAGE =
             "This event listener will not continue processing this event ...";

@@ -3,7 +3,7 @@ package org.collectionspace.services.nuxeo.extension.thumbnail;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import org.collectionspace.services.nuxeo.listener.AbstractCSEventListenerImpl;
+import org.collectionspace.services.nuxeo.listener.AbstractCSEventSyncListenerImpl;
 import org.collectionspace.services.nuxeo.util.ThumbnailConstants;
 
 import org.nuxeo.ecm.core.api.Blob;
@@ -15,7 +15,7 @@ import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.EventContext;
 import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
 
-public class UpdateThumbListener extends AbstractCSEventListenerImpl {
+public class UpdateThumbListener extends AbstractCSEventSyncListenerImpl {
     final Log logger = LogFactory.getLog(UpdateThumbListener.class);
 
     @Override

@@ -16,7 +16,7 @@ import org.collectionspace.services.common.context.ServiceContext;
 import org.collectionspace.services.loanout.nuxeo.LoanoutBotGardenConstants;
 import org.collectionspace.services.loanout.nuxeo.LoanoutConstants;
 import org.collectionspace.services.nuxeo.client.java.CoreSessionWrapper;
-import org.collectionspace.services.nuxeo.listener.AbstractCSEventListenerImpl;
+import org.collectionspace.services.nuxeo.listener.AbstractCSEventSyncListenerImpl;
 
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.event.CoreEventConstants;
@@ -25,7 +25,7 @@ import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.EventContext;
 import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
 
-public class UpdateStyledNameListener extends AbstractCSEventListenerImpl {
+public class UpdateStyledNameListener extends AbstractCSEventSyncListenerImpl {
 	public static final String RUN_AFTER_MODIFIED_PROPERTY = "UpdateStyledNameListener.RUN_AFTER_MODIFIED";
 	static final Log logger = LogFactory.getLog(UpdateStyledNameListener.class);
 

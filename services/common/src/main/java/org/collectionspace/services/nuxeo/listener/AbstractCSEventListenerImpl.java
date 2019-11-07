@@ -38,8 +38,24 @@ public abstract class AbstractCSEventListenerImpl implements CSEventListener {
 	public AbstractCSEventListenerImpl() {
 		// Intentionally left blank
 	}
-	
+
+	/**
+	 * Find out if we (the event listener) are registered (via tenant bindings config) to respond events.
+	 */
 	@Override
+	public boolean isRegistered(Event event) {
+		boolean result = false;
+		
+		if (event != null && event.getContext() != null) {
+			result = getRepositoryNameList().contains(event.getContext().getRepositoryName());
+		}
+		
+		return result;
+	}
+	
+	/*
+	 * This method is meant to be the bottleneck for handling a Nuxeo document event.
+	 */
 	final public void handleEvent(Event event) {
 		getLogger().trace(String.format("Eventlistener '%s' presenented with '%s' event.",
 				getClass().getName(), event.getName()));
@@ -68,20 +84,6 @@ public abstract class AbstractCSEventListenerImpl implements CSEventListener {
 				getLogger().error(errMsg);
 			}
 		}
-	}
-
-	/**
-	 * Find out if we (the event listener) are registered (via tenant bindings config) to respond events.
-	 */
-	@Override
-	public boolean isRegistered(Event event) {
-		boolean result = false;
-		
-		if (event != null && event.getContext() != null) {
-			result = getRepositoryNameList().contains(event.getContext().getRepositoryName());
-		}
-		
-		return result;
 	}
 	
 	/**

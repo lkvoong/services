@@ -6,7 +6,7 @@ import org.apache.commons.logging.LogFactory;
 import org.collectionspace.services.client.workflow.WorkflowClient;
 import org.collectionspace.services.movement.nuxeo.MovementBotGardenConstants;
 import org.collectionspace.services.movement.nuxeo.MovementConstants;
-import org.collectionspace.services.nuxeo.listener.AbstractCSEventListenerImpl;
+import org.collectionspace.services.nuxeo.listener.AbstractCSEventSyncListenerImpl;
 
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -14,7 +14,7 @@ import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.EventContext;
 import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
 
-public class DeleteDeadLocationListener extends AbstractCSEventListenerImpl {
+public class DeleteDeadLocationListener extends AbstractCSEventSyncListenerImpl {
 	static final Log logger = LogFactory.getLog(DeleteDeadLocationListener.class);
 
     @Override
