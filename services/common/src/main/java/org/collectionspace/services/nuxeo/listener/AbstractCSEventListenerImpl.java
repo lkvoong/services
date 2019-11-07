@@ -41,10 +41,10 @@ public abstract class AbstractCSEventListenerImpl implements CSEventListener {
 	
 	@Override
 	final public void handleEvent(Event event) {
-		getLogger().debug(String.format("Eventlistener '%s' presenented with '%s' event.",
+		getLogger().trace(String.format("Eventlistener '%s' presenented with '%s' event.",
 				getClass().getName(), event.getName()));
 		boolean isRegistered = isRegistered(event);
-		
+
 		try {
 			if (isRegistered && shouldHandleEvent(event)) {
 				handleCSEvent(event);
@@ -52,10 +52,10 @@ public abstract class AbstractCSEventListenerImpl implements CSEventListener {
 						getClass().getName(), event.getName()));
 			} else {
 				if (isRegistered) {
-					getLogger().debug(String.format("Eventlistener '%s' declined '%s' event.",
+					getLogger().debug(String.format("Eventlistener '%s' declined to handle '%s' event.",
 							getClass().getName(), event.getName()));
 				} else {
-					getLogger().warn(String.format("Eventlistener '%s' was not registered in the service bindings for the tenant with repo '%s'.",
+					getLogger().trace(String.format("Eventlistener '%s' was not registered in the service bindings for the tenant with repo '%s'.",
 							getClass().getName(), event.getContext().getRepositoryName()));
 				}
 			}
@@ -63,13 +63,13 @@ public abstract class AbstractCSEventListenerImpl implements CSEventListener {
 			String errMsg = String.format("Eventlistener '%s' presenented with '%s' event but encountered an error: %s",
 					getClass().getName(), event.getName(), e.getMessage());
 			if (getLogger().isTraceEnabled()) {
-				getLogger().trace(errMsg, e);
+				getLogger().error(errMsg, e);
 			} else {
 				getLogger().error(errMsg);
 			}
 		}
 	}
-	
+
 	/**
 	 * Find out if we (the event listener) are registered (via tenant bindings config) to respond events.
 	 */
