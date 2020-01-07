@@ -9,6 +9,9 @@
     <property file="${services.trunk}/build.properties" />
     <property name="mvn.opts" value="-V" />
     <property name="src" location="src"/>
+	
+	<property name="nuxeo.batch.jars.all"
+	        value="collectionspace.report.*.jar"/>
 
     <condition property="osfamily-unix">
         <os family="unix" />
@@ -173,8 +176,12 @@
     </target>
 
     <target name="undeploy" depends="undeploy_report_files" description="Undeploy report-related artifacts">
+        <delete>
+            <fileset dir="${jee.deploy.nuxeo.plugins}">
+                <include name="${nuxeo.batch.jars.all}"/>
+            </fileset>
+        </delete>
     </target>
-
     <target name="dist" description="Generate distribution for report" depends="package">
     </target>
 
