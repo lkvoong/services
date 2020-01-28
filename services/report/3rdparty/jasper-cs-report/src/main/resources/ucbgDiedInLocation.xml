@@ -4,7 +4,7 @@
     <name>Deads in Bed</name>
     <notes>Individuals that died in a specified garden location</notes>
     <forDocTypes>
-      <forDocType></forDocType>
+      <forDocType>Locationitem</forDocType>
     </forDocTypes>
     <supportsSingleDoc>true</supportsSingleDoc>
     <supportsDocList>false</supportsDocList>
