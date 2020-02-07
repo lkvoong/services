@@ -8,6 +8,7 @@ package org.collectionspace.services.batch.nuxeo;
 import java.io.File;
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -18,7 +19,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.lang.StringUtils;
 import org.collectionspace.services.common.CollectionSpaceResource;
 import org.collectionspace.services.common.NuxeoBasedResource;
 import org.collectionspace.services.common.StoredValuesUriTemplate;
@@ -28,6 +28,7 @@ import org.collectionspace.services.common.invocable.InvocationContext.ListCSIDs
 import org.collectionspace.services.common.invocable.InvocationContext.Params.Param;
 import org.collectionspace.services.common.invocable.InvocationResults;
 import org.collectionspace.services.common.vocabulary.AuthorityResource;
+
 import org.nuxeo.ecm.core.api.AbstractSession;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.IterableQueryResult;
@@ -47,6 +48,9 @@ import org.nuxeo.ecm.core.work.api.WorkManager;
 import org.nuxeo.ecm.core.work.api.WorkManager.Scheduling;
 import org.nuxeo.runtime.api.Framework;
 import org.nuxeo.runtime.transaction.TransactionHelper;
+
+import org.apache.commons.lang.StringUtils;
+import org.dom4j.DocumentException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -81,6 +85,68 @@ public class ReindexFullTextBatchJob extends AbstractBatchJob {
 		stopFileDirectory = System.getProperty("java.io.tmpdir") + File.separator + ReindexFullTextBatchJob.class.getName();
 
 		log.debug("stop file directory is " + stopFileDirectory);
+	}
+	
+	//
+	// Since the ReindexFullTextBatchJob class deals with transactions differently than other batch jobs, we need to
+	// override this method to ensure there is an active transaction.
+	//
+	@Override
+	protected List<String> getVocabularyCsids(AuthorityResource<?, ?> resource) throws URISyntaxException {
+		boolean tx = false;
+		if (TransactionHelper.isTransactionActive() == false) {
+			tx = TransactionHelper.startTransaction();
+		}
+
+		try {
+			return super.getVocabularyCsids(resource);
+		} finally {
+			if (tx) {
+				TransactionHelper.commitOrRollbackTransaction();
+			}
+		}
+	}
+
+	//
+	// Since the ReindexFullTextBatchJob class deals with transactions differently than other batch jobs, we need to
+	// override this method to ensure there is an active transaction.
+	//
+	@Override
+	protected List<String> findAll(NuxeoBasedResource resource, int pageSize, int pageNum, String sortBy)
+			throws URISyntaxException, DocumentException {
+		boolean tx = false;
+		if (TransactionHelper.isTransactionActive() == false) {
+			tx = TransactionHelper.startTransaction();
+		}
+		
+		try {
+			return super.findAll(resource, pageSize, pageNum, sortBy);
+		} finally {
+			if (tx) {
+				TransactionHelper.commitOrRollbackTransaction();
+			}
+		}
+	}
+	
+	//
+	// Since the ReindexFullTextBatchJob class deals with transactions differently than other batch jobs, we need to
+	// override this method to ensure there is an active transaction.
+	//
+	@Override
+	protected List<String> findAllAuthorityItems(AuthorityResource<?, ?> resource, String vocabularyCsid, int pageSize, int pageNum, String sortBy)
+			throws URISyntaxException, DocumentException, Exception {
+		boolean tx = false;
+		if (TransactionHelper.isTransactionActive() == false) {
+			tx = TransactionHelper.startTransaction();
+		}
+		
+		try {
+			return super.findAllAuthorityItems(resource, vocabularyCsid, pageSize, pageNum, sortBy);
+		} finally {
+			if (tx) {
+				TransactionHelper.commitOrRollbackTransaction();
+			}
+		}
 	}
 
 	@Override
