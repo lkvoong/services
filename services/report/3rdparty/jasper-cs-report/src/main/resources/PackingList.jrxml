@@ -10,7 +10,7 @@
 	<parameter name="tenantid" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[15]]></defaultValueExpression>
 	</parameter>
-	<parameter name="csid" class="java.lang.String" isForPrompting="false">
+	<parameter name="groupcsid" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["35aee97c-c238-45f6-a077"]]></defaultValueExpression>
 	</parameter>
 	<queryString language="SQL">
@@ -45,7 +45,7 @@ inner join objectnamegroup ong on (ong.id=h5.id)
 where misc.lifecyclestate <> 'deleted'
 and h4.name = 'collectionobjects_pahma:pahmaFieldCollectionDateGroupList'
 and core.tenantid=$P{tenantid}
-and h1.name=$P{csid}
+and h1.name=$P{groupcsid}
 order by objectnumber]]>
 	</queryString>
 	<field name="objectnumber" class="java.lang.String"/>
@@ -60,19 +60,19 @@ order by objectnumber]]>
 	<title>
 		<band height="105" splitType="Stretch">
 			<staticText>
-				<reportElement style="SubTitle" x="116" y="39" width="157" height="22"/>
-				<textElement>
+				<reportElement style="SubTitle" x="398" y="39" width="157" height="22"/>
+				<textElement textAlignment="Right">
 					<font fontName="SansSerif" size="14"/>
 				</textElement>
-				<text><![CDATA[in CollectionSpace	]]></text>
+				<text><![CDATA[in CollectionSpace]]></text>
 			</staticText>
 			<image>
-				<reportElement x="282" y="0" width="270" height="51"/>
-				<imageExpression class="java.lang.String"><![CDATA["https://pahma.cspace.berkeley.edu/collectionspace/ui/pahma/images/logored100.png"]]></imageExpression>
+				<reportElement x="2" y="0" width="270" height="51"/>
+				<imageExpression class="java.lang.String"><![CDATA["https://pahma.cspace.berkeley.edu/reports/images/pahmalogo.png"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement style="Title" x="8" y="4" width="263" height="33"/>
-				<textElement verticalAlignment="Middle">
+				<reportElement style="Title" x="156" y="4" width="263" height="33"/>
+				<textElement verticalAlignment="Middle" textAlignment="Center">
 					<font fontName="SansSerif" size="20"/>
 				</textElement>
 				<text><![CDATA[Packing List]]></text>
