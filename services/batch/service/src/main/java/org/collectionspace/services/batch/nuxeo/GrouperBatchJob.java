@@ -51,11 +51,8 @@ import org.collectionspace.services.client.CollectionSpaceClientUtils;
 import org.collectionspace.services.relation.RelationsCommonList.RelationListItem;
 
 /**
-  This batch job either creates a new group using the records passed in, or updates a group with those same records. Only list context is supported.
-
-  If createNew is true, then a group with the name groupName will be created and the ListCSIDs will be related to it.
-  If createNew is null/false, then the group with name name groupName will be updated to include the records in the ListCSIDs.
-
+  This batch job creates a new group using the records passed in. Only group context is supported.
+  @author Cesar Villalobos
 */
 
 public class GrouperBatchJob extends AbstractBatchJob {
@@ -81,60 +78,34 @@ public class GrouperBatchJob extends AbstractBatchJob {
     String mode = getInvocationContext().getMode();
 
     try { 
-      // extract the params
 
       boolean createNew = false;
-      boolean update = false;
-      boolean remove = false;
-
       ArrayList<String> displayNames =  new ArrayList<String>();
 
       for (Param param : this.getParams()) {
-        // if params is 1: Then either remove or update are moving
         String key = param.getKey();
 
         if (key.equals("groupItems")) {
           displayNames.addAll(Arrays.asList(param.getValue().split(",")));
         }
-        if (key.equals("removeFromGroup")) {
-          remove  = Boolean.parseBoolean(param.getValue());
-        }
       }
-      String groupCSID = invocationCtx.getGroupCSID(); // MUST use getGroupCSID otherwise nuh
-      // createKeywordSearchUriInfo
+      String groupCSID = invocationCtx.getGroupCSID();
 
-
-      // use findAll() to find all matching each groupDisplayName
       ArrayList<String> listCsids = getObjectCSIDs(displayNames);
       logger.info("List of CSIDs: " + listCsids.toString());
 
       int numberCreated = 0;
-      int numberDeleted = 0;
       for (String csid : listCsids) {
-        if (!remove) {
-          if (createRelation(groupCSID, GROUP_DOCTYPE, csid, COLLECTIONOBJECT_DOCTYPE, RELATION_TYPE) == null) {
-            break;
-          } else {
-            numberCreated += 1;
-          }
+        if (createRelation(groupCSID, GROUP_DOCTYPE, csid, COLLECTIONOBJECT_DOCTYPE, RELATION_TYPE) == null) {
+          break;
         } else {
-          if (unrelateRecords(groupCSID, csid) == "") {
-            break;
-          } else {
-            numberDeleted += 1;
-          }
+          numberCreated += 1;
         }
       }
 
       if (completionStatus != STATUS_ERROR) {
-        if (!remove) {
-          results.setNumAffected(numberCreated);
-          results.setUserNote("GrouperBatchJob created or updated group with csid " + groupCSID + " and linked " + numberCreated + " collection object records.");
-        } else {
-          results.setNumAffected(numberDeleted);
-          results.setUserNote("GrouperBatchJob deleted relation between" + numberDeleted + " collection object records.");
-        }
-
+        results.setNumAffected(numberCreated);
+        results.setUserNote("GrouperBatchJob updated group with csid " + groupCSID + " and linked " + numberCreated + " collection object records.");
         setCompletionStatus(STATUS_COMPLETE);
       }
 
@@ -175,46 +146,5 @@ public class GrouperBatchJob extends AbstractBatchJob {
     }
 
     return csids;
-  }
-
-  public String unrelateRecords(String objCsid, String groupCsid) throws URISyntaxException, ResourceException {
-    // Retreieve relation record
-    NuxeoBasedResource resource = (NuxeoBasedResource) getResourceMap().get(RelationClient.SERVICE_NAME);
-    
-
-    String queryString = "";
-    try { // subject  =   groupcsid,  object = objectcsid
-      queryString = String.format("SELECT * FROM Relation WHERE ecm:isProxy = 0 AND (%1$s='%2$s' AND %3$s='%4$s')", RELATIONS_COMMON_SUBJECT_CSID_FIELD, groupCsid, RELATIONS_COMMON_OBJECT_CSID_FIELD, objCsid);
-    } catch (IllegalFormatException e) {
-      logger.warn("Construction of formatted query string failed: ", e); 
-    }
-
-    UriInfo uri = createUriInfo(queryString);
-    // UriInfo relUri = createRelationSearchUriInfo(groupCsid, GROUP_DOCTYPE, "", objCsid, COLLECTIONOBJECT_DOCTYPE);
-
-
-   RelationsCommonList relationList =  (RelationsCommonList) resource.getList(getServiceContext(), uri); // use this one
-//    String
-    // List<RelationListItem> rels = findRelated(groupCsid, GROUP_DOCTYPE, "affects", objCsid, COLLECTIONOBJECT_DOCTYPE);
-    // There should only be ONE relation between these two objects... so get it
-    // String relCsid = relationList.getRelationListItem().get(0).csid;
-//    String relCsid = relationList.relationListItem.get(0).csid;
-
-    String relCsid = null;
-    relCsid = relationList.getRelationListItem().get(0).getCsid();
-    if (relCsid == null) {
-      logger.warn("The csid relation between Group " + groupCsid + " and Object " + objCsid);
-    }
-
-    // Delete relation recod
-    Response response = resource.delete(relCsid);
-
-    if (response.getStatus() != OK_STATUS) {
-      throw new ResourceException(response, "Error deleting relation");
-    }
-
-    return relCsid;
-
-
   }
 }
