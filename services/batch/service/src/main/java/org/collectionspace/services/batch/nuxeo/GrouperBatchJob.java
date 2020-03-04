@@ -3,52 +3,24 @@ package org.collectionspace.services.batch.nuxeo;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
-import java.util.IllegalFormatException;
 
-import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import org.nuxeo.ecm.core.api.DocumentModel;
-import org.collectionspace.services.client.CollectionSpaceClient;
 import org.collectionspace.services.client.CollectionObjectClient;
 import org.collectionspace.services.collectionobject.CollectionObjectResource;
 
-import org.collectionspace.services.client.PayloadOutputPart;
-import org.collectionspace.services.client.PoxPayloadOut;
-import org.collectionspace.services.client.RelationClient;
-import org.collectionspace.services.client.workflow.WorkflowClient;
-import org.collectionspace.services.collectionobject.nuxeo.CollectionObjectConstants;
-import org.collectionspace.services.common.NuxeoBasedResource;
-import org.collectionspace.services.common.api.RefNameUtils;
-import org.collectionspace.services.common.api.RefNameUtils.AuthorityTermInfo;
-import org.collectionspace.services.common.authorityref.AuthorityRefDocList;
 import org.collectionspace.services.common.invocable.InvocationContext.Params.Param;
-import org.collectionspace.services.common.invocable.InvocationResults;
-import org.collectionspace.services.common.relation.RelationResource;
-import org.collectionspace.services.common.vocabulary.AuthorityResource;
-// import org.collectionspace.services.relation.RelationsCommonList;
-import org.collectionspace.services.common.api.RefName;
-import org.collectionspace.services.nuxeo.util.NuxeoUtils;
 import org.collectionspace.services.jaxb.AbstractCommonList;
-import org.collectionspace.services.relation.RelationsCommonList;
 
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
-import org.dom4j.Node;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.collectionspace.services.batch.AbstractBatchInvocable;
 import org.collectionspace.services.common.invocable.InvocationContext;
-import org.collectionspace.services.client.CollectionSpaceClientUtils;
-import org.collectionspace.services.relation.RelationsCommonList.RelationListItem;
+import org.collectionspace.services.collectionobject.nuxeo.CollectionObjectConstants;
+import org.collectionspace.services.group.nuxeo.GroupConstants;
 
 /**
   This batch job creates a new group using the records passed in. Only group context is supported.
@@ -56,14 +28,6 @@ import org.collectionspace.services.relation.RelationsCommonList.RelationListIte
 */
 
 public class GrouperBatchJob extends AbstractBatchJob {
-  private final String GROUP_CLIENT = "groups"; // hardcoding here since import isn't working?
-  private final String COLLECTIONOBJECT_DOCTYPE = "CollectionObject";
-  private final String RELATION_TYPE = "affects"; 
-  private final String RELATION_PREDICATE_DISP = "affects"; 
-  private final String GROUP_DOCTYPE = "Group";
-  final static String RELATION_DOCTYPE = "Relation";
-  final static String RELATIONS_COMMON_SUBJECT_CSID_FIELD = "relations_common:subjectCsid";
-  final static String RELATIONS_COMMON_OBJECT_CSID_FIELD = "relations_common:objectCsid";
   final Logger logger = LoggerFactory.getLogger(GrouperBatchJob.class);
 
   public GrouperBatchJob() {
@@ -96,7 +60,7 @@ public class GrouperBatchJob extends AbstractBatchJob {
 
       int numberCreated = 0;
       for (String csid : listCsids) {
-        if (createRelation(groupCSID, GROUP_DOCTYPE, csid, COLLECTIONOBJECT_DOCTYPE, RELATION_TYPE) == null) {
+        if (createRelation(groupCSID, GroupConstants.NUXEO_DOCTYPE, csid, CollectionObjectConstants.NUXEO_DOCTYPE, "affects") == null) {
           break;
         } else {
           numberCreated += 1;
