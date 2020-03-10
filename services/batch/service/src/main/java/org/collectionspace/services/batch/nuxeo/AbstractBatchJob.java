@@ -247,7 +247,7 @@ public abstract class AbstractBatchJob extends AbstractBatchInvocable {
 	protected List<String> findAll(String serviceName, int pageSize, int pageNum, String sortBy) throws URISyntaxException, DocumentException {
 		NuxeoBasedResource resource = (NuxeoBasedResource) getResourceMap().get(serviceName);
 
-		return findAll(resource, pageSize, pageNum, null);
+		return findAll(resource, pageSize, pageNum, sortBy);
 	}
 
 	protected List<String> findAll(NuxeoBasedResource resource, int pageSize, int pageNum, String sortBy) throws URISyntaxException, DocumentException {
