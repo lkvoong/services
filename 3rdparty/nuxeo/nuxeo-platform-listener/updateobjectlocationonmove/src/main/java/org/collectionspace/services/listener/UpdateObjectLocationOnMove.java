@@ -18,7 +18,16 @@ public class UpdateObjectLocationOnMove extends AbstractUpdateObjectLocationValu
     		DocumentModel mostRecentMovement) throws ClientException {
     	boolean result = false;
 
-        // Check that the location value returned, which is expected to be a reference (refName) to an authority term (such as a storage
+    	//
+    	// If mostRecentMovement is null, clear the CollectionObject's computed current location field
+    	//
+    	if (mostRecentMovement == null) {
+    		collectionObjectDocModel.setProperty(COLLECTIONOBJECTS_COMMON_SCHEMA,
+            		COMPUTED_CURRENT_LOCATION_PROPERTY, ""); // Clear the computed location field
+    		return true;
+    	}
+
+        // Check that the location value returned. We expect it to be a reference (refName) to an authority term (such as a storage
         // location or organization term):
         // 	* Ensure it is not blank.
         // 	* Ensure it is successfully parsed by the authority item parser.
@@ -44,7 +53,7 @@ public class UpdateObjectLocationOnMove extends AbstractUpdateObjectLocationValu
             		COMPUTED_CURRENT_LOCATION_PROPERTY, movementRecordsLocation);
             result = true; // We've updated the location field.
         }
-        
+
         return result;
     }
 

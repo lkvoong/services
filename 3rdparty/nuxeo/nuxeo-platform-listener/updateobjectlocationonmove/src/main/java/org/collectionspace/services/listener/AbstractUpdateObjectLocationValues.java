@@ -372,7 +372,7 @@ public abstract class AbstractUpdateObjectLocationValues extends AbstractCSEvent
         
         //
         // If there are no candidate relationships after we removed the duplicates and inactive ones,
-        // throw an exception.
+        // throw an exception. //FIXME: Don't throw an exception.  Instead, return null
         //
         if (relationDocModels == null || relationDocModels.size() == 0) {
         	return result;

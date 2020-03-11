@@ -33,9 +33,11 @@ public class UpdateObjectLocationAndCrateOnMove extends UpdateObjectLocationOnMo
             throws ClientException {
         boolean flag = false;
 
-        // Get the current crate value from the Movement (the "new" value)
-        String crateRefName =
-                (String) movementDocModel.getProperty(MOVEMENTS_ANTHROPOLOGY_SCHEMA, CRATE_PROPERTY);
+        // Get the crate value (if any) from the Movement -the potentially "new" crate value.
+        String crateRefName = null;
+        if (movementDocModel != null) {
+        	crateRefName = (String) movementDocModel.getProperty(MOVEMENTS_ANTHROPOLOGY_SCHEMA, CRATE_PROPERTY);
+        }
 
         // Check that the value returned, which is expected to be a
         // reference (refName) to an authority term:
@@ -44,22 +46,24 @@ public class UpdateObjectLocationAndCrateOnMove extends UpdateObjectLocationOnMo
         // * Is then capable of being successfully parsed by an authority item parser.
         if (Tools.notBlank(crateRefName)
                 && RefNameUtils.parseAuthorityTermInfo(crateRefName) == null) {
-            logger.warn("Could not parse crate refName '" + crateRefName + "'");
-            return false;
+            String errMsg = String.format("Could not parse refname '%s'.  Computed crate value for cataloging record with CSID=%s could not be updated to %s.",
+            		crateRefName, collectionObjectDocModel.getName(), crateRefName);
+            throw new ClientException(errMsg);
         } else {
             if (logger.isTraceEnabled()) {
                 logger.trace("crate refName passes basic validation tests.");
                 logger.trace("crate refName=" + crateRefName);
             }
         }
-        // Get the computed crate value of the CollectionObject
-        // (the "existing" value)
+
+        // Get the existing (if any) computed crate value of the CollectionObject
         String existingCrateRefName =
                 (String) collectionObjectDocModel.getProperty(COLLECTIONOBJECTS_ANTHROPOLOGY_SCHEMA,
                 COMPUTED_CRATE_PROPERTY);
         if (logger.isTraceEnabled()) {
             logger.trace("Existing crate refName=" + existingCrateRefName);
         }
+
 
         // If the new value is blank, any non-blank existing value should always
         // be overwritten ('nulled out') with a blank value.
