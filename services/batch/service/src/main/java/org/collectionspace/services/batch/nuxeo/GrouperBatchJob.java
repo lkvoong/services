@@ -3,22 +3,18 @@ package org.collectionspace.services.batch.nuxeo;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-
 import javax.ws.rs.core.UriInfo;
 
+import org.collectionspace.services.batch.BatchCommon;
 import org.collectionspace.services.client.CollectionObjectClient;
 import org.collectionspace.services.collectionobject.CollectionObjectResource;
 
 import org.collectionspace.services.common.invocable.InvocationContext.Params.Param;
 import org.collectionspace.services.jaxb.AbstractCommonList;
 
-import org.dom4j.Element;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.collectionspace.services.common.invocable.InvocationContext;
 import org.collectionspace.services.collectionobject.nuxeo.CollectionObjectConstants;
 import org.collectionspace.services.group.nuxeo.GroupConstants;
 
@@ -34,16 +30,20 @@ public class GrouperBatchJob extends AbstractBatchJob {
     setSupportedInvocationModes(Arrays.asList(INVOCATION_MODE_GROUP));
   }
 
-
   @Override
   public void run() {
+	  run(null);
+  }
+
+  @Override
+  public void run(BatchCommon batchCommon) {
     setCompletionStatus(STATUS_MIN_PROGRESS);
 
-    String mode = getInvocationContext().getMode();
+    String mode = getInvocationContext().getMode(); //FIXME: unused variable
 
     try { 
 
-      boolean createNew = false;
+      boolean createNew = false; //FIXME: unused variable
       ArrayList<String> displayNames =  new ArrayList<String>();
 
       for (Param param : this.getParams()) {
