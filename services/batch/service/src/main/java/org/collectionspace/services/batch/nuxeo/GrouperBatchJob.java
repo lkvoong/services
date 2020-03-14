@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.ws.rs.core.UriInfo;
 
+import org.collectionspace.services.batch.BatchCommon;
 import org.collectionspace.services.client.CollectionObjectClient;
 import org.collectionspace.services.collectionobject.CollectionObjectResource;
 
@@ -34,9 +35,13 @@ public class GrouperBatchJob extends AbstractBatchJob {
     setSupportedInvocationModes(Arrays.asList(INVOCATION_MODE_GROUP));
   }
 
-
   @Override
   public void run() {
+	  run(null);
+  }
+  
+  @Override
+  public void run(BatchCommon batchCommon) {
     setCompletionStatus(STATUS_MIN_PROGRESS);
 
     String mode = getInvocationContext().getMode();
