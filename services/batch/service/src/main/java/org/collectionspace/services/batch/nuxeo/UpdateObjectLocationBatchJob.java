@@ -14,6 +14,7 @@ import javax.ws.rs.core.PathSegment;
 import javax.ws.rs.core.UriInfo;
 
 import org.collectionspace.services.batch.AbstractBatchInvocable;
+import org.collectionspace.services.batch.BatchCommon;
 import org.collectionspace.services.client.AbstractCommonListUtils;
 import org.collectionspace.services.client.CollectionObjectClient;
 import org.collectionspace.services.client.IClientQueryParams;
@@ -74,6 +75,12 @@ public class UpdateObjectLocationBatchJob extends AbstractBatchInvocable {
                 INVOCATION_MODE_GROUP, INVOCATION_MODE_NO_CONTEXT));
     }
 
+	@Override
+	public void run(BatchCommon batchCommon) {
+		String errMsg = String.format("%s class does not support run(BatchCommon batchCommon) method.", getClass().getName());
+		throw new java.lang.UnsupportedOperationException(errMsg);
+	}
+	
     /**
      * The main work logic of the batch job. Will be called after setContext.
      */
