@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ws.rs.core.Response;
 
 import org.collectionspace.services.batch.AbstractBatchInvocable;
+import org.collectionspace.services.batch.BatchCommon;
 import org.collectionspace.services.client.CollectionSpaceClientUtils;
 import org.collectionspace.services.common.NuxeoBasedResource;
 import org.collectionspace.services.common.api.GregorianCalendarDateTimeUtils;
@@ -21,6 +22,11 @@ public class CreateAndLinkLoanOutBatchJob extends AbstractBatchInvocable {
 	
 	public CreateAndLinkLoanOutBatchJob() {
         setSupportedInvocationModes(Arrays.asList(INVOCATION_MODE_SINGLE, INVOCATION_MODE_LIST));
+	}
+	
+	@Override
+	public void run(BatchCommon batchCommon) {
+		run(null);
 	}
 	
 	/**

@@ -18,7 +18,9 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
+import org.collectionspace.services.batch.BatchCommon;
 import org.collectionspace.services.common.CollectionSpaceResource;
 import org.collectionspace.services.common.NuxeoBasedResource;
 import org.collectionspace.services.common.StoredValuesUriTemplate;
@@ -151,6 +153,11 @@ public class ReindexFullTextBatchJob extends AbstractBatchJob {
 
 	@Override
 	public void run() {
+		run(null);
+	}
+
+	@Override
+	public void run(BatchCommon batchCommon) {
 		setCompletionStatus(STATUS_MIN_PROGRESS);
 
 		numAffected = 0;
@@ -236,6 +243,16 @@ public class ReindexFullTextBatchJob extends AbstractBatchJob {
 						if (StringUtils.isNotEmpty(docType)) {
 							docTypes.add(docType);
 						}
+					}
+				}
+				
+				//
+				// If docTypes is empty, we should use the <forDocTypes> list from the resource/payload
+				//
+				if (docTypes.isEmpty() == true && batchCommon != null) {
+					List<String> payloadDocTypes = batchCommon.getForDocTypes().getForDocType();
+					if (payloadDocTypes != null && !payloadDocTypes.isEmpty()) {
+						docTypes = convertListToSet(payloadDocTypes);
 					}
 				}
 
