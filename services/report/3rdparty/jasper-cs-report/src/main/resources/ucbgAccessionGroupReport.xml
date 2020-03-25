@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <document name="report">
   <ns2:reports_common xmlns:ns2="http://collectionspace.org/services/report">
-    <name>Accession Report</name>
+    <name>Accession Group Report</name>
     <notes></notes>
     <forDocTypes>
       <forDocType>Group</forDocType>
     </forDocTypes>
     <supportsSingleDoc>true</supportsSingleDoc>
     <supportsDocList>false</supportsDocList>
-    <supportsGroup>false</supportsGroup>
-    <supportsNoContext>true</supportsNoContext>
+    <supportsGroup>true</supportsGroup>
+    <supportsNoContext>false</supportsNoContext>
     <filename>ucbgAccessionGroupReport.jasper</filename>
     <outputMIME>application/pdf</outputMIME>
     <supportsParams>false</supportsParams>
