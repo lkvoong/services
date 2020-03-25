@@ -1,0 +1,71 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <div id="cspace"></div>
+    <script src="@CSPACE_UI_LIB_URL@"></script>
+    <script src="@CSPACE_PROFILE_PLUGIN_LIB_URL@"></script>
+    <script>
+        cspaceUI({
+        	basename: '@ALT_WEBAPP_NAME@',
+                messages: {
+                        'footer.release': 'Release {version} (@UCB_RELEASE@ - @ALT_WEBAPP_NAME@)',
+                },
+                recordTypes: {
+                  collectionobject: {
+                    forms: {
+                      default: {
+                              disabled: true,
+                      },
+                      collectorLabel: {
+                              disabled: true,
+                      },
+                    },
+                    fields: {
+                      document: {
+                        'ns2:collectionobjects_common': {
+                          objectNumber: {
+                            '[config]': {
+                              cloneable: false,
+                              required: true,
+                            },
+                          },
+                          comments: {
+                            comment: {
+                              '[config]': {
+                                cloneable: false,
+                              },
+                            },
+                          },
+                        },
+                        'ns2:collectionobjects_naturalhistory': {
+                          taxonomicIdentGroupList: {
+                            '[config]': {
+                              required: true,
+                            },
+                            taxonomicIdentGroup: {
+                              taxon: {
+                                '[config]': {
+                                  required: true,
+                                },
+                              },
+                              qualifier: {
+                                '[config]': {
+                                  cloneable: false,
+                                },
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+                plugins: [
+                        @CSPACE_PROFILE_PLUGIN_LIB_NAME@(),
+                ],
+        });
+    </script>
+</body>
+</html>

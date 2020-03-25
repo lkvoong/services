@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>org.collectionspace.services.3rdparty.nuxeo</artifactId>
 		<groupId>org.collectionspace.services</groupId>
-		<version>5.1</version>
+		<version>${revision}</version>
 	</parent>
 	<artifactId>org.collectionspace.services.3rdparty.nuxeo.thumbnail</artifactId>
 	<name>org.collectionspace.services.3rdparty.nuxeo.thumbnail</name>
@@ -35,7 +35,12 @@
 	      <groupId>org.nuxeo.ecm.platform</groupId>
 	      <artifactId>nuxeo-platform-imaging-core</artifactId>
 	      <version>${nuxeo.platform.version}</version>
-	    </dependency>        
+	    </dependency>
+	    <dependency>
+            <groupId>org.collectionspace.services</groupId>
+            <artifactId>org.collectionspace.services.common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 	</dependencies>
 	
     <build>

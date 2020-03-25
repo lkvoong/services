@@ -9,6 +9,8 @@
     <property file="${services.trunk}/build.properties" />
     <property name="mvn.opts" value="-V" />
     <property name="src" location="src"/>
+    <property name="nuxeo.report.jars.all"
+        value="collectionspace.report.*.jar"/>
 
     <condition property="osfamily-unix">
         <os family="unix" />
@@ -172,14 +174,15 @@
       -->
     </target>
 
-    <target name="undeploy" depends="undeploy_report_files"
-      description="Undeploy report-related artifacts">
-        <ant antfile="nuxeo-platform-cs-report/build.xml" target="undeploy" inheritall="false"/>
+    <target name="undeploy" depends="undeploy_report_files" description="Undeploy report-related artifacts">
+        <delete>
+            <fileset dir="${jee.deploy.nuxeo.plugins}">
+                <include name="${nuxeo.report.jars.all}"/>
+            </fileset>
+        </delete>
     </target>
 
-    <target name="dist"
-    description="Generate distribution for report" depends="package">
-        <ant antfile="nuxeo-platform-cs-report/build.xml" target="dist" inheritall="false"/>
+    <target name="dist" description="Generate distribution for report" depends="package">
     </target>
 
 

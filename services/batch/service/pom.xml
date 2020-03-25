@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.collectionspace.services</groupId>
         <artifactId>org.collectionspace.services.batch</artifactId>        
-        <version>5.1</version>
+        <version>${revision}</version>
     </parent>
     
     <modelVersion>4.0.0</modelVersion>
@@ -139,12 +139,18 @@
             <artifactId>org.collectionspace.services.taxonomy.service</artifactId>
             <version>${project.version}</version>
         </dependency>
-            <dependency>
+        <!--  Needed for UCB specific batch jobs -->
+        <dependency>
             <groupId>org.collectionspace.services</groupId>
             <artifactId>org.collectionspace.services.vocabulary.service</artifactId>
             <version>${project.version}</version>
         </dependency>
-        
+        <dependency>
+            <groupId>org.collectionspace.services</groupId>
+            <artifactId>org.collectionspace.services.group.service</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <!-- External dependencies -->        
         <dependency>
             <groupId>junit</groupId>

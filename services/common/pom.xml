@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.collectionspace.services</groupId>
 		<artifactId>org.collectionspace.services.main</artifactId>
-		<version>5.1</version>
+		<version>${revision}</version>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
@@ -17,11 +17,6 @@
 		<dependency>
 			<groupId>org.collectionspace.services</groupId>
 			<artifactId>org.collectionspace.services.config</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.collectionspace.services</groupId>
-			<artifactId>org.collectionspace.services.3rdparty.nuxeo.thumbnail</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>

@@ -7,6 +7,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.ws.rs.core.PathSegment;
 import javax.ws.rs.core.Response;
@@ -16,6 +18,7 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
 import org.collectionspace.services.batch.AbstractBatchInvocable;
+import org.collectionspace.services.batch.BatchCommon;
 import org.collectionspace.services.client.CollectionObjectClient;
 import org.collectionspace.services.client.CollectionSpaceClient;
 import org.collectionspace.services.client.CollectionSpaceClientUtils;
@@ -55,6 +58,19 @@ public abstract class AbstractBatchJob extends AbstractBatchInvocable {
 	final Logger logger = LoggerFactory.getLogger(AbstractBatchJob.class);
 
 	private Map<String, String> authorityServiceNamesByDocType;
+
+	@SuppressWarnings("unchecked")
+	protected static <T> Set<T> convertListToSet(List<T> list) 
+    { 
+        // create a set from the List 
+        return (Set<T>) list.stream().collect(Collectors.toSet()); 
+    }
+	
+	@Override
+	public void run(BatchCommon batchCommon) {
+		String errMsg = String.format("%s class does not support run(BatchCommon batchCommon) method.", getClass().getName());
+		throw new java.lang.UnsupportedOperationException(errMsg);
+	}
 
 	protected String getFieldXml(Map<String, String> fields, String fieldName) {
 		return getFieldXml(fieldName, fields.get(fieldName));
@@ -242,7 +258,7 @@ public abstract class AbstractBatchJob extends AbstractBatchInvocable {
 	protected List<String> findAll(String serviceName, int pageSize, int pageNum, String sortBy) throws URISyntaxException, DocumentException {
 		NuxeoBasedResource resource = (NuxeoBasedResource) getResourceMap().get(serviceName);
 
-		return findAll(resource, pageSize, pageNum, null);
+		return findAll(resource, pageSize, pageNum, sortBy);
 	}
 
 	protected List<String> findAll(NuxeoBasedResource resource, int pageSize, int pageNum, String sortBy) throws URISyntaxException, DocumentException {
