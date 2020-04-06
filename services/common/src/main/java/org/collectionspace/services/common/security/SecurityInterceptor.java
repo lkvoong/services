@@ -283,7 +283,7 @@ public class SecurityInterceptor implements PreProcessInterceptor, PostProcessIn
 			//
 			// Need to ensure that user's tenant is not disabled
 			String tenantId = AuthN.get().getCurrentTenantId();
-			TenantBindingType tenantBindingType = ServiceMain.getInstance().getTenantBindingConfigReader().getTenantBinding(tenantId);
+			TenantBindingType tenantBindingType = ServiceMain.getInstance().getTenantBindingConfigReader().getTenantBinding(tenantId); //FIXME: If tenandId is null or invalid, we'll get back null
 			boolean tenantDisabled = tenantBindingType.isCreateDisabled();
 			if (tenantDisabled == true) {
 				String errMsg = String.format("The user %s's tenant '%s' is disabled.  Contact your CollectionSpace administrator.",
