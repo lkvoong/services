@@ -121,7 +121,11 @@ public class SpringAuthNContext implements AuthNContext {
     	
     	CSpaceUser cspaceUser = getUser();
     	if (cspaceUser != null) {
-    		result = getUser().getPrimaryTenant();
+    		result = cspaceUser.getPrimaryTenant();
+    		if (result == null) {
+    			String msg = String.format("Call to getPrimaryTenant method for user '%s' resulted in null value.", cspaceUser.getUsername());
+    			System.err.println();
+    		}
     	} else {
     		String username = getUserId();
 	        if (username.equals(AuthN.ANONYMOUS_USER)) {
