@@ -25,8 +25,9 @@
         <!-- The ant get task returns a 403 for some reason. Use curl instead. -->
         <!-- <get src="${cspace.ui.profile.plugin.dist.url}/?meta" dest="${plugininfo.filename}" /> -->
 
+        <echo message="Running: curl -v --silent --fail --insecure --location ${cspace.ui.profile.plugin.dist.url}/?meta -o ${plugininfo.filename}" />
         <exec executable="curl" failonerror="true">
-            <arg line="--silent --fail --insecure --location ${cspace.ui.profile.plugin.dist.url}/?meta -o ${plugininfo.filename}"/>
+            <arg line="-v --silent --fail --insecure --location ${cspace.ui.profile.plugin.dist.url}/?meta -o ${plugininfo.filename}"/>
         </exec>
 
         <loadfile srcfile="${plugininfo.filename}" property="cspace.ui.profile.plugin.lib.name">
