@@ -98,7 +98,7 @@ ORDER BY cp.sortableobjectnumber]]>
 	</title>
 	<detail>
 		<band height="105" splitType="Stretch">
-			<image>
+			<image onErrorType="Icon">
 				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="457" y="1" width="110" height="100" uuid="b47b794e-de72-4495-9b9b-b2fe2f5e48ba">
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>

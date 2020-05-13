@@ -143,7 +143,7 @@ order by ptg.termname,cop.sortableobjectnumber]]>
 				</textElement>
 				<text><![CDATA[Archeological Site Report	]]></text>
 			</staticText>
-			<image>
+			<image onErrorType="Icon">
 				<reportElement x="303" y="0" width="270" height="51"/>
 				<imageExpression class="java.lang.String"><![CDATA["https://pahma.cspace.berkeley.edu/collectionspace/ui/pahma/images/logored100.png"]]></imageExpression>
 			</image>

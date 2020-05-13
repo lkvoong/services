@@ -122,7 +122,7 @@ order by ptg.termname,cop.sortableobjectnumber]]>
 	</background>
 	<title>
 		<band height="80" splitType="Stretch">
-			<image>
+			<image onErrorType="Icon">
 				<reportElement x="303" y="0" width="270" height="51"/>
 				<imageExpression class="java.lang.String"><![CDATA["https://pahma.cspace.berkeley.edu/collectionspace/ui/pahma/images/logored100.png"]]></imageExpression>
 			</image>

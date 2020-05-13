@@ -213,7 +213,7 @@ ORDER BY eog.exhibitionobjectsection, eog.exhibitionobjectcase, eog.exhibitionob
 	<detail>
 		<band height="102" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
-			<image>
+			<image onErrorType="Icon">
 				<reportElement positionType="Float" x="457" y="5" width="110" height="95" uuid="8c89086c-b75c-4036-bbe0-b45003e241b9">
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>

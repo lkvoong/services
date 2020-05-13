@@ -61,7 +61,7 @@ order by cp.sortableobjectnumber, objectname desc]]>
 	</background>
 	<title>
 		<band height="97" splitType="Stretch">
-			<image>
+			<image onErrorType="Icon">
 				<reportElement uuid="425ab285-5106-4534-944a-896137217875" x="300" y="0" width="270" height="51"/>
 				<imageExpression><![CDATA["https://pahma.cspace.berkeley.edu/collectionspace/ui/pahma/images/logored100.png"]]></imageExpression>
 			</image>
@@ -203,7 +203,7 @@ order by cp.sortableobjectnumber, objectname desc]]>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
-			<image>
+			<image onErrorType="Icon">
 				<reportElement uuid="44c4bdb0-9df3-4c99-bfd3-c0994fa5fe8d" x="450" y="0" width="120" height="20"/>
 				<imageExpression><![CDATA["https://pahma.cspace.berkeley.edu/collectionspace/ui/pahma/images/header-logo-cspace.png"]]></imageExpression>
 			</image>
@@ -246,7 +246,7 @@ order by cp.sortableobjectnumber, objectname desc]]>
 				</textElement>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
-			<image>
+			<image onErrorType="Icon">
 				<reportElement uuid="20a7701e-defe-4c7b-bef9-999bcbc9fe13" x="450" y="0" width="120" height="20"/>
 				<imageExpression><![CDATA["https://pahma.cspace.berkeley.edu/collectionspace/ui/pahma/images/header-logo-cspace.png"]]></imageExpression>
 			</image>

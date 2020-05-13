@@ -147,7 +147,7 @@ order by objectnumber]]>
 	</background>
 	<title>
 		<band height="66" splitType="Stretch">
-			<image>
+			<image onErrorType="Icon">
 				<reportElement x="300" y="0" width="270" height="51"/>
 				<imageExpression class="java.lang.String"><![CDATA["https://pahma.cspace.berkeley.edu/collectionspace/ui/pahma/images/logored100.png"]]></imageExpression>
 			</image>

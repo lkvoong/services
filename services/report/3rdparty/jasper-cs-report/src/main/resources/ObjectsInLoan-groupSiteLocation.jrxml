@@ -75,7 +75,7 @@ ORDER BY sort]]>
 				</textElement>
 				<text><![CDATA[In Loan Objects]]></text>
 			</staticText>
-			<image>
+			<image onErrorType="Icon">
 				<reportElement uuid="8a524ecd-083c-4aa6-81e0-42de58a13cb3" x="481" y="2" width="270" height="51"/>
 				<imageExpression><![CDATA["https://pahma.cspace.berkeley.edu/collectionspace/ui/pahma/images/logored100.png"]]></imageExpression>
 			</image>
@@ -192,7 +192,7 @@ ORDER BY sort]]>
 				<textElement/>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
-			<image>
+			<image onErrorType="Icon">
 				<reportElement uuid="04a9db7d-a51f-40b2-b563-be0f1c6784dc" x="629" y="3" width="120" height="19"/>
 				<imageExpression><![CDATA["https://pahma.cspace.berkeley.edu/collectionspace/ui/pahma/images/header-logo-cspace.png"]]></imageExpression>
 			</image>
