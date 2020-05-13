@@ -111,7 +111,7 @@ order by title, description]]>
 	<field name="description" class="java.lang.String"/>
 	<title>
 		<band height="84" splitType="Stretch">
-			<image>
+			<image onErrorType="Icon">
 				<reportElement uuid="38ebc361-38be-4ce7-9525-42dade10d093" x="0" y="0" width="366" height="61"/>
 				<imageExpression><![CDATA["http://www.collectionspace.org/wp-content/uploads/2014/11/CSpaceLogo.png"]]></imageExpression>
 			</image>
