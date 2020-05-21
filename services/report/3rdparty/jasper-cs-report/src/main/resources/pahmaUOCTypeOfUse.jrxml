@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="pahmaUOCTypeOfUse_" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6c010a50-72e3-4777-a554-3810e4611b6e">
+	<queryString>
+		<![CDATA[select
+        getdispl(ml.item) as typeofuse,
+        sum(visits.visitors_count) as peopleserved,
+        sum(visits.visitors_hours) as visithours,
+        sum(staff.staff_hours) as staffhours
+from uoc_common_methodlist ml
+join uoc_common uc on (ml.id = uc.id)
+join (select
+                uc.id as uoc_id,
+                sum(udg.usedatenumberofvisitors) as visitors_count,
+                sum(udg.usedatenumberofvisitors * udg.usedatehoursspent) as visitors_hours
+        from uoc_common uc
+        join hierarchy hudg on (uc.id = hudg.parentid)
+        join usedategroup udg on (hudg.id = udg.id)
+        group by uc.id) visits on (uc.id = visits.uoc_id)
+join (select
+                uc.id as uoc_id,
+                sum(sg.staffhours) as staff_hours
+        from uoc_common uc
+        join hierarchy hsg on (uc.id = hsg.parentid)
+        join staffgroup sg on (hsg.id = sg.id)
+        group by uc.id) staff on (uc.id = staff.uoc_id)
+group by getdispl(ml.item)]]>
+	</queryString>
+	<field name="typeofuse" class="java.lang.String"/>
+	<field name="peopleserved" class="java.lang.Integer"/>
+	<field name="visithours" class="java.lang.Short"/>
+	<field name="staffhours" class="java.lang.Short"/>
+	<variable name="peopleservedsum" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{peopleserved}]]></variableExpression>
+	</variable>
+	<variable name="visithourssum" class="java.lang.Short" calculation="Sum">
+		<variableExpression><![CDATA[$F{visithours}]]></variableExpression>
+	</variable>
+	<variable name="staffhourssum" class="java.lang.Short" calculation="Sum">
+		<variableExpression><![CDATA[$F{staffhours}]]></variableExpression>
+	</variable>
+	<title>
+		<band height="120" splitType="Stretch">
+			<image onErrorType="Icon">
+				<reportElement x="380" y="0" width="160" height="50" uuid="ab90b59b-1f8f-48db-94dd-e3a08776390a">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<imageExpression><![CDATA["https://pahma.cspace.berkeley.edu/reports/images/pahmalogo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="60" width="555" height="30" forecolor="#000066" uuid="52ab53ec-f742-447b-be98-03482d6c3026"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Use of Collections: Visits by Type of Use]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="5" y="95" width="555" height="12" uuid="d1fb276b-9d82-4177-9d65-1821b9845f28">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="1" width="555" height="23" backcolor="rgba(73, 201, 182, 0.85490197)" uuid="0b6e8902-d06f-4131-acdb-209c4db35aba"/>
+				<graphicElement>
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="10" y="2" width="160" height="20" forecolor="#000044" uuid="9a82830e-58f2-42e5-a056-de21feefea73">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="11072ffe-4eab-4654-9f4b-0df7ea965d22"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Type of Use]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="2" width="100" height="20" forecolor="#000044" uuid="a9e52260-e44f-4afc-b840-4d922a245b2c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4b220961-6e40-43ff-8fff-c06f31455d5a"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[People Served]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="2" width="100" height="20" forecolor="#000044" uuid="52329e88-5250-4649-bdb9-452ed7b04b26">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c361a834-5c40-4a7d-8c60-efce708d2ecb"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Visitor Hours]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="2" width="100" height="20" forecolor="#000044" uuid="49b2b9d8-d304-4a05-8b5e-3939f859690d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b128ef3f-687d-4cc4-afed-0dbe22ee5e22"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Staff Hours]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="10" y="2" width="160" height="20" uuid="5ca00876-f369-4663-b0e4-b447a437ff15">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="11072ffe-4eab-4654-9f4b-0df7ea965d22"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{typeofuse}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="200" y="2" width="100" height="20" uuid="10610f8e-48b9-4ebf-b8dc-a20fa69dc2b4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4b220961-6e40-43ff-8fff-c06f31455d5a"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{peopleserved}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="300" y="2" width="100" height="20" uuid="0065cc3c-d0fa-462e-aa5b-4d8b47b8d842">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c361a834-5c40-4a7d-8c60-efce708d2ecb"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{visithours}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="400" y="2" width="100" height="20" uuid="1ecc7aff-480e-401e-ab2e-7dd6914ce90f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b128ef3f-687d-4cc4-afed-0dbe22ee5e22"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{staffhours}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="50">
+			<rectangle>
+				<reportElement x="0" y="1" width="555" height="45" backcolor="rgba(217, 219, 219, 0.85490197)" uuid="2437567f-f8c5-4410-b57d-a0fad20a331f"/>
+				<graphicElement>
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="200" y="10" width="100" height="25" uuid="bfd6719b-cbe3-4843-aeef-7a70f179ba78"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{peopleservedsum}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="10" width="100" height="25" uuid="486d08ce-6dee-453b-83d8-70f8d089af23"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{visithourssum}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="10" width="100" height="25" uuid="a029ad5d-eb20-41c7-95f0-6fcac215c04c"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{staffhourssum}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="10" width="160" height="25" uuid="b311b127-d550-46a3-ab33-881d2664145c"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Totals]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>
+
