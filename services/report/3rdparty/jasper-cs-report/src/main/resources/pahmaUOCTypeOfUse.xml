@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<document name="report">
+  <ns2:reports_common xmlns:ns2="http://collectionspace.org/services/report">
+    <filename>pahmaUOCTypeOfUse.jrxml</filename>
+    <name>Use of Collections by Type of Use</name>
+    <forDocTypes>
+        <forDocType>Uoc</forDocType>
+    </forDocTypes>
+    <supportsGroup>false</supportsGroup>
+    <supportsOutputMIMEList>
+        <supportsOutputMIME>application/pdf</supportsOutputMIME>
+    </supportsOutputMIMEList>
+    <supportsSingleDoc>false</supportsSingleDoc>
+    <outputMIME>application/pdf</outputMIME>
+    <supportsDocList>false</supportsDocList>
+    <supportsNoContext>true</supportsNoContext>
+    <forRoles/>
+    <resourceActionGroupList/>
+    <notes/>
+  </ns2:reports_common>
+</document>
