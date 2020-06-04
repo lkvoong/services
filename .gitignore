@@ -20,3 +20,4 @@ m2-settings.xml
 cspace-app-perflog.csv
 .flattened-pom.xml
 bin
+logged_schemas
