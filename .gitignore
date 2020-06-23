@@ -21,3 +21,4 @@ services/JaxRsServiceProvider/logs/
 cspace-app-perflog.csv
 .flattened-pom.xml
 bin
+logged_schemas
