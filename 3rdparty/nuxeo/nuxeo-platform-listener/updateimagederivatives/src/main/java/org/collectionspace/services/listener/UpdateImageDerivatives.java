@@ -6,9 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.collectionspace.services.common.api.CommonAPI;
+import org.collectionspace.services.common.listener.AbstractCSEventSyncListenerImpl;
 import org.collectionspace.services.nuxeo.client.java.CoreSessionInterface;
 import org.collectionspace.services.nuxeo.client.java.CoreSessionWrapper;
-import org.collectionspace.services.nuxeo.listener.AbstractCSEventSyncListenerImpl;
 import org.collectionspace.services.nuxeo.util.NuxeoUtils;
 
 import org.nuxeo.ecm.core.api.Blob;

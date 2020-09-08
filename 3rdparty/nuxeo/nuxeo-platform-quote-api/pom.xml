@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.collectionspace.services</groupId>
-		<artifactId>org.collectionspace.services.3rdparty.nuxeo</artifactId>
+		<artifactId>org.collectionspace.services.3rdparty</artifactId>
 		<version>${revision}</version>
 	</parent>
 

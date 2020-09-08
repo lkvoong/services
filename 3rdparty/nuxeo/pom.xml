@@ -14,6 +14,7 @@
     <name>services.3rdparty.nuxeo</name>
 
     <modules>
+        <module>nuxeo-platform-util</module>
 		<module>nuxeo-platform-collectionspace</module>
 		<module>nuxeo-platform-listener</module>
 		<module>nuxeo-platform-elasticsearch</module>

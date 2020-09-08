@@ -5,9 +5,11 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.collections.ListUtils;
+
 import org.apache.commons.lang3.StringUtils;
 import org.collectionspace.services.common.api.RefNameUtils;
-import org.collectionspace.services.nuxeo.listener.AbstractCSEventPostCommitListenerImpl;
+import org.collectionspace.services.common.listener.AbstractCSEventPostCommitListenerImpl;
+
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;

@@ -13,8 +13,8 @@ import org.collectionspace.services.client.workflow.WorkflowClient;
 import org.collectionspace.services.common.ResourceMap;
 import org.collectionspace.services.common.context.ServiceContext;
 import org.collectionspace.services.common.invocable.InvocationResults;
+import org.collectionspace.services.common.listener.AbstractCSEventSyncListenerImpl;
 import org.collectionspace.services.nuxeo.client.java.CoreSessionWrapper;
-import org.collectionspace.services.nuxeo.listener.AbstractCSEventSyncListenerImpl;
 
 import org.jboss.resteasy.spi.ResteasyProviderFactory;
 

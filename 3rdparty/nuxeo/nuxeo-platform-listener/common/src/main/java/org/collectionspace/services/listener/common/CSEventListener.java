@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Map;
 
 import org.collectionspace.services.config.tenant.EventListenerConfig;
+import org.collectionspace.services.nuxeo.client.java.CoreSessionInterface;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.event.Event;
 
@@ -88,4 +89,10 @@ public interface CSEventListener {
 	 * @param eventListenerName
 	 */
 	void setName(String repositoryName, String eventListenerName);
+
+	/**
+	 * 
+	 * @return
+	 */
+	CoreSessionInterface getCurrentRepositorySession();
 }

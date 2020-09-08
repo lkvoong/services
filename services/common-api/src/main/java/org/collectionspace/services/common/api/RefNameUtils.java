@@ -301,6 +301,27 @@ public class RefNameUtils {
     	}
     	
     	return displayName;
-    }    
+    }
+
+    /**
+     * Compare two refname strings.  They're considered equal if the short IDs match
+     * 
+     * @param refname1
+     * @param refname2
+     * @return
+     */
+	public static boolean doShortIDsMatch(String refname1, String refname2) {
+		boolean result = false;
+		
+		if (refname1 != null && refname2 != null) {
+			String shortID1 = getItemShortId(refname1).trim();
+			String shortID2 = getItemShortId(refname2).trim();
+			if (shortID1.equals(shortID2)) {
+				result = true;
+			}
+		}
+		
+		return result;
+	}    
 }
 

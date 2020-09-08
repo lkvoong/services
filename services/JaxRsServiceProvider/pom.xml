@@ -378,11 +378,11 @@
             <artifactId>org.collectionspace.services.workflow.service</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <!--dependency>
+        <dependency>
             <groupId>org.collectionspace.services</groupId>
-            <artifactId>org.collectionspace.services.query.service</artifactId>
-            <version>1.0</version>
-        </dependency-->
+            <artifactId>org.collectionspace.services.listener.common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>

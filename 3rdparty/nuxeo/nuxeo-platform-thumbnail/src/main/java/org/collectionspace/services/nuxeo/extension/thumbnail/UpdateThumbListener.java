@@ -2,8 +2,7 @@ package org.collectionspace.services.nuxeo.extension.thumbnail;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import org.collectionspace.services.nuxeo.listener.AbstractCSEventSyncListenerImpl;
+import org.collectionspace.services.common.listener.AbstractCSEventSyncListenerImpl;
 import org.collectionspace.services.nuxeo.util.ThumbnailConstants;
 
 import org.nuxeo.ecm.core.api.Blob;

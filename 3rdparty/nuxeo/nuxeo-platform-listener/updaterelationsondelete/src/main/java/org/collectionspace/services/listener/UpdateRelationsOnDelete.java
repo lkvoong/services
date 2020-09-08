@@ -9,9 +9,9 @@ import org.slf4j.LoggerFactory;
 
 import org.collectionspace.services.client.workflow.WorkflowClient;
 import org.collectionspace.services.common.document.DocumentException;
+import org.collectionspace.services.common.listener.AbstractCSEventSyncListenerImpl;
 import org.collectionspace.services.nuxeo.client.java.CoreSessionInterface;
 import org.collectionspace.services.nuxeo.client.java.CoreSessionWrapper;
-import org.collectionspace.services.nuxeo.listener.AbstractCSEventSyncListenerImpl;
 
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;

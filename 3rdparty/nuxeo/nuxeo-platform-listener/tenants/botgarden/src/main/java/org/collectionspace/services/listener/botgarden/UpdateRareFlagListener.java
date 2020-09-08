@@ -17,8 +17,8 @@ import org.collectionspace.services.collectionobject.nuxeo.CollectionObjectNatur
 import org.collectionspace.services.common.ResourceMap;
 import org.collectionspace.services.common.context.ServiceContext;
 import org.collectionspace.services.common.invocable.InvocationResults;
+import org.collectionspace.services.common.listener.AbstractCSEventSyncListenerImpl;
 import org.collectionspace.services.nuxeo.client.java.CoreSessionWrapper;
-import org.collectionspace.services.nuxeo.listener.AbstractCSEventSyncListenerImpl;
 import org.collectionspace.services.taxonomy.nuxeo.TaxonNaturalHistoryConstants;
 import org.collectionspace.services.taxonomy.nuxeo.TaxonConstants;
 import org.collectionspace.services.taxonomy.nuxeo.TaxonomyAuthorityConstants;

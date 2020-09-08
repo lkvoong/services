@@ -38,6 +38,12 @@
             <version>${nuxeo.platform.version}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.collectionspace.services</groupId>
+            <artifactId>org.collectionspace.services.listener.common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
     </dependencies>
 
 </project>

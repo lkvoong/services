@@ -39,6 +39,7 @@ import org.collectionspace.services.common.config.TenantBindingConfigReaderImpl;
 import org.collectionspace.services.common.context.ServiceBindingUtils;
 import org.collectionspace.services.common.init.AddIndices;
 import org.collectionspace.services.common.init.IInitHandler;
+import org.collectionspace.services.common.listener.CSEventListener;
 import org.collectionspace.services.common.storage.DatabaseProductType;
 import org.collectionspace.services.common.storage.JDBCTools;
 import org.collectionspace.services.common.storage.jpa.JPATransactionContext;
@@ -56,8 +57,6 @@ import org.collectionspace.services.config.types.PropertyType;
 
 import org.collectionspace.services.nuxeo.client.java.NuxeoConnectorEmbedded;
 import org.collectionspace.services.nuxeo.client.java.TenantRepository;
-import org.collectionspace.services.nuxeo.listener.CSEventListener;
-import org.collectionspace.services.nuxeo.listener.AbstractCSEventListenerImpl;
 
 import org.jboss.resteasy.spi.ResteasyProviderFactory;
 import org.dom4j.Attribute;
@@ -321,7 +320,7 @@ public class ServiceMain {
 	                    try {
 	        	            Class<?> c = tccl.loadClass(clazz);
 	        	            if (CSEventListener.class.isAssignableFrom(c)) {
-	        	            	CSEventListener listener = (AbstractCSEventListenerImpl) c.newInstance();
+	        	            	CSEventListener listener = (CSEventListener) c.newInstance();
 	        	            	listener.register(getPrimaryRepositoryName(tenantBinding), eventListenerConfig);  // Register the listener with a tenant using its repository name
 	        	            	if (logger.isInfoEnabled()) {
 	        	            		String msg = String.format("Event Listener - Success: Tenant '%30s'\tActivated listener %s:%s",

@@ -13,9 +13,11 @@ import org.collectionspace.services.common.api.Tools;
 import org.collectionspace.services.config.tenant.EventListenerConfig;
 import org.collectionspace.services.config.tenant.Param;
 import org.collectionspace.services.nuxeo.client.java.CoreSessionInterface;
+import org.collectionspace.services.nuxeo.client.java.CoreSessionWrapper;
 import org.collectionspace.services.nuxeo.util.NuxeoUtils;
 import org.nuxeo.common.collections.ScopeType;
 import org.nuxeo.common.collections.ScopedMap;
+import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
 import org.nuxeo.ecm.core.event.Event;
@@ -36,6 +38,7 @@ public abstract class AbstractCSEventListenerImpl implements CSEventListener {
             + NONVERSIONED_NONPROXY_DOCUMENT_WHERE_CLAUSE_FRAGMENT;
     static final String DOCMODEL_CONTEXT_PROPERTY_PREFIX = ScopeType.DEFAULT.getScopePrefix();
 	private String currentRepositoryName;
+	private CoreSessionWrapper coreSessionWrapper;
 
 	public AbstractCSEventListenerImpl() {
 		// Intentionally left blank
@@ -57,9 +60,16 @@ public abstract class AbstractCSEventListenerImpl implements CSEventListener {
 	
 	@Override
 	public void setCurrentRepository(Event event) {
-		currentRepositoryName = event.getContext().getRepositoryName();
+		EventContext eventContext = event.getContext();
+		currentRepositoryName = eventContext.getRepositoryName();
+		coreSessionWrapper = new CoreSessionWrapper(eventContext.getCoreSession());
 	}
 
+	@Override
+	public CoreSessionInterface getCurrentRepositorySession() {
+		return coreSessionWrapper;
+	}
+	
 	@Override
 	public String getCurrentRepository() {
 		return currentRepositoryName;

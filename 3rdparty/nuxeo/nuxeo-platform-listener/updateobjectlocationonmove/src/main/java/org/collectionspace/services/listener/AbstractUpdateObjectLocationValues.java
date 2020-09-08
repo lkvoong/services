@@ -8,12 +8,12 @@ import org.collectionspace.services.client.LocationAuthorityClient;
 import org.collectionspace.services.collectionobject.nuxeo.CollectionObjectConstants;
 import org.collectionspace.services.common.api.Tools;
 import org.collectionspace.services.common.document.DocumentException;
+import org.collectionspace.services.common.listener.AbstractCSEventSyncListenerImpl;
 import org.collectionspace.services.common.relation.nuxeo.RelationConstants;
 import org.collectionspace.services.common.api.RefName;
 import org.collectionspace.services.movement.nuxeo.MovementConstants;
 import org.collectionspace.services.nuxeo.client.java.CoreSessionInterface;
 import org.collectionspace.services.nuxeo.client.java.CoreSessionWrapper;
-import org.collectionspace.services.nuxeo.listener.AbstractCSEventSyncListenerImpl;
 import org.collectionspace.services.nuxeo.util.NuxeoUtils;
 
 import org.nuxeo.ecm.core.api.ClientException;

@@ -13,11 +13,11 @@ import org.collectionspace.services.collectionobject.nuxeo.CollectionObjectConst
 import org.collectionspace.services.common.ResourceMap;
 import org.collectionspace.services.common.context.ServiceContext;
 import org.collectionspace.services.common.invocable.InvocationResults;
+import org.collectionspace.services.common.listener.AbstractCSEventSyncListenerImpl;
 import org.collectionspace.services.common.relation.nuxeo.RelationConstants;
 import org.collectionspace.services.movement.nuxeo.MovementBotGardenConstants;
 import org.collectionspace.services.movement.nuxeo.MovementConstants;
 import org.collectionspace.services.nuxeo.client.java.CoreSessionWrapper;
-import org.collectionspace.services.nuxeo.listener.AbstractCSEventSyncListenerImpl;
 
 import org.jboss.resteasy.spi.ResteasyProviderFactory;
 
@@ -48,7 +48,7 @@ public class UpdateDeadFlagListener extends AbstractCSEventSyncListenerImpl {
 
 		if (event.getName().equals(DocumentEventTypes.DOCUMENT_CREATED)) {
 			/*
-			 * Handle the case where a new movement is created with action code revive, and then related
+			 * Handle the case where a new movement is created with action code 'revive', and then related
 			 * to a collectionobject. The movement won't have any relations at the time it's created,
 			 * so we need to capture the creation of the relation.
 			 */
@@ -85,11 +85,13 @@ public class UpdateDeadFlagListener extends AbstractCSEventSyncListenerImpl {
 					!doc.isVersion() &&
 					!doc.isProxy() &&
 					!doc.getCurrentLifeCycleState().equals(WorkflowClient.WORKFLOWSTATE_DELETED)) {
-				String actionCode = (String) doc.getProperty(MovementBotGardenConstants.ACTION_CODE_SCHEMA_NAME, MovementBotGardenConstants.ACTION_CODE_FIELD_NAME);
+				String actionCodeRefName = (String) doc.getProperty(MovementBotGardenConstants.ACTION_CODE_SCHEMA_NAME, MovementBotGardenConstants.ACTION_CODE_FIELD_NAME);
+				String deadActionCode = getVocabularyItemRefNameWithDisplayName(MovementBotGardenConstants.DEAD_ACTION_CODE);
+				String revivedActionCode = getVocabularyItemRefNameWithDisplayName(MovementBotGardenConstants.REVIVED_ACTION_CODE);
 
-				logger.debug("actionCode=" + actionCode);
+				logger.debug("actionCode=" + actionCodeRefName);
 
-				if (actionCode != null && (actionCode.equals(MovementBotGardenConstants.DEAD_ACTION_CODE) || actionCode.equals(MovementBotGardenConstants.REVIVED_ACTION_CODE))) {
+				if (actionCodeRefName != null && (actionCodeRefName.equals(deadActionCode) || actionCodeRefName.equals(revivedActionCode))) {
 					String movementCsid = doc.getName();
 
 					try {
@@ -102,7 +104,7 @@ public class UpdateDeadFlagListener extends AbstractCSEventSyncListenerImpl {
 				}
 			}
 		}
-		}
+	}
 
 	private UpdateDeadFlagBatchJob createUpdater(DocumentEventContext context) throws Exception {
 		ResourceMap resourceMap = ResteasyProviderFactory.getContextData(ResourceMap.class);
