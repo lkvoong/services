@@ -1,5 +1,57 @@
-These files contain functions and SQL commands needed for botgarden reports and make things more performant.
+/*
+EXECUTE ORDER:
 
-The .sql files can simply be executed with something like "psql -d nuxeo < findhybridnamehtml.sql" as long as you have the appropriate permissions.
+create_unaccent_text_search_configuration.sql
 
-The find*.sql commands should be done first, then grants.sql and indexes.sql
+create_id_generators_table.sql
+
+load_id_generators.sql
+
+load_botgarden_id_generators.sql
+load_cinefiles_id_generators.sql
+load_pahma_id_generators.sql
+load_ucbg_id_generators.sql
+load_ucjeps_id_generators.sql
+
+set_bampfa_vocabulary_csids.sql
+set_cinefiles_vocabulary_csids.sql
+
+grant_reporters_privileges.sql
+
+grant_bampfa_reporters_privileges.sql
+grant_botgarden_reporters_privileges.sql
+grant_cinefiles_reporters_privileges.sql
+grant_pahma_reporters_privileges.sql
+grant_ucjeps_reporters_privileges.sql
+
+create_botgarden_voucherlabeltype_type.sql
+
+create_all_checkreqbyobjnum_function.sql
+create_all_getdeplname_function.sql
+create_all_getdispl_function.sql
+create_all_getuocauthby_function.sql
+create_all_getuocobjnum_function.sql
+create_all_getuocobjnumtaxon_function.sql
+create_all_getuocreqby_function.sql
+
+create_botgarden_findcommonname_function.sql
+create_botgarden_findconservecat_function.sql
+create_botgarden_findconserveinfo_function.sql
+create_botgarden_findconserveorg_function.sql
+create_botgarden_findhybridaffinhtml_function.sql
+create_botgarden_findhybridaffinname_function.sql
+create_botgarden_findparent_function.sql
+create_botgarden_findparentbyrank_function.sql
+create_botgarden_findsectionparent_function.sql
+create_botgarden_findsubsectionparent_function.sql
+create_botgarden_findvoucherinfo_function.sql
+create_botgarden_findvoucherlabels_function.sql
+create_botgarden_getactiondate_function.sql
+create_botgarden_getdeaddate_function.sql
+create_botgarden_updatemodifiedcolumn_function.sql
+
+create_pahma_aggrepdatefield_function.sql
+create_pahma_aggrepfield_function.sql
+create_pahma_aggrepgroupfield_function.sql
+
+*/

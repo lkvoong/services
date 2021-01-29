@@ -1,12 +1,15 @@
+/*
 -- findconserveinfo.sql
 -- return concatenated string of conservation information strings, taking taxon refname as input
 -- used in Bot Garden portal
 -- CRH 1/18/2015
+*/
 
-create or replace function utils.findconserveinfo(text)
-returns text
-as
-$$
+CREATE OR REPLACE FUNCTION utils.findconserveinfo(text)
+ RETURNS text
+ LANGUAGE plpgsql
+ IMMUTABLE STRICT
+AS $function$
 declare
    conserveinfo text;
    r text;
@@ -16,7 +19,7 @@ begin
 conserveinfo := '';
 
 FOR r IN
-select 
+select
   case when (pag.conservationorganization is not null and pag.conservationorganization not like '%not applicable%')
         then regexp_replace(pag.conservationorganization, '^.*\)''(.*)''$', '\1')||': '||regexp_replace(pag.conservationcategory, '^.*\)''(.*)''$', '\1')
        else regexp_replace(pag.conservationcategory, '^.*\)''(.*)''$', '\1')
@@ -42,7 +45,6 @@ conserveinfo := trim(trailing '|' from conserveinfo);
 
 return conserveinfo;
 end;
-$$
-LANGUAGE 'plpgsql'
-IMMUTABLE
-RETURNS NULL ON NULL INPUT;
+$function$
+
+-- GRANT EXECUTE ON FUNCTION utils.findconserveinfo(text) to public;

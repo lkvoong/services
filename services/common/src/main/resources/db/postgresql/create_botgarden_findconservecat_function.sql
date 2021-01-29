@@ -1,12 +1,15 @@
+/*
 -- findconservecat.sql
 -- return concatenated string of conservation categories, taking taxon refname as input
 -- used in Bot Garden portal
 -- CRH 1/18/2015
+*/
 
-create or replace function utils.findconservecat(text)
-returns text
-as
-$$
+CREATE OR REPLACE FUNCTION utils.findconservecat(text)
+ RETURNS text
+ LANGUAGE plpgsql
+ IMMUTABLE STRICT
+AS $function$
 declare
    conservecat text;
    r text;
@@ -16,7 +19,7 @@ begin
 conservecat := '';
 
 FOR r IN
-select 
+select
    regexp_replace(pag.conservationcategory, '^.*\)''(.*)''$', '\1') as conservecat
 from taxon_common tc
 left outer join hierarchy h
@@ -39,7 +42,6 @@ conservecat := trim(trailing '|' from conservecat);
 
 return conservecat;
 end;
-$$
-LANGUAGE 'plpgsql'
-IMMUTABLE
-RETURNS NULL ON NULL INPUT;
+$function$
+
+-- GRANT EXECUTE ON FUNCTION utils.findconservecat(text) TO PUBLIC;

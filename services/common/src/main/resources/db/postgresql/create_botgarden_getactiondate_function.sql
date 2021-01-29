@@ -9,12 +9,11 @@
      select get_actiondate('98.0890', 'Planted Out', '3A, Vernal Pool, Californian');
 */
 
--- drop function get_actiondate (cocid varchar, action varchar, bedloc varchar);
-
-create or replace function get_actiondate (cocid varchar, action varchar, bedloc varchar)
-returns timestamp
-as
-$$
+CREATE OR REPLACE FUNCTION public.get_actiondate(cocid character varying, action character varying, bedloc character varying)
+ RETURNS timestamp without time zone
+ LANGUAGE plpgsql
+ IMMUTABLE STRICT
+AS $function$
 declare
         recCount int;
         actionDate  timestamp;
@@ -63,10 +62,6 @@ begin
         return null;
 
 end;
-$$
-LANGUAGE 'plpgsql'
-IMMUTABLE
-RETURNS NULL ON NULL INPUT;
+$function$
 
-grant execute on function get_actiondate(varchar, varchar, varchar) to public;
-
+-- GRANT EXECUTE ON FUNCTION get_actiondate(varchar, varchar, varchar) TO PUBLIC;
