@@ -122,6 +122,7 @@ public class BulkObjectEditBatchJob extends  AbstractBatchJob {
   public String preparePayload(HashMap<String, String> fieldsToUpdate)  {
     String commonValues = "";
     String natHistValues = "";
+    String bampfaValues = "";
 
     String otherNumber = "<otherNumberList><otherNumber>";
     Boolean otherNumFlag = false;
@@ -163,7 +164,9 @@ public class BulkObjectEditBatchJob extends  AbstractBatchJob {
                             "<" + key + ">" + value + "</" + key + ">" + 
                             "</taxonomicIdentGroup></taxonomicIdentGroupList>";
       } else if (key.equals("provenanceType")) {
-        natHistValues += "<" + key + ">" + value + "</" + key + ">";
+        natHistValues += "<provenanceType>" + value + "</provenanceType>";
+      } else if (key.equals("bampfaObjectProductionPerson")) {
+        bampfaValues += "<bampfaObjectProductionPersonGroupList><bampfaObjectProductionPersonGroup><bampfaObjectProductionPerson>" + value + "</bampfaObjectProductionPerson></bampfaObjectProductionPersonGroup></bampfaObjectProductionPersonGroupList>";
       } else {
         commonValues += "<" + key + ">" + value + "</" + key + ">";
       }
