@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="object" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="720" leftMargin="36" rightMargin="36" topMargin="36" bottomMargin="36" uuid="386adf0d-a79f-4e48-97b3-4b3555d4f4c5">
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
-	<style name="Title" fontName="SansSerif" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
-	<style name="SubTitle" forecolor="#666666" fontName="SansSerif" fontSize="18"/>
-	<style name="Column header" forecolor="#666666" fontName="SansSerif" fontSize="12" isBold="true"/>
-	<style name="Detail" fontName="SansSerif" fontSize="12"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Rare Status by Family" isIgnorePagination="true" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="720" leftMargin="36" rightMargin="36" topMargin="36" bottomMargin="36" uuid="386adf0d-a79f-4e48-97b3-4b3555d4f4c5">
+        <property name="net.sf.jasperreports.export.xlsx.exclude.origin.band.1" value="pageHeader"/>
+        <property name="net.sf.jasperreports.export.xls.auto.fit.column" value="true"/>
+        <property name="net.sf.jasperreports.export.xls.collapse.row.span" value="true"/>
+        <property name="net.sf.jasperreports.export.xls.column.width.ratio" value="1.10f"/>
+        <property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+        <property name="net.sf.jasperreports.export.xls.font.size.fix.enabled" value="false"/>
+        <property name="net.sf.jasperreports.export.xls.ignore.cell.background" value="true"/>
+        <property name="net.sf.jasperreports.export.xls.ignore.graphics" value="false"/>
+        <property name="net.sf.jasperreports.export.xls.ignore.page.margins" value="true"/>
+        <property name="net.sf.jasperreports.export.xls.one.page.per.sheet" value="false"/>
+        <property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+        <property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+        <property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+        <property name="net.sf.jasperreports.export.xls.wrap.text" value="false"/>
+        <property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
 	<parameter name="family" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[select co1.objectnumber,
+case when co1.objectnumber ~ '^[0-9][0-9]\.' then '19' || co1.objectnumber else co1.objectnumber end as sortnumber,
 findhybridaffinname(tig.id) determination,
 case when (tn.family is not null and tn.family <> '')
      then getdispl(tn.family)
@@ -50,125 +59,97 @@ left outer join taxon_naturalhistory tn on (tc.id=tn.id)
 where cob.deadflag = 'false'
 and con.rare = 'true'
 -- and tig.taxon like '%Araucaria%'
-and tn.family = $P{family}]]>
+and tn.family = $P{family}
+order by determination, sortnumber]]>
 	</queryString>
 	<field name="objectnumber" class="java.lang.String"/>
+	<field name="sortnumber" class="java.lang.String"/>
 	<field name="determination" class="java.lang.String"/>
 	<field name="family" class="java.lang.String"/>
 	<field name="gardenlocation" class="java.lang.String"/>
 	<field name="dataquality" class="java.lang.String"/>
 	<field name="locality" class="java.lang.String"/>
-	<background>
-		<band splitType="Stretch"/>
-	</background>
-	<title>
+	<pageHeader>
 		<band height="25" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="29aaffd5-d4b7-49a6-9c28-479d0633a397" x="250" y="0" width="220" height="20"/>
-				<textElement textAlignment="Center">
+				<reportElement uuid="29aaffd5-d4b7-49a6-9c28-479d0633a397" x="0" y="0" width="210" height="20"/>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
 					<font size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[UC Botanical Garden at Berkeley]]></text>
 			</staticText>
+			<textField>
+				<reportElement uuid="89381e8d-e080-4c55-949a-b4bdbb411c2f" x="210" y="0" width="300" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Rare Status by Family: " + $F{family}]]></textFieldExpression>
+			</textField>
 			<textField pattern="dd-MMM-yyyy">
-				<reportElement uuid="6f42212c-0707-4d67-a63f-c35549bfd21c" style="Column header" x="575" y="0" width="145" height="20" forecolor="#000000"/>
-				<textElement textAlignment="Right">
-					<font fontName="SansSerif" size="10" isBold="false"/>
+				<reportElement uuid="6f42212c-0707-4d67-a63f-c35549bfd21c" x="510" y="0" width="210" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 		</band>
-	</title>
-	<pageHeader>
-		<band height="42" splitType="Stretch">
-			<line>
-				<reportElement uuid="8053f266-44b1-472e-8490-d4f8bd06d58f" positionType="FixRelativeToBottom" x="0" y="40" width="720" height="1"/>
-				<graphicElement>
-					<pen lineWidth="0.5" lineColor="#999999"/>
-				</graphicElement>
-			</line>
-			<textField>
-				<reportElement uuid="89381e8d-e080-4c55-949a-b4bdbb411c2f" x="3" y="0" width="717" height="20"/>
-				<textElement textAlignment="Center">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Rare Status by Family: " + $F{family}]]></textFieldExpression>
-			</textField>
+	</pageHeader>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="3cadefb5-7f8c-4b76-baff-893fc4476790" x="24" y="22" width="60" height="15"/>
+				<reportElement uuid="3cadefb5-7f8c-4b76-baff-893fc4476790" x="0" y="2" width="60" height="15"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Accession]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="c427a447-4114-4a8f-9873-85e7f3187b96" x="84" y="22" width="139" height="15"/>
+				<reportElement uuid="c427a447-4114-4a8f-9873-85e7f3187b96" x="60" y="2" width="260" height="15"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Full Taxonomic Name]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="0d1c4283-7066-46e5-9dcd-308e58148796" x="359" y="22" width="140" height="20"/>
+				<reportElement uuid="0d1c4283-7066-46e5-9dcd-308e58148796" x="320" y="2" width="140" height="15"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Location]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="610dc87b-b611-4068-bd46-7ec2fe51febd" x="504" y="22" width="150" height="15"/>
+				<reportElement uuid="610dc87b-b611-4068-bd46-7ec2fe51febd" x="460" y="2" width="260" height="15"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Geographic Location]]></text>
 			</staticText>
 		</band>
-	</pageHeader>
+	</columnHeader>
 	<detail>
-		<band height="22" splitType="Prevent">
+		<band height="20" splitType="Prevent">
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement uuid="d6e74dcc-cb40-4a70-b045-fb04de2fc6ad" x="24" y="0" width="60" height="15"/>
-				<textElement verticalAlignment="Bottom"/>
+				<reportElement uuid="d6e74dcc-cb40-4a70-b045-fb04de2fc6ad" x="0" y="0" width="60" height="20">
+                                        <propertyExpression name="net.sf.jasperreports.export.xls.sheet.name"><![CDATA[$F{family}]]></propertyExpression>
+</reportElement>
+				<textElement verticalAlignment="Top"/>
 				<textFieldExpression><![CDATA[$F{objectnumber}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement uuid="792b55f2-c785-439e-be75-a1ff101f1710" x="84" y="0" width="270" height="15"/>
-				<textElement verticalAlignment="Bottom"/>
+				<reportElement uuid="792b55f2-c785-439e-be75-a1ff101f1710" x="60" y="0" width="260" height="20"/>
+				<textElement verticalAlignment="Top"/>
 				<textFieldExpression><![CDATA[$F{determination}]]></textFieldExpression>
 			</textField>
-			<line>
-				<reportElement uuid="c712c673-c5f1-4838-b3d4-5bdb414cf82c" positionType="FixRelativeToBottom" x="0" y="18" width="720" height="1"/>
-				<graphicElement>
-					<pen lineWidth="0.5" lineColor="#999999"/>
-				</graphicElement>
-			</line>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement uuid="d6f50010-4305-4dfc-9799-413ef2df70f7" x="359" y="0" width="140" height="15"/>
-				<textElement/>
+				<reportElement uuid="d6f50010-4305-4dfc-9799-413ef2df70f7" x="320" y="0" width="140" height="20"/>
+				<textElement verticalAlignment="Top"/>
 				<textFieldExpression><![CDATA[$F{gardenlocation}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement uuid="f33df2b8-d635-4f4c-882f-8329c398b6e8" x="504" y="0" width="212" height="15"/>
-				<textElement/>
+				<reportElement uuid="f33df2b8-d635-4f4c-882f-8329c398b6e8" x="460" y="0" width="260" height="20"/>
+				<textElement verticalAlignment="Top"/>
 				<textFieldExpression><![CDATA[$F{locality}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
-	<pageFooter>
-		<band height="20" splitType="Stretch">
-			<textField>
-				<reportElement uuid="521df409-fb14-4909-9931-71c4c150bf29" x="600" y="0" width="80" height="20"/>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
-			</textField>
-			<textField evaluationTime="Report">
-				<reportElement uuid="687a8a69-cf7b-4e5d-bf79-e5f70fba10f0" x="680" y="0" width="40" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
-		</band>
-	</pageFooter>
-	<summary>
-		<band splitType="Stretch"/>
-	</summary>
 </jasperReport>
