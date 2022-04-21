@@ -17,48 +17,43 @@
         <property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
 	<parameter name="family" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[select co1.objectnumber,
-case when co1.objectnumber ~ '^[0-9][0-9]\.' then '19' || co1.objectnumber else co1.objectnumber end as sortnumber,
-findhybridaffinname(tig.id) determination,
-case when (tn.family is not null and tn.family <> '')
-     then getdispl(tn.family)
-end as family,
-case when (mc.currentlocation is not null and mc.currentlocation <> '')
-     then getdispl(mc.currentlocation)
-end as gardenlocation,
-co1.recordstatus dataQuality,
-case when (lg.fieldlocplace is not null and lg.fieldlocplace <> '') then getdispl(lg.fieldlocplace)
-     when (lg.fieldlocplace is null and lg.taxonomicrange is not null) then 'Geographic range: '||lg.taxonomicrange
+		<![CDATA[select
+co.objectnumber,
+case when co.objectnumber ~ '^[0-9][0-9]\.' 
+  then '19' || co.objectnumber 
+  else co.objectnumber
+end as sortnumber,
+findhybaffnoauthname(tig.id) determination,
+getdispl(tn.family) as family,
+getdispl(mc.currentlocation) as gardenlocation,
+co.recordstatus dataQuality,
+case when (lg.fieldlocplace is null and lg.taxonomicrange is not null) 
+  then 'Geographic range: ' || lg.taxonomicrange
+  else getdispl(lg.fieldlocplace)
 end as locality
-
-from collectionobjects_common co1
-join hierarchy h1 on co1.id=h1.id
-join relations_common r1 on (h1.name=r1.subjectcsid and objectdocumenttype='Movement')
-join hierarchy h2 on (r1.objectcsid=h2.name and h2.isversion is not true)
-join movements_common mc on (mc.id=h2.id)
-
-join collectionobjects_naturalhistory con on (co1.id = con.id)
-
-join collectionobjects_botgarden cob on (co1.id=cob.id)
-
-left outer join hierarchy htig
-     on (co1.id = htig.parentid and htig.pos = 0 and htig.name = 'collectionobjects_naturalhistory:taxonomicIdentGroupList')
-left outer join taxonomicIdentGroup tig on (tig.id = htig.id)
-
-left outer join hierarchy hlg
-     on (co1.id = hlg.parentid and hlg.pos = 0 and hlg.name='collectionobjects_naturalhistory:localityGroupList')
-left outer join localitygroup lg on (lg.id = hlg.id)
-
-join collectionspace_core core on (core.id=co1.id)
-join misc misc1 on (mc.id=misc1.id and misc1.lifecyclestate <> 'deleted')   -- movement not deleted
-join misc misc2 on (misc2.id = co1.id and misc2.lifecyclestate <> 'deleted') -- object not deleted
-
-left outer join taxon_common tc on (tig.taxon=tc.refname)
-left outer join taxon_naturalhistory tn on (tc.id=tn.id)
-
+from collectionobjects_common co
+join hierarchy hco on (co.id = hco.id)
+join relations_common rc on (hco.name = rc.objectcsid and rc.subjectdocumenttype = 'Movement')
+join hierarchy hmc on (rc.subjectcsid = hmc.name and hmc.isversion is not true)
+join movements_common mc on (hmc.id = mc.id)
+join collectionobjects_naturalhistory con on (co.id = con.id)
+join collectionobjects_botgarden cob on (co.id = cob.id)
+left outer join hierarchy htig on (
+  co.id = htig.parentid 
+  and htig.pos = 0 
+  and htig.name = 'collectionobjects_naturalhistory:taxonomicIdentGroupList')
+left outer join taxonomicIdentGroup tig on (htig.id = tig.id)
+left outer join hierarchy hlg on (
+  co.id = hlg.parentid 
+  and hlg.pos = 0 
+  and hlg.name = 'collectionobjects_naturalhistory:localityGroupList')
+left outer join localitygroup lg on (hlg.id = lg.id)
+join misc mmc on (mc.id = mmc.id and mmc.lifecyclestate <> 'deleted') -- movement not deleted
+join misc mco on (co.id = mco.id and mco.lifecyclestate <> 'deleted') -- object not deleted
+left outer join taxon_common tc on (tig.taxon = tc.refname)
+left outer join taxon_naturalhistory tn on (tc.id = tn.id)
 where cob.deadflag = 'false'
 and con.rare = 'true'
--- and tig.taxon like '%Araucaria%'
 and tn.family = $P{family}
 order by determination, sortnumber]]>
 	</queryString>
