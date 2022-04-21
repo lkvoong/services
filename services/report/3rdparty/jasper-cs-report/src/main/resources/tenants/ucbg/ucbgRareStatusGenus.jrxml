@@ -21,17 +21,20 @@
                 <defaultValueExpression><![CDATA[$P{genus}.replaceAll("^.*\\)'(.*)'$", "$1").replaceAll(" .*$", "")]]></defaultValueExpression>
         </parameter>
 	<queryString>
-		<![CDATA[select co.objectnumber,
-case when co.objectnumber ~ '^[0-9][0-9]\.' then '19' || co.objectnumber else co.objectnumber end as sortnumber,
-findhybridaffinname(tig.id) as determination,
-case when (tn.family is not null and tn.family <> '') then getdispl(tn.family) end as family,
+		<![CDATA[select
+co.objectnumber,
+case
+  when co.objectnumber ~ '^[0-9][0-9]\.' 
+  then '19' || co.objectnumber else co.objectnumber
+end as sortnumber,
+findhybaffnoauthname(tig.id) as determination,
+getdispl(tn.family) as family,
 regexp_replace(getdispl(tig.taxon), ' .*$', '') as genusname,
-case when (mc.currentlocation is not null and mc.currentlocation <> '')
-    then getdispl(mc.currentlocation)
-end as gardenlocation,
+getdispl(mc.currentlocation) as gardenlocation,
 co.recordstatus dataQuality,
-case when (lg.fieldlocplace is not null and lg.fieldlocplace <> '') then getdispl(lg.fieldlocplace)
-     when (lg.fieldlocplace is null and lg.taxonomicrange is not null) then 'Geographic range: '|| lg.taxonomicrange
+case when (lg.fieldlocplace is null and lg.taxonomicrange is not null)
+  then 'Geographic range: '|| lg.taxonomicrange
+  else getdispl(lg.fieldlocplace)
 end as locality
 from collectionobjects_common co
 join hierarchy hco on (co.id = hco.id)
