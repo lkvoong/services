@@ -13,8 +13,9 @@
     <supportsParams>true</supportsParams>
     <supportsOutputMIMEList>
       <outputMIME>application/pdf</outputMIME>
+      <outputMIME>application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</outputMIME>
     </supportsOutputMIMEList>
-    <outputMIME>application/pdf</outputMIME>
+    <outputMIME>application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</outputMIME>
     <notes/>
   </ns2:reports_common>
 </document>
