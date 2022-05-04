@@ -186,6 +186,14 @@ public class BulkObjectEditBatchJob extends  AbstractBatchJob {
         natHistValues + "</ns2:collectionobjects_naturalhistory>";
     }
 
+    String bampfaPayload = "";
+    if (bampfaValues.length() != 0) {
+      bampfaPayload = "<ns2:collectionobjects_bampfa " +
+        "xmlns:ns2=\"http://collectionspace.org/services/collectionobject/local/bampfa\" " +
+        "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">" +
+        bampfaValues + "</ns2:collectionobjects_bampfa>";
+    }
+
     String commonPayload = "";
 
     if (commonValues.length() != 0) {
@@ -197,7 +205,7 @@ public class BulkObjectEditBatchJob extends  AbstractBatchJob {
       "</ns2:collectionobjects_common>";
     }
 
-    return HEADER + commonPayload + natHistPayload + "</document>";
+    return HEADER + commonPayload + natHistPayload + bampfaPayload + "</document>";
   }
 
   public String mergePayloads(String csid, PoxPayloadOut batchPayload) throws Exception {
