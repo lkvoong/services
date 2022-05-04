@@ -31,10 +31,101 @@ GRANT ALL ON FUNCTION utils.aggrepgroupfield(coid character varying, tname chara
 
 
 --
+-- Name: FUNCTION createculturehierarchytable(); Type: ACL; Schema: utils; Owner: nuxeo_pahma
+--
+
+GRANT ALL ON FUNCTION utils.createculturehierarchytable() TO reporters_pahma;
+
+
+--
+-- Name: FUNCTION creatematerialhierarchytable(); Type: ACL; Schema: utils; Owner: nuxeo_pahma
+--
+
+GRANT ALL ON FUNCTION utils.creatematerialhierarchytable() TO reporters_pahma;
+
+
+--
+-- Name: FUNCTION createtaxonhierarchytable(); Type: ACL; Schema: utils; Owner: nuxeo_pahma
+--
+
+GRANT ALL ON FUNCTION utils.createtaxonhierarchytable() TO reporters_pahma;
+
+
+--
 -- Name: FUNCTION getnagpra(cocid character varying); Type: ACL; Schema: utils; Owner: nuxeo_pahma
 --
 
 GRANT ALL ON FUNCTION utils.getnagpra(cocid character varying) TO reporters_pahma;
+
+
+--
+-- Name: FUNCTION populateculturehierarchytable(); Type: ACL; Schema: utils; Owner: nuxeo_pahma
+--
+
+GRANT ALL ON FUNCTION utils.populateculturehierarchytable() TO reporters_pahma;
+
+
+--
+-- Name: FUNCTION populatematerialhierarchytable(); Type: ACL; Schema: utils; Owner: nuxeo_pahma
+--
+
+GRANT ALL ON FUNCTION utils.populatematerialhierarchytable() TO reporters_pahma;
+
+
+--
+-- Name: FUNCTION populatetaxonhierarchytable(); Type: ACL; Schema: utils; Owner: nuxeo_pahma
+--
+
+GRANT ALL ON FUNCTION utils.populatetaxonhierarchytable() TO reporters_pahma;
+
+
+--
+-- Name: FUNCTION refreshculturehierarchytable(); Type: ACL; Schema: utils; Owner: nuxeo_pahma
+--
+
+GRANT ALL ON FUNCTION utils.refreshculturehierarchytable() TO reporters_pahma;
+
+
+--
+-- Name: FUNCTION refreshmaterialhierarchytable(); Type: ACL; Schema: utils; Owner: nuxeo_pahma
+--
+
+GRANT ALL ON FUNCTION utils.refreshmaterialhierarchytable() TO reporters_pahma;
+
+
+--
+-- Name: FUNCTION refreshtaxonhierarchytable(); Type: ACL; Schema: utils; Owner: nuxeo_pahma
+--
+
+GRANT ALL ON FUNCTION utils.refreshtaxonhierarchytable() TO reporters_pahma;
+
+
+--
+-- Name: FUNCTION updateculturehierarchytable(); Type: ACL; Schema: utils; Owner: nuxeo_pahma
+--
+
+GRANT ALL ON FUNCTION utils.updateculturehierarchytable() TO reporters_pahma;
+
+
+--
+-- Name: FUNCTION updatematerialhierarchytable(); Type: ACL; Schema: utils; Owner: nuxeo_pahma
+--
+
+GRANT ALL ON FUNCTION utils.updatematerialhierarchytable() TO reporters_pahma;
+
+
+--
+-- Name: FUNCTION updateobjectplacelocation(); Type: ACL; Schema: utils; Owner: nuxeo_pahma
+--
+
+GRANT ALL ON FUNCTION utils.updateobjectplacelocation() TO reporters_pahma;
+
+
+--
+-- Name: FUNCTION updatetaxonhierarchytable(); Type: ACL; Schema: utils; Owner: nuxeo_pahma
+--
+
+GRANT ALL ON FUNCTION utils.updatetaxonhierarchytable() TO reporters_pahma;
 
 
 --
