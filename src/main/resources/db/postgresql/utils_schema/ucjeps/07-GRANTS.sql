@@ -22,17 +22,3 @@ GRANT ALL ON FUNCTION utils.concat_relatedaccns(accnid character varying) TO rep
 
 GRANT SELECT ON TABLE utils.servername TO PUBLIC;
 
-
---
--- Name: TABLE ucjeps_jstor_accn_lkv; Type: ACL; Schema: utils; Owner: nuxeo_ucjeps
---
-
-GRANT SELECT ON TABLE utils.ucjeps_jstor_accn_lkv TO reporter_ucjeps;
-
-
---
--- Name: TABLE ucjeps_types_tmplkv; Type: ACL; Schema: utils; Owner: nuxeo_ucjeps
---
-
-GRANT SELECT ON TABLE utils.ucjeps_types_tmplkv TO reporter_ucjeps;
-
