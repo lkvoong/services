@@ -159,7 +159,7 @@ public class BulkObjectEditBatchJob extends  AbstractBatchJob {
         commonValues += "<contentDateGroup><dateDisplayDate>" + value + "</dateDisplayDate></contentDateGroup>";
       } else if (key.equals("fieldCollectionDateGroup")) {
         commonValues += "<fieldCollectionDateGroup><dateDisplayDate>" + value + "</dateDisplayDate></fieldCollectionDateGroup>";
-      } else if (key.equals("<publishTo>")) {
+      } else if (key.equals("publishTo")) {
         commonValues += "<publishToList><" + key + ">" + value + "</" + key + "></publishToList>"; 
       } else if (key.equals("taxon")) {
         natHistValues += "<taxonomicIdentGroupList><taxonomicIdentGroup>" + 
