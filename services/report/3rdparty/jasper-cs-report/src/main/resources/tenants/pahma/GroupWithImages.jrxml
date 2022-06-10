@@ -30,6 +30,7 @@ LEFT OUTER JOIN collectionobjects_pahma cp ON (coc.id = cp.id)
 LEFT OUTER JOIN collectionobjects_anthropology ca ON (coc.id = ca.id)
 LEFT OUTER JOIN collectionobjects_common_briefdescriptions bd ON (coc.id = bd.id AND bd.pos = 0)
 JOIN hierarchy hcoc ON (coc.id = hcoc.id)
+JOIN misc mcoc on (coc.id = mcoc.id)
 JOIN relations_common rc ON (hcoc.name = rc.objectcsid AND rc.subjectdocumenttype = 'Group')
 JOIN hierarchy hgc ON (rc.subjectcsid = hgc.name)
 LEFT OUTER JOIN groups_common gc ON (hgc.id = gc.id)
@@ -39,6 +40,7 @@ LEFT OUTER JOIN hierarchy hapg ON (coc.id = hapg.parentid AND hapg.primarytype =
 LEFT OUTER JOIN assocpeoplegroup apg ON (hapg.id = apg.id)
 LEFT OUTER JOIN collectionobjects_pahma_pahmafieldcollectionplacelist fcp ON (coc.id = fcp.id AND (fcp.pos = 0 OR fcp.pos IS NULL))
 WHERE hgc.name = $P{groupcsid}
+AND mcoc.lifecyclestate <> 'deleted'
 GROUP BY gc.title, coc.objectnumber, coc.numberofobjects, ong.objectname, bd.item,
   fcp.item, cp.sortableobjectnumber, hcoc.name
 ORDER BY cp.sortableobjectnumber]]>
