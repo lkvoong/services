@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BAMPFA Captions Report" pageWidth="612" pageHeight="792" columnWidth="540" leftMargin="36" rightMargin="36" topMargin="36" bottomMargin="36" uuid="a8aa88f8-38d3-47f9-b142-201785288028">
+	<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="csid" class="java.lang.String" isForPrompting="false">
+		<parameterDescription><![CDATA[Object CSID]]></parameterDescription>
+	</parameter>
+	<parameter name="groupcsid" class="java.lang.String" isForPrompting="false">
+		<parameterDescription><![CDATA[Group CSID]]></parameterDescription>
+	</parameter>
+	<parameter name="csidlist" class="java.lang.String" isForPrompting="false">
+		<parameterDescription><![CDATA[CSID List]]></parameterDescription>
+	</parameter>
+	<parameter name="objcsids" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[$P{csidlist} != null ? ("'" + $P{csidlist}.replaceAll(",", "','") + "'") : ""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="wherecsid" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[$P{csid} != null ? ("h.name = '" + $P{csid} + "'") : ""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="wheregroup" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[$P{groupcsid} != null ? ("h.name IN (SELECT objectcsid FROM relations_common WHERE objectdocumenttype = 'CollectionObject' AND subjectcsid = '" + $P{groupcsid} + "')") : ""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="wherelist" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[$P{csidlist} != null ? ("h.name IN (" + $P{objcsids} + ")") : ""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="whereclause" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[$P{wherecsid} + $P{wheregroup} + $P{wherelist}]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select get_deplname() as deployname,
+        coc.objectnumber,
+        case when utils.concat_artists_fml(h.name) = '' then 'N/A' else utils.concat_artists_fml(h.name) end || ': ' ||
+                btg.title || ', ' || 
+                coalesce(sdg.datedisplaydate, 'N/A') || '; ' ||
+                coalesce(coc.physicaldescription, 'N/A') || '; ' ||
+                coalesce(mpg.dimensionsummary, 'N/A') || '; ' ||
+                coalesce(cob.creditline, 'N/A') as caption
+
+from collectionobjects_common coc
+
+join hierarchy h on (coc.id = h.id)
+
+left outer join (
+  select c.id, array_to_string(
+    array_agg(
+        case when b.bampfaformattedtitle is not null 
+                then b.bampfaformattedtitle
+                else '<i>' || trim(b.bampfatitle) || '</i>'
+        end
+        order by hb.pos), ', ') as title
+  from collectionobjects_common c
+  left outer join hierarchy hb on (c.id = hb.parentid and hb.primarytype = 'bampfaTitleGroup')
+  left outer join bampfatitlegroup b on (hb.id = b.id)
+  group by c.id
+) btg on (coc.id = btg.id)
+
+left outer join hierarchy hopdg on (
+  h.id = hopdg.parentid and hopdg.pos = 0
+  and hopdg.name = 'collectionobjects_common:objectProductionDateGroupList')
+left outer join structureddategroup sdg on (hopdg.id = sdg.id)
+
+left outer join (
+ select coc.id, array_to_string(array_agg(m.dimensionsummary order by hm.pos), '; ') as dimensionsummary
+ from collectionobjects_common coc
+ left outer join hierarchy hm on (coc.id = hm.parentid and hm.primarytype = 'measuredPartGroup' and hm.pos < 2)
+ left outer join measuredpartgroup m on (hm.id = m.id)
+ group by coc.id
+) mpg on (coc.id = mpg.id)
+
+left outer join collectionobjects_bampfa cob on (coc.id = cob.id)
+where $P!{whereclause}
+order by coc.objectnumber]]>
+	</queryString>
+	<field name="deployname" class="java.lang.String"/>
+	<field name="objectnumber" class="java.lang.String"/>
+	<field name="caption" class="java.lang.String"/>
+	<title>
+		<band height="72" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement x="170" y="0" width="200" height="50" uuid="360278c5-0d71-4495-bcd9-d3105b1727d3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2d39e7b6-cfe1-48fe-ae8b-9721263d21a8"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="28" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Captions]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="0" width="108" height="60" uuid="514dd93a-224d-4579-82ab-920d7fa220cb"/>
+				<imageExpression><![CDATA["https://" + $F{deployname} + ".cspace.berkeley.edu/reports/images/bampfa_logo_2.svg"]]></imageExpression>
+			</image>
+			<textField pattern="M/d/yyyy">
+				<reportElement mode="Transparent" x="170" y="50" width="200" height="16" forecolor="#000000" uuid="4793afc9-3df1-44d8-9345-66fbed27cdcf"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="18" uuid="8ce9ac51-1653-467a-b5c0-cfb094383ad7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2d39e7b6-cfe1-48fe-ae8b-9721263d21a8"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID Number]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="0" width="440" height="18" uuid="6e79e73b-34bf-4854-902c-384aa1043c23">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c08d439b-fdf8-45ec-85f0-41e70bd1afde"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Caption]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="3" width="100" height="20" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="edb121cc-c990-4122-8f99-cf067bc938f5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2d39e7b6-cfe1-48fe-ae8b-9721263d21a8"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Top">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{objectnumber}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="100" y="3" width="440" height="20" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="12ecd346-fcc1-455f-93da-ca1abca00d3a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c08d439b-fdf8-45ec-85f0-41e70bd1afde"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Top" markup="html">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{caption}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="36" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField>
+				<reportElement x="159" y="2" width="100" height="30" uuid="cf109523-7d8d-4af4-9556-4693362f6bf7"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="259" y="2" width="100" height="30" uuid="83ebfc27-490d-4631-b3d6-b607a68956e1"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[" of " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
+
