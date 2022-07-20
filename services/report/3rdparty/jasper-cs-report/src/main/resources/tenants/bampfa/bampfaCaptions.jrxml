@@ -97,7 +97,7 @@ order by coc.objectnumber]]>
 				</textElement>
 				<text><![CDATA[Captions]]></text>
 			</staticText>
-			<image>
+			<image onErrorType="Blank">
 				<reportElement x="0" y="0" width="108" height="60" uuid="514dd93a-224d-4579-82ab-920d7fa220cb"/>
 				<imageExpression><![CDATA["https://" + $F{deployname} + ".cspace.berkeley.edu/reports/images/bampfa_logo_2.svg"]]></imageExpression>
 			</image>
