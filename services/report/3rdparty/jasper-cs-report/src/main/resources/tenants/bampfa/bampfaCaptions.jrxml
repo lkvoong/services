@@ -39,7 +39,7 @@
 		<![CDATA[select get_deplname() as deployname,
         coc.objectnumber,
         case when utils.concat_artists_fml(h.name) = '' then 'N/A' else utils.concat_artists_fml(h.name) end || ': ' ||
-                btg.title || ', ' || 
+                regexp_replace(btg.title, ' ([,; ])', '\1', 'g') || ', ' || 
                 coalesce(sdg.datedisplaydate, 'N/A') || '; ' ||
                 coalesce(coc.physicaldescription, 'N/A') || '; ' ||
                 coalesce(mpg.dimensionsummary, 'N/A') || '; ' ||
@@ -53,7 +53,7 @@ left outer join (
   select c.id, array_to_string(
     array_agg(
         case when b.bampfaformattedtitle is not null 
-                then b.bampfaformattedtitle
+                then '<i>' || trim(b.bampfaformattedtitle) || '</i>'
                 else '<i>' || trim(b.bampfatitle) || '</i>'
         end
         order by hb.pos), ', ') as title
