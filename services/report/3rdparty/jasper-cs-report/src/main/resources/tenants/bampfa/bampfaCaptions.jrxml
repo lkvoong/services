@@ -36,14 +36,19 @@
 		<defaultValueExpression><![CDATA[$P{wherecsid} + $P{wheregroup} + $P{wherelist}]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select get_deplname() as deployname,
-        coc.objectnumber,
-        case when utils.concat_artists_fml(h.name) = '' then 'N/A' else utils.concat_artists_fml(h.name) end || ': ' ||
-                regexp_replace(btg.title, ' ([,; ])', '\1', 'g') || ', ' || 
-                coalesce(sdg.datedisplaydate, 'N/A') || '; ' ||
-                coalesce(coc.physicaldescription, 'N/A') || '; ' ||
-                coalesce(mpg.dimensionsummary, 'N/A') || '; ' ||
-                coalesce(cob.creditline, 'N/A') as caption
+		<![CDATA[select get_deplname() as deployname, coc.objectnumber,
+case
+    when utils.concat_artists_fml(h.name) = '' then 'N/A'
+    else utils.concat_artists_fml(h.name)
+end || ': ' ||
+regexp_replace(btg.title, ' ([,; ])', '\1', 'g') || ', ' || 
+coalesce(sdg.datedisplaydate, 'N/A') || '; ' ||
+coalesce(coc.physicaldescription, 'N/A') || '; ' ||
+coalesce(mpg.dimensionsummary, 'N/A') || '; ' ||
+concat_ws('; ',
+    'University of California, Berkeley Art Museum and Pacific Film Archive',  
+    nullif(cob.creditline, '')
+) as caption
 
 from collectionobjects_common coc
 
