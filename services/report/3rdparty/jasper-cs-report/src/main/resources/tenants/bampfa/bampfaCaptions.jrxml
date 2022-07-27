@@ -36,14 +36,19 @@
 		<defaultValueExpression><![CDATA[$P{wherecsid} + $P{wheregroup} + $P{wherelist}]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select get_deplname() as deployname,
-        coc.objectnumber,
-        case when utils.concat_artists_fml(h.name) = '' then 'N/A' else utils.concat_artists_fml(h.name) end || ': ' ||
-                regexp_replace(btg.title, ' ([,; ])', '\1', 'g') || ', ' || 
-                coalesce(sdg.datedisplaydate, 'N/A') || '; ' ||
-                coalesce(coc.physicaldescription, 'N/A') || '; ' ||
-                coalesce(mpg.dimensionsummary, 'N/A') || '; ' ||
-                coalesce(cob.creditline, 'N/A') as caption
+		<![CDATA[select get_deplname() as deployname, coc.objectnumber,
+case
+    when utils.concat_artists_fml(h.name) = '' then 'N/A'
+    else utils.concat_artists_fml(h.name)
+end || ': ' ||
+regexp_replace(btg.title, ' ([,; ])', '\1', 'g') || ', ' || 
+coalesce(sdg.datedisplaydate, 'N/A') || '; ' ||
+coalesce(coc.physicaldescription, 'N/A') || '; ' ||
+coalesce(mpg.dimensionsummary, 'N/A') || '; ' ||
+concat_ws('; ',
+    'University of California, Berkeley Art Museum and Pacific Film Archive',  
+    nullif(cob.creditline, '')
+) as caption
 
 from collectionobjects_common coc
 
@@ -97,9 +102,9 @@ order by coc.objectnumber]]>
 				</textElement>
 				<text><![CDATA[Captions]]></text>
 			</staticText>
-			<image>
+			<image onErrorType="Blank">
 				<reportElement x="0" y="0" width="108" height="60" uuid="514dd93a-224d-4579-82ab-920d7fa220cb"/>
-				<imageExpression><![CDATA["https://" + $F{deployname} + ".cspace.berkeley.edu/reports/images/bampfa_logo_2.svg"]]></imageExpression>
+                                <imageExpression><![CDATA["https://github.com/cspace-deployment/services/blob/master/services/report/3rdparty/jasper-cs-report/src/main/resources/tenants/bampfa/images/bampfaLogo2.jpeg?raw=true"]]></imageExpression>
 			</image>
 			<textField pattern="M/d/yyyy">
 				<reportElement mode="Transparent" x="170" y="50" width="200" height="16" forecolor="#000000" uuid="4793afc9-3df1-44d8-9345-66fbed27cdcf"/>
