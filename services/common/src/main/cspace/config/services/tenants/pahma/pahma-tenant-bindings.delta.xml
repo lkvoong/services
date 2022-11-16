@@ -41,18 +41,6 @@
 						<service:key>sqlScriptName</service:key>
 						<service:value>grant_pahma_reporters_privileges.sql</service:value>
 					</service:property>
-					<service:property merge:matcher="skip" merge:action="insert">
-						<service:key>sqlScriptName</service:key>
-						<service:value>function_pahma_aggRepDateField.sql</service:value>
-					</service:property>
-					<service:property merge:matcher="skip" merge:action="insert">
-						<service:key>sqlScriptName</service:key>
-						<service:value>function_pahma_aggRepField.sql</service:value>
-					</service:property>
-					<service:property merge:matcher="skip" merge:action="insert">
-						<service:key>sqlScriptName</service:key>
-						<service:value>function_pahma_aggRepGroupField.sql</service:value>
-					</service:property>
 				</service:params>
 			</service:initHandler>
 		</tenant:serviceBindings>

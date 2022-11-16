@@ -51,16 +51,35 @@
             <service:validatorHandler xmlns:service="http://collectionspace.org/services/config/service" merge:matcher="tag" merge:action="replace">org.collectionspace.services.collectionobject.nuxeo.validators.BotGardenCollectionObjectValidatorHandler</service:validatorHandler>
         </tenant:serviceBindings>
 
+        <tenant:serviceBindings merge:matcher="id" id="runsqlscripts">
+            <service:initHandler xmlns:service="http://collectionspace.org/services/config/service">
+                <service:params>
+                    <service:property merge:matcher="skip" merge:action="insert">
+                        <service:key>sqlScriptName</service:key>
+                        <service:value>grant_botgarden_reporters_privileges.sql</service:value>
+                    </service:property>
+                    <service:property merge:matcher="skip" merge:action="insert">
+                        <service:key>sqlScriptName</service:key>
+                        <service:value>fnc-public-findhybridaffinhtml-nuxeo_botgarden.sql</service:value>
+                    </service:property>
+                    <service:property merge:matcher="skip" merge:action="insert">
+                        <service:key>sqlScriptName</service:key>
+                        <service:value>fnc-public-findhybridaffinname-nuxeo_botgarden.sql</service:value>
+                    </service:property>
+                    <service:property merge:matcher="skip" merge:action="insert">
+                        <service:key>sqlScriptName</service:key>
+                        <service:value>fnc-public-findhybaffnoauthname-nuxeo_botgarden.sql</service:value>
+                    </service:property>
+                </service:params>
+            </service:initHandler>
+        </tenant:serviceBindings>
+
         <tenant:serviceBindings merge:matcher="id" id="idgenerators">
             <service:initHandler xmlns:service="http://collectionspace.org/services/config/service">
                 <service:params>
                     <service:property merge:matcher="skip" merge:action="insert">
                         <service:key>sqlScriptName</service:key>
                         <service:value>load_botgarden_id_generators.sql</service:value>
-                    </service:property>
-                    <service:property merge:matcher="skip" merge:action="insert">
-                        <service:key>sqlScriptName</service:key>
-                        <service:value>grant_botgarden_reporters_privileges.sql</service:value>
                     </service:property>
                 </service:params>
             </service:initHandler>

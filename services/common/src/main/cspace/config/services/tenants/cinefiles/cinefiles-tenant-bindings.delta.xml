@@ -9,6 +9,17 @@
 			<tenant:eventListenerConfig id="UpdateObjectLocationOnMove" merge:matcher="id" merge:action="delete" />
 		</tenant:eventListenerConfigurations>
 
+                <tenant:serviceBindings merge:matcher="id" id="runsqlscripts">
+                        <service:initHandler xmlns:service="http://collectionspace.org/services/config/service">
+                                <service:params>
+					<service:property merge:matcher="skip" merge:action="insert">
+						<service:key>sqlScriptName</service:key>
+						<service:value>grant_cinefiles_reporters_privileges.sql</service:value>
+					</service:property>
+                                </service:params>
+                        </service:initHandler>
+                </tenant:serviceBindings>
+
 		<tenant:serviceBindings merge:matcher="id" id="idgenerators">
 			<service:initHandler xmlns:service="http://collectionspace.org/services/config/service">
 				<service:params>
@@ -19,10 +30,6 @@
 					<service:property merge:matcher="skip" merge:action="insert">
 						<service:key>sqlScriptName</service:key>
 						<service:value>load_cinefiles_id_generators.sql</service:value>
-					</service:property>
-					<service:property merge:matcher="skip" merge:action="insert">
-						<service:key>sqlScriptName</service:key>
-						<service:value>grant_cinefiles_reporters_privileges.sql</service:value>
 					</service:property>
 				</service:params>
 			</service:initHandler>
