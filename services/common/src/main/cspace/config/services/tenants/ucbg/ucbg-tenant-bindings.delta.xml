@@ -62,22 +62,6 @@
                         <service:key>sqlScriptName</service:key>
                         <service:value>grant_botgarden_reporters_privileges.sql</service:value>
                     </service:property>
-                    <service:property merge:matcher="skip" merge:action="insert">
-                        <service:key>sqlScriptName</service:key>
-                        <service:value>fnc-public-findhybridaffinhtml-nuxeo_botgarden.sql</service:value>
-                    </service:property>
-                    <service:property merge:matcher="skip" merge:action="insert">
-                        <service:key>sqlScriptName</service:key>
-                        <service:value>fnc-public-findhybridaffinname-nuxeo_botgarden.sql</service:value>
-                    </service:property>
-                    <service:property merge:matcher="skip" merge:action="insert">
-                        <service:key>sqlScriptName</service:key>
-                        <service:value>fnc-public-findhybaffnoauthname-nuxeo_botgarden.sql</service:value>
-                    </service:property>
-                    <service:property merge:matcher="skip" merge:action="insert">
-                        <service:key>sqlScriptName</service:key>
-                        <service:value>fnc-public-getdispl-nuxeo_botgarden.sql</service:value>
-                    </service:property>
                 </service:params>
             </service:initHandler>
         </tenant:serviceBindings>
