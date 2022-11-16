@@ -72,6 +72,10 @@
 						<service:key>sqlScriptName</service:key>
 						<service:value>grant_reporters_privileges.sql</service:value>
 					</service:property>
+					<service:property>
+						<service:key>sqlScriptName</service:key>
+						<service:value>fnc-public-getdispl.sql</service:value>
+					</service:property>
 				</service:params>
 			</service:initHandler>
 		</tenant:serviceBindings>
