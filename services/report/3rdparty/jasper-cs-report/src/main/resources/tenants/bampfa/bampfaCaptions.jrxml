@@ -104,7 +104,7 @@ order by coc.objectnumber]]>
 			</staticText>
 			<image onErrorType="Blank">
 				<reportElement x="0" y="0" width="108" height="60" uuid="514dd93a-224d-4579-82ab-920d7fa220cb"/>
-                                <imageExpression><![CDATA["https://github.com/cspace-deployment/services/blob/master/services/report/3rdparty/jasper-cs-report/src/main/resources/tenants/bampfa/images/bampfaLogo2.svg?raw=true"]]></imageExpression>
+                                <imageExpression><![CDATA["https://raw.githubusercontent.com/cspace-deployment/services/master/services/report/3rdparty/jasper-cs-report/src/main/resources/tenants/bampfa/images/bampfaLogo2.svg"]]></imageExpression>
 			</image>
 			<textField pattern="M/d/yyyy">
 				<reportElement mode="Transparent" x="170" y="50" width="200" height="16" forecolor="#000000" uuid="4793afc9-3df1-44d8-9345-66fbed27cdcf"/>

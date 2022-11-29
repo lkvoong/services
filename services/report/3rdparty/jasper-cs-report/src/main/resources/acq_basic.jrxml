@@ -72,7 +72,7 @@ $P!{where_clause}]]>
 				</staticText>
 				<image onErrorType="Icon">
 					<reportElement x="0" y="0" width="349" height="67"/>
-					<imageExpression><![CDATA["https://www.collectionspace.org/wp-content/uploads/2014/11/CSpaceLogo.png"]]></imageExpression>
+					<imageExpression><![CDATA["https://raw.githubusercontent.com/cspace-deployment/services/master/services/report/3rdparty/jasper-cs-report/src/main/resources/images/cspaceLogo3.png"]]></imageExpression>
 				</image>
 			</frame>
 		</band>

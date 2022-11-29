@@ -72,7 +72,7 @@ ORDER BY locationkey, sortableobjectnumber, objectName desc]]>
 		<band height="53" splitType="Stretch">
 			<image onErrorType="Blank">
 				<reportElement uuid="3ca0df28-85c7-41bc-bf2c-ff7f74c802c0" x="303" y="0" width="270" height="51"/>
-				<imageExpression><![CDATA["https://pahma.cspace.berkeley.edu/reports/images/pahmalogo.png"]]></imageExpression>
+				<imageExpression><![CDATA["https://raw.githubusercontent.com/cspace-deployment/services/master/services/report/3rdparty/jasper-cs-report/src/main/resources/tenants/pahma/images/pahmaLogo4.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement uuid="4101e028-2c15-4e3e-a310-643830492372" style="Title" x="0" y="0" width="263" height="24"/>

@@ -102,11 +102,11 @@ URL: http://ucjeps.berkeley.edu]]></text>
 			</staticText>
 			<image onErrorType="Icon">
 				<reportElement x="500" y="11" width="72" height="72"/>
-				<imageExpression><![CDATA["https://ucjeps.cspace.berkeley.edu/reports/images/jepslogosmall.png"]]></imageExpression>
+				<imageExpression><![CDATA["https://raw.githubusercontent.com/cspace-deployment/services/master/services/report/3rdparty/jasper-cs-report/src/main/resources/tenants/ucjeps/images/ucjepsLogo6.png"]]></imageExpression>
 			</image>
 			<image onErrorType="Icon">
 				<reportElement x="0" y="11" width="72" height="72"/>
-				<imageExpression><![CDATA["https://ucjeps.cspace.berkeley.edu/reports/images/uclogosmall.png"]]></imageExpression>
+				<imageExpression><![CDATA["https://raw.githubusercontent.com/cspace-deployment/services/master/services/report/3rdparty/jasper-cs-report/src/main/resources/tenants/ucjeps/images/ucjepsLogo5.png"]]></imageExpression>
 			</image>
 		</band>
 	</title>

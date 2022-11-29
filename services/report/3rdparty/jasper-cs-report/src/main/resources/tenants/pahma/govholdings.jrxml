@@ -77,7 +77,7 @@ ORDER BY getdispl(fcp.item), pog.anthropologyplaceownershipnote, cp.sortableobje
 		<band height="53" splitType="Stretch">
 			<image onErrorType="Blank">
 				<reportElement uuid="0c9f3310-abb5-40de-8163-7cc689c93991" x="482" y="0" width="270" height="51"/>
-				<imageExpression><![CDATA["https://pahma.cspace.berkeley.edu/reports/images/pahmalogo.png"]]></imageExpression>
+				<imageExpression><![CDATA["https://raw.githubusercontent.com/cspace-deployment/services/master/services/report/3rdparty/jasper-cs-report/src/main/resources/tenants/pahma/images/pahmaLogo4.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement uuid="410b3498-4f4c-430b-be5d-36b49ac965a9" style="Title" x="0" y="0" width="263" height="24"/>
