@@ -21,6 +21,17 @@
 		<tenant:serviceBindings merge:matcher="id" id="CollectionObjects">
 			<service:validatorHandler merge:matcher="tag" merge:action="replace" xmlns:service="http://collectionspace.org/services/config/service">org.collectionspace.services.collectionobject.nuxeo.UCJepsCollectionObjectValidatorHandler</service:validatorHandler>
 		</tenant:serviceBindings>
+
+                <tenant:serviceBindings merge:matcher="id" id="runsqlscripts">
+                        <service:initHandler xmlns:service="http://collectionspace.org/services/config/service">
+                                <service:params>
+					<service:property merge:matcher="skip" merge:action="insert">
+						<service:key>sqlScriptName</service:key>
+						<service:value>grant_ucjeps_reporters_privileges.sql</service:value>
+					</service:property>
+                                </service:params>
+                        </service:initHandler>
+                </tenant:serviceBindings>
 		
 		<tenant:serviceBindings merge:matcher="id" id="idgenerators">
 			<service:initHandler xmlns:service="http://collectionspace.org/services/config/service">
@@ -28,10 +39,6 @@
 					<service:property merge:matcher="skip" merge:action="insert">
 						<service:key>sqlScriptName</service:key>
 						<service:value>load_ucjeps_id_generators.sql</service:value>
-					</service:property>
-					<service:property merge:matcher="skip" merge:action="insert">
-						<service:key>sqlScriptName</service:key>
-						<service:value>grant_ucjeps_reporters_privileges.sql</service:value>
 					</service:property>
 				</service:params>
 			</service:initHandler>

@@ -37,16 +37,23 @@
 			<service:validatorHandler merge:matcher="tag" merge:action="replace" xmlns:service="http://collectionspace.org/services/config/service">org.collectionspace.services.collectionobject.nuxeo.BAMPFACollectionObjectValidatorHandler</service:validatorHandler>
 		</tenant:serviceBindings>
 
+		<tenant:serviceBindings merge:matcher="id" id="runsqlscripts">
+			<service:initHandler xmlns:service="http://collectionspace.org/services/config/service">
+				<service:params>
+					<service:property merge:matcher="skip" merge:action="insert">
+						<service:key>sqlScriptName</service:key>
+						<service:value>grant_bampfa_reporters_privileges.sql</service:value>
+					</service:property>
+				</service:params>
+			</service:initHandler>
+		</tenant:serviceBindings>
+
 		<tenant:serviceBindings merge:matcher="id" id="idgenerators">
 			<service:initHandler xmlns:service="http://collectionspace.org/services/config/service">
 				<service:params>
 					<service:property merge:matcher="skip" merge:action="insert">
 						<service:key>sqlScriptName</service:key>
 						<service:value>set_bampfa_vocabulary_csids.sql</service:value>
-					</service:property>
-					<service:property merge:matcher="skip" merge:action="insert">
-						<service:key>sqlScriptName</service:key>
-						<service:value>grant_bampfa_reporters_privileges.sql</service:value>
 					</service:property>
 				</service:params>
 			</service:initHandler>
