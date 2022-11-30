@@ -8,7 +8,7 @@ from
 (select
     coc.objectnumber as doc_number,
     csc.updatedat::date as doc_moddate,
-    'https://' || get_deplname() || '.cspace.berkeley.edu/record/collectionobject/' || hcoc.name as doc_url,
+    'https://' || get_deplname() || '.collectionspace.org/cspace/' || get_deplname() || '/record/collectionobject/' || hcoc.name as doc_url,
     cocf.doctitle as doc_title,
     coc.numberofobjects as page_count,
     sum(case when bc.id is not null then 1 else 0 end) as media_count
