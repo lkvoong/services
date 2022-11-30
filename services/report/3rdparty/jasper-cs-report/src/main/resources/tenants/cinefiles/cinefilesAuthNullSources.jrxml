@@ -8,7 +8,7 @@
   hwc.name as csid,
   'Work' as authority_name,
   wtg.termdisplayname as term_name,
-  '<a href="https://' || get_deplname() || '.cspace.berkeley.edu/collectionspace/ui/cinefiles/html/work.html?csid=' ||
+  '<a href="https://' || get_deplname() || '.collectionspace.org/cspace/' || get_deplname() || '/record/work/local/' ||
     hwc.name || '">' || wtg.termdisplayname || '</a>' as csid_link
 from worktermgroup wtg
 inner join hierarchy hwtg on (wtg.id = hwtg.id)
@@ -21,7 +21,7 @@ select
   hoc.name as csid,
   'Org: ' || getdispl(oac.refname) as authority_name,
   getdispl(oc.refname) || ': ' || otg.termdisplayname as term_name,
-  '<a href="https://' || get_deplname() || '.cspace.berkeley.edu/collectionspace/ui/cinefiles/html/organization.html?csid=' ||
+  '<a href="https://' || get_deplname() || '.collectionspace.org/cspace/' || get_deplname() || '/record/organization/local/' ||
     hoc.name || '">' || getdispl(oc.refname) || ': ' || otg.termdisplayname || '</a>' as csid_link
 from orgtermgroup otg
 inner join hierarchy hotg on (otg.id = hotg.id)
@@ -36,7 +36,7 @@ select
   hpc.name as csid,
   'Person' as authority_name,
   ptg.termdisplayname as term_name,
-  '<a href="https://' || get_deplname() || '.cspace.berkeley.edu/collectionspace/ui/cinefiles/html/person.html?csid=' ||
+  '<a href="https://' || get_deplname() || '.collectionspace.org/cspace/' || get_deplname() || '/record/person/local/' ||
     hpc.name || '">' || ptg.termdisplayname || '</a>' as csid_link
 from persontermgroup ptg
 inner join hierarchy hptg on (ptg.id = hptg.id)
@@ -49,7 +49,7 @@ select
   hcc.name as csid,
   'Concept: ' || getdispl(cac.refname) as authority_name,
   getdispl(cc.refname) || ': ' || ctg.termdisplayname as term_name,
-  '<a href="https://' || get_deplname() || '.cspace.berkeley.edu/collectionspace/ui/cinefiles/html/concept.html?csid=' ||
+  '<a href="https://' || get_deplname() || '.collectionspace.org/cspace/' || get_deplname() || '/record/concept/local/' ||
     hcc.name || '">' || getdispl(cc.refname) || ': ' || ctg.termdisplayname || '</a>' as csid_link
 from concepttermgroup ctg
 inner join hierarchy hctg on (ctg.id = hctg.id)
