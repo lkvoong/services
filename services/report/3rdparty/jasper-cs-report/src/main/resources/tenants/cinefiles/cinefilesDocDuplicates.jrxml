@@ -72,16 +72,16 @@ order by title, description]]>
 	<field name="description" class="java.lang.String"/>
 	<title>
 		<band height="84" splitType="Stretch">
-			<image onErrorType="Icon">
-				<reportElement uuid="38ebc361-38be-4ce7-9525-42dade10d093" x="0" y="0" width="366" height="61"/>
-				<imageExpression><![CDATA["https://www.collectionspace.org/wp-content/uploads/2014/11/CSpaceLogo.png"]]></imageExpression>
+			<image hAlign="Center" onErrorType="Icon">
+				<reportElement uuid="38ebc361-38be-4ce7-9525-42dade10d093" x="0" y="0" width="570" height="61"/>
+				<imageExpression><![CDATA["https://raw.githubusercontent.com/cspace-deployment/services/master/services/report/3rdparty/jasper-cs-report/src/main/resources/tenants/cinefiles/images/cinefilesLogo1.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement uuid="610bdc26-3968-4115-b85c-cc9f1cbc3630" mode="Transparent" x="0" y="64" width="750" height="20" forecolor="#000000"/>
 				<textElement textAlignment="Center" markup="none">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[CineFiles: Duplicate Media Titles, Blob Filenames, Doc Ids and Page Numbers]]></text>
+				<text><![CDATA[Duplicate Media Titles, Blob Filenames, Doc Ids and Page Numbers]]></text>
 			</staticText>
 		</band>
 	</title>

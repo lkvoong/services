@@ -121,7 +121,7 @@ ORDER BY sort,"currentlocation"]]>
 			</staticText>
 			<image onErrorType="Icon">
 				<reportElement uuid="4fa3545f-7e8c-4a64-a7bb-02fe5fced05b" x="480" y="3" width="270" height="51"/>
-				<imageExpression><![CDATA["https://pahma.cspace.berkeley.edu/reports/images/pahmalogo.png"]]></imageExpression>
+				<imageExpression><![CDATA["https://raw.githubusercontent.com/cspace-deployment/services/master/services/report/3rdparty/jasper-cs-report/src/main/resources/tenants/pahma/images/pahmaLogo4.png"]]></imageExpression>
 			</image>
 		</band>
 	</title>
@@ -261,7 +261,7 @@ ORDER BY sort,"currentlocation"]]>
 			</textField>
 			<image onErrorType="Icon">
 				<reportElement uuid="92d4e522-3d77-4464-85f0-face1a366667" x="629" y="2" width="120" height="20"/>
-				<imageExpression><![CDATA["https://pahma.cspace.berkeley.edu/reports/images/header-logo-cspace.png"]]></imageExpression>
+				<imageExpression><![CDATA["https://raw.githubusercontent.com/cspace-deployment/services/master/services/report/3rdparty/jasper-cs-report/src/main/resources/images/cspaceLogo3.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement uuid="508adf6d-5e27-489d-b869-f859f4ca2b02" x="550" y="1" width="70" height="17"/>

@@ -145,7 +145,7 @@ order by ptg.termname,cop.sortableobjectnumber]]>
 			</staticText>
 			<image onErrorType="Icon">
 				<reportElement x="303" y="0" width="270" height="51"/>
-				<imageExpression class="java.lang.String"><![CDATA["https://pahma.cspace.berkeley.edu/reports/images/pahmalogo.png"]]></imageExpression>
+				<imageExpression class="java.lang.String"><![CDATA["https://raw.githubusercontent.com/cspace-deployment/services/master/services/report/3rdparty/jasper-cs-report/src/main/resources/tenants/pahma/images/pahmaLogo4.png"]]></imageExpression>
 			</image>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement style="Detail" positionType="Float" stretchType="RelativeToTallestObject" x="33" y="60" width="539" height="16"/>

@@ -185,7 +185,7 @@ ORDER BY cc.computedcurrentlocation, ca.computedcrate, cp.sortableobjectnumber]]
 				<reportElement x="350" y="0" width="270" height="51" uuid="663cf49a-b0a7-4bfc-a472-0a31926253ec">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
-				<imageExpression><![CDATA["https://pahma.cspace.berkeley.edu/reports/images/pahmalogo.png"]]></imageExpression>
+				<imageExpression><![CDATA["https://raw.githubusercontent.com/cspace-deployment/services/master/services/report/3rdparty/jasper-cs-report/src/main/resources/tenants/pahma/images/pahmaLogo4.png"]]></imageExpression>
 			</image>
 		</band>
 	</title>

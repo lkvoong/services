@@ -123,7 +123,7 @@ ORDER BY cp.sortableobjectnumber]]>
 				<reportElement stretchType="RelativeToTallestObject" x="350" y="0" width="270" height="51" uuid="96862a8b-b8b2-442f-a8ac-4957b8e199f7">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
-				<imageExpression><![CDATA["https://pahma.cspace.berkeley.edu/reports/images/pahmalogo.png"]]></imageExpression>
+				<imageExpression><![CDATA["https://raw.githubusercontent.com/cspace-deployment/services/master/services/report/3rdparty/jasper-cs-report/src/main/resources/tenants/pahma/images/pahmaLogo4.png"]]></imageExpression>
 			</image>
 		</band>
 	</title>

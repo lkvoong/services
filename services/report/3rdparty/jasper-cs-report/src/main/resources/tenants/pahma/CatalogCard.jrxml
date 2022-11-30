@@ -72,7 +72,7 @@ order by objectnumber]]>
 			</staticText>
 			<image onErrorType="Icon">
 				<reportElement x="327" y="0" width="270" height="51"/>
-				<imageExpression class="java.lang.String"><![CDATA["https://pahma.cspace.berkeley.edu/reports/images/pahmalogo.png"]]></imageExpression>
+				<imageExpression class="java.lang.String"><![CDATA["https://raw.githubusercontent.com/cspace-deployment/services/master/services/report/3rdparty/jasper-cs-report/src/main/resources/tenants/pahma/images/pahmaLogo4.png"]]></imageExpression>
 			</image>
 			<line>
 				<reportElement positionType="FixRelativeToBottom" x="7" y="65" width="560" height="1"/>
