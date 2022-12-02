@@ -87,14 +87,18 @@ order by sdg.dateearliestscalarvalue, btg.bampfaformattedtitle, accnNumberSort]]
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="64" splitType="Stretch">
+		<band height="72" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="3638b213-eeba-4372-9405-798dfc760774" mode="Opaque" x="0" y="0" width="572" height="40" forecolor="#000000" backcolor="#999999"/>
+				<reportElement mode="Transparent" x="72" y="0" width="500" height="60" forecolor="#000000" backcolor="#999999" uuid="3638b213-eeba-4372-9405-798dfc760774"/>
 				<textElement verticalAlignment="Middle" markup="none">
 					<font fontName="SansSerif" size="16" isBold="true"/>
 				</textElement>
-				<text><![CDATA[UC Berkeley Art Museum and Pacific Film Archive (BAM/PFA)]]></text>
+				<text><![CDATA[UC Berkeley Art Museum and Pacific Film Archive (BAMPFA)]]></text>
 			</staticText>
+			<image>
+				<reportElement x="0" y="0" width="72" height="60" uuid="1220223e-942a-4027-954c-2676ef7ce1bc"/>
+				<imageExpression><![CDATA["https://raw.githubusercontent.com/cspace-deployment/services/master/services/report/3rdparty/jasper-cs-report/src/main/resources/tenants/bampfa/images/bampfaLogo2.svg"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<columnHeader>
