@@ -68,6 +68,10 @@
                     </service:property>
                     <service:property merge:matcher="skip" merge:action="insert">
                         <service:key>sqlScriptName</service:key>
+                        <service:value>fnc-public-findnoauthname-nuxeo_botgarden.sql</service:value>
+                    </service:property>
+                    <service:property merge:matcher="skip" merge:action="insert">
+                        <service:key>sqlScriptName</service:key>
                         <service:value>fnc-public-findhybaffnoauthname-nuxeo_botgarden.sql</service:value>
                     </service:property>
                 </service:params>
