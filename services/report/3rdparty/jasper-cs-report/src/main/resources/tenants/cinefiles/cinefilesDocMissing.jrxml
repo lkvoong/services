@@ -112,7 +112,7 @@ order by title, description]]>
 	<title>
 		<band height="84" splitType="Stretch">
 			<image hAlign="Center" onErrorType="Icon">
-				<reportElement uuid="38ebc361-38be-4ce7-9525-42dade10d093" x="0" y="0" width="570" height="61"/>
+				<reportElement uuid="38ebc361-38be-4ce7-9525-42dade10d093" x="0" y="0" width="750" height="61"/>
 				<imageExpression><![CDATA["https://raw.githubusercontent.com/cspace-deployment/services/master/services/report/3rdparty/jasper-cs-report/src/main/resources/tenants/cinefiles/images/cinefilesLogo1.png"]]></imageExpression>
 			</image>
 			<staticText>
