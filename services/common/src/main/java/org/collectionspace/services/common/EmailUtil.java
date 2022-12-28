@@ -21,6 +21,7 @@ public class EmailUtil {
 	private static final String MAIL_SMTP_HOST = "mail.smtp.host";
 	private static final String MAIL_SMTP_PORT = "mail.smtp.port";
 	private static final String MAIL_SMTP_TLS = "mail.smtp.starttls.enable";
+	private static final String MAIL_SMTP_SSL_PROTOCOLS = "mail.smtp.ssl.protocols";
 	
 	private static final String MAIL_FROM = "mail.from";
 	private static final String MAIL_DEBUG = "mail.debug";
@@ -43,6 +44,7 @@ public class EmailUtil {
 	    props.setProperty(MAIL_SMTP_TLS, "true");
 	    props.setProperty(MAIL_FROM, "collectionspace.lyrasis@gmail.com");
 	    props.setProperty(MAIL_DEBUG, "true");
+	    props.setProperty(MAIL_SMTP_SSL_PROTOCOLS, "TLSv1.2");
 	    
 	    Session session = Session.getInstance(props, null);
 	    MimeMessage msg = new MimeMessage(session);
@@ -94,6 +96,8 @@ public class EmailUtil {
 		    if (emailConfig.getSmtpConfig().getSmtpAuth().isEnabled()) {
 			    String username = emailConfig.getSmtpConfig().getSmtpAuth().getUsername();
 			    String password = emailConfig.getSmtpConfig().getSmtpAuth().getPassword();
+			    props.setProperty(MAIL_SMTP_SSL_PROTOCOLS,
+			    		emailConfig.getSmtpConfig().getSmtpAuth().getProtocols());
 			    transport.connect(username, password);
 		    } else {
 		    	transport.connect();

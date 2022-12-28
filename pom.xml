@@ -436,7 +436,7 @@
 					</exclusion>
 					<exclusion>
 						<groupId>org.slf4j</groupId>
-						<artifactId>slf4j-log4j12</artifactId>
+						<artifactId>slf4j-log4j17</artifactId>
 					</exclusion>
 					<exclusion>
 						<groupId>xml-apis</groupId>
@@ -532,7 +532,7 @@
 					</exclusion>
 					<exclusion>
 						<groupId>org.slf4j</groupId>
-						<artifactId>slf4j-log4j12</artifactId>
+						<artifactId>slf4j-log4j17</artifactId>
 					</exclusion>
 				</exclusions>
 			</dependency>
@@ -543,7 +543,7 @@
 				<exclusions>
 					<exclusion>
 						<groupId>org.slf4j</groupId>
-						<artifactId>slf4j-log4j12</artifactId>
+						<artifactId>slf4j-log4j17</artifactId>
 					</exclusion>
 					<exclusion>
 						<groupId>xerces</groupId>
@@ -630,7 +630,7 @@
 				<exclusions>
 					<exclusion>
 						<groupId>org.slf4j</groupId>
-						<artifactId>slf4j-log4j12</artifactId>
+						<artifactId>slf4j-log4j17</artifactId>
 					</exclusion>
 				</exclusions>
 			</dependency>
@@ -674,7 +674,7 @@
 					</exclusion>
 					<exclusion>
 						<groupId>org.slf4j</groupId>
-						<artifactId>slf4j-log4j12</artifactId>
+						<artifactId>slf4j-log4j17</artifactId>
 					</exclusion>
 				</exclusions>
 			</dependency>
