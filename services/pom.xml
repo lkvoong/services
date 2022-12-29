@@ -15,7 +15,8 @@
 	<properties>
 		<annox.version>0.5.0</annox.version>
 		<jaxb2-basics.version>0.6.2</jaxb2-basics.version>
-		<maven-jaxb2-plugin.version>0.13.3</maven-jaxb2-plugin.version> <!-- 0.14.0 is a more recent version -->
+		<maven-jaxb2-plugin.version>0.13.3</maven-jaxb2-plugin.version> <!-- 0.15.0 is a more recent version -->
+		<hyperjaxb3.version>0.6.1</hyperjaxb3.version>
 		<jaxb.version>2.2.11</jaxb.version>
 		<resteasy.version>3.0.19.Final</resteasy.version>
 		<mysql.driver.version>5.1.8</mysql.driver.version>
@@ -174,7 +175,7 @@
 				<plugin>
 					<groupId>org.jvnet.hyperjaxb3</groupId>
 					<artifactId>maven-hyperjaxb3-plugin</artifactId>
-					<version>0.6.0</version>
+					<version>${hyperjaxb3.version}</version>
 					<executions>
 						<execution>
 							<goals>
@@ -446,7 +447,7 @@
 				<groupId>org.jvnet.hyperjaxb3</groupId>
 				<!-- for time type adapters -->
 				<artifactId>hyperjaxb3-ejb-runtime</artifactId>
-				<version>0.6.0</version>
+				<version>${hyperjaxb3.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>mysql</groupId>
