@@ -201,7 +201,7 @@ public class BlobResource extends NuxeoBasedResource {
     	
     	return result;
     }
-
+    
     /*
      * This method can replace the 'createBlob' -specifically, this JAX-RS technique can replace the call to
      * the BlobInput.createBlobFile() method.  In theory, this should reduce by 1 the number of times we need to copy
@@ -342,7 +342,7 @@ public class BlobResource extends NuxeoBasedResource {
 
     	return result;
     }
-    
+
 	private BlobsCommon getBlobsCommon(String csid) throws Exception {
     	BlobsCommon result = null;
     	

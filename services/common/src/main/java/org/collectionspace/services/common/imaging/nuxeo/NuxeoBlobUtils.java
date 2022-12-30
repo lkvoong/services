@@ -1170,7 +1170,7 @@ public class NuxeoBlobUtils {
 //							remoteStream); 	
 //					result.setBlobInputStream(bufferedInputStream);
 					result.setBlobInputStream(remoteStream);
-					result.setBlobFile(docBlob.getFile());					
+					result.setBlobFile(docBlob.getFile());
 				}
 			} catch (DocumentNotFoundException d) {
 				throw d;

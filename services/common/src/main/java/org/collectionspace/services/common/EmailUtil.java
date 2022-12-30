@@ -26,18 +26,12 @@ public class EmailUtil {
 	private static final String MAIL_FROM = "mail.from";
 	private static final String MAIL_DEBUG = "mail.debug";
 
-	public static void main(String [] args) {    
+	public static void main(String [] args) {
 		String username = "collectionspace.lyrasis@gmail.com";
 	    String password = "CSpace11-GG";
 	    String recipient = "remillet@gmail.com";
 
 	    Properties props = new Properties();
-
-//	    props.setProperty("mail.smtp.host", "smtp.gmail.com");
-//	    props.setProperty("mail.from", "collectionspace.lyrasis@gmail.com");
-//	    props.setProperty("mail.smtp.starttls.enable", "true");
-//	    props.setProperty("mail.smtp.port", "587");
-//	    props.setProperty("mail.debug", "true");
 	    
 	    props.setProperty(MAIL_SMTP_HOST, "smtp.gmail.com");
 	    props.setProperty(MAIL_SMTP_PORT, "587");
@@ -71,17 +65,17 @@ public class EmailUtil {
 	 */
 	public static String sendMessage(EmailConfig emailConfig, String recipients, String message) {
 		String result = null;
-		
+
 	    Properties props = new Properties();
 
 	    props.setProperty(MAIL_SMTP_HOST, emailConfig.getSmtpConfig().getHost());
 	    props.setProperty(MAIL_SMTP_PORT, emailConfig.getSmtpConfig().getPort().toString());
-    	props.setProperty(MAIL_SMTP_TLS, 
+    	props.setProperty(MAIL_SMTP_TLS,
     			new Boolean(emailConfig.getSmtpConfig().getSmtpAuth().isEnabled()).toString());
-	    
+
 	    props.setProperty(MAIL_FROM, emailConfig.getFrom());
 	    props.setProperty(MAIL_DEBUG, new Boolean(emailConfig.getSmtpConfig().isDebug()).toString());
-	    
+
 	    Session session = Session.getInstance(props, null);
 	    MimeMessage msg = new MimeMessage(session);
 
@@ -102,15 +96,15 @@ public class EmailUtil {
 		    } else {
 		    	transport.connect();
 		    }
-		    
+
 		    transport.sendMessage(msg, msg.getAllRecipients());
 		    transport.close();
 	    } catch (MessagingException e) {
 	    	logger.error(e.getMessage(), e);
 	    	result = e.getMessage();
 	    }
-	    
+
 	    return result;
 	}
-		
+
 }
