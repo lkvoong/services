@@ -143,6 +143,12 @@ public abstract class SecurityResourceBase<IT, OT> extends AbstractCollectionSpa
             throw bigReThrow(e, ServiceMessages.LIST_FAILED);
         }
     }
+    
+    protected OT sanitize(DocumentHandler handler, OT outputObject) {
+        DocumentWrapper<OT> wrapDoc = new DocumentWrapperImpl<OT>(outputObject);
+        handler.sanitize(wrapDoc.getWrappedObject());
+        return outputObject;
+    }    
 
     protected OT sanitize(DocumentHandler handler, OT outputObject) {
         DocumentWrapper<OT> wrapDoc = new DocumentWrapperImpl<OT>(outputObject);

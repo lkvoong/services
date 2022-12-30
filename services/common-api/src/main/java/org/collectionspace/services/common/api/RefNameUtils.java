@@ -337,6 +337,5 @@ public class RefNameUtils {
 		}
 		
 		return result;
-	}    
+	}
 }
-

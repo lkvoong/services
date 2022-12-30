@@ -29,9 +29,9 @@
                 <artifactId>maven-jaxb2-plugin</artifactId>
             </plugin>
             <plugin>
-		        <groupId>org.codehaus.mojo</groupId>
-		        <artifactId>build-helper-maven-plugin</artifactId>
-		    </plugin>            
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+            </plugin>
         </plugins>
     </build>
 </project>

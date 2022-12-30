@@ -300,7 +300,7 @@ public class AccountDocumentHandler
             }
         }
     }
-    
+
     @Override
     public void sanitize(AccountsCommon account) {
         account.setPassword(null);

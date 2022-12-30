@@ -64,8 +64,8 @@
 		</xs:sequence>
 		<!-- tenant id -->
 		<xs:attribute name="id" type="xs:ID" use="required"/>
-        <!-- tenant shortName -->
-        <xs:attribute name="shortName" type="xs:string" use="required"/>		
+		<!-- tenant shortName -->
+		<xs:attribute name="shortName" type="xs:string" use="required"/>
 		<!-- domain name including subdomain but not TLD -->
 		<!-- e.g. hearstmuseum.berkeley or movingimage.us -->
 		<xs:attribute name="name" type="xs:string" use="required"/>

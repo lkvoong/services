@@ -52,7 +52,7 @@ public class TaxonConstants {
     public final static String REFNAME_FIELD_NAME = "refName";    
     
 	public static final String WORKFLOW_STATE_SCHEMA_NAME = CORE_SCHEMA_NAME;
-    public static final String WORKFLOW_STATE_FIELD_NAME = CollectionSpaceClient.COLLECTIONSPACE_CORE_WORKFLOWSTATE; //"workflowState";    
+	public static final String WORKFLOW_STATE_FIELD_NAME = CollectionSpaceClient.COLLECTIONSPACE_CORE_WORKFLOWSTATE; //"workflowState";
     
     public static final String TAXON_NAME = "taxon";
     public static final String TAXON_HYBRID_PARENT_GROUP_LIST = "taxonomicIdentHybridParentGroupList";
