@@ -150,12 +150,6 @@ public abstract class SecurityResourceBase<IT, OT> extends AbstractCollectionSpa
         return outputObject;
     }    
 
-    protected OT sanitize(DocumentHandler handler, OT outputObject) {
-        DocumentWrapper<OT> wrapDoc = new DocumentWrapperImpl<OT>(outputObject);
-        handler.sanitize(wrapDoc.getWrappedObject());
-        return outputObject;
-    }
-
     public Object update(String csid, IT theUpdate, Class<?> objectClass) {
         return update((UriInfo)null, csid, theUpdate, objectClass);
     }
