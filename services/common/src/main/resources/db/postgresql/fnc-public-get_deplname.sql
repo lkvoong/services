@@ -9,7 +9,7 @@ DECLARE namestr VARCHAR(20);
 BEGIN
 
 SELECT 
-  REGEXP_REPLACE(current_database(), '[_].*$', '') || 
+  REGEXP_REPLACE(REGEXP_REPLACE(current_database(), '[_].*$', ''), 'botgarden', 'ucbg') || 
   CASE WHEN REGEXP_REPLACE(name, '^.*-(qa|prod)-.*$', '\1') = 'qa' THEN '.qa' ELSE '' END
 INTO namestr
 FROM utils.servername;
