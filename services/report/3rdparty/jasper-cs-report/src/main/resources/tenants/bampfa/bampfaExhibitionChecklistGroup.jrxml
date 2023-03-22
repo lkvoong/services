@@ -22,7 +22,7 @@
    replace(mpg.dimensionsummary, '-', ' ') measurementSummary,
    cob.creditline,
    sdg.datedisplaydate dateMade,
-   (SELECT 'https://webapps.cspace.berkeley.edu/bampfa/imageserver/blobs/' || mc.blobcsid || '/derivatives/Medium/content'
+   (SELECT 'https://webapps' || case when get_deplname() ~ 'qa' then '.qa' else '' end || '.cspace.berkeley.edu/bampfa/imageserver/blobs/' || mc.blobcsid || '/derivatives/Medium/content'
     FROM relations_common rcmc
     LEFT OUTER JOIN hierarchy hmc ON (hmc.name = rcmc.subjectcsid)
     LEFT OUTER JOIN media_common mc ON (hmc.id = mc.id)
