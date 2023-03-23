@@ -29,21 +29,32 @@
 	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
-	<parameter name="groupcsid" class="java.lang.String"/>
-	<parameter name="csidlist" class="java.lang.String"/>
-	<parameter name="objcsids" class="java.util.ArrayList">
-		<defaultValueExpression><![CDATA[$P{csidlist} != null ? Arrays.asList($P{csidlist}.split(",")) : Arrays.asList()]]></defaultValueExpression>
-	</parameter>
-<!--
-	<parameter name="where_and" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA[(($P{groupcsid}!=null && $P{groupcsid}.length()>0) 
-			?("h1.name IN (SELECT rc.objectcsid FROM relations_common rc
-				WHERE rc.objectdocumenttype = 'CollectionObject'
-				AND rc.subjectdocumenttype = 'Group'
-				AND rc.subjectcsid = '" + $P{groupcsid} + "')")
-			:(($P{csidlist}!=null && $P{csidlist}.length()>0 )?("$X{IN, h1.name, objcsids}"):("1=2")))]]></defaultValueExpression>
-	</parameter>
--->
+
+        <parameter name="csid" class="java.lang.String" isForPrompting="false">
+                <parameterDescription><![CDATA[Object CSID]]></parameterDescription>
+        </parameter>
+        <parameter name="groupcsid" class="java.lang.String" isForPrompting="false">
+                <parameterDescription><![CDATA[Group CSID]]></parameterDescription>
+        </parameter>
+        <parameter name="csidlist" class="java.lang.String" isForPrompting="false">
+                <parameterDescription><![CDATA[CSID List]]></parameterDescription>
+        </parameter>
+        <parameter name="objcsids" class="java.lang.String" isForPrompting="false">
+                <defaultValueExpression><![CDATA[$P{csidlist} != null ? ("'" + $P{csidlist}.replaceAll(",", "','") + "'") : ""]]></defaultValueExpression>
+        </parameter>
+        <parameter name="wherecsid" class="java.lang.String" isForPrompting="false">
+                <defaultValueExpression><![CDATA[$P{csid} != null ? ("h.name = '" + $P{csid} + "'") : ""]]></defaultValueExpression>
+        </parameter>
+        <parameter name="wheregroup" class="java.lang.String" isForPrompting="false">
+                <defaultValueExpression><![CDATA[$P{groupcsid} != null ? ("h.name IN (SELECT objectcsid FROM relations_common WHERE objectdocumenttype = 'CollectionObject' AND subjectcsid = '" + $P{groupcsid} + "')") : ""]]></defaultValueExpression>
+        </parameter>
+        <parameter name="wherelist" class="java.lang.String" isForPrompting="false">
+                <defaultValueExpression><![CDATA[$P{csidlist} != null ? ("h.name IN (" + $P{objcsids} + ")") : ""]]></defaultValueExpression>
+        </parameter>
+        <parameter name="whereclause" class="java.lang.String" isForPrompting="false">
+                <defaultValueExpression><![CDATA[$P{wherecsid} + $P{wheregroup} + $P{wherelist}]]></defaultValueExpression>
+        </parameter>
+
 	<queryString>
 		<![CDATA[SELECT cc.objectnumber AS "Museum_number",
 COALESCE(STRING_AGG(DISTINCT ang.pahmaaltnum,'␥'),'') AS "Alternate_numbers",
@@ -91,7 +102,7 @@ COALESCE(STRING_AGG(DISTINCT coll.item,'␥'),'') AS "Collections",
                 JOIN misc mv ON (vc.id=mv.id AND mv.lifecyclestate<>'deleted')
                 LEFT OUTER JOIN hierarchy h4 ON (h4.parentid=vc.id AND h4.name='valuationcontrols_common:valueAmountsList')
                 LEFT OUTER JOIN valueamounts va ON h4.id=va.id
-                WHERE rcv.objectdocumenttype='Valuationcontrol' AND rcv.subjectcsid=h1.name
+                WHERE rcv.objectdocumenttype='Valuationcontrol' AND rcv.subjectcsid=h.name
                 GROUP BY rcv.subjectcsid, vc.valuationcontrolrefnumber
                 ORDER BY vc.valuationcontrolrefnumber DESC
                 LIMIT 1
@@ -103,7 +114,7 @@ COALESCE(cp.iscomponent,'') AS "Is_component"
 FROM collectionobjects_common cc
 JOIN collectionobjects_pahma cp ON (cc.id=cp.id)
 JOIN misc m ON (cc.id=m.id AND m.lifecyclestate<>'deleted')
-JOIN hierarchy h1 ON (cc.id=h1.id)
+JOIN hierarchy h ON (cc.id=h.id)
 LEFT OUTER JOIN hierarchy hn ON (cc.id=hn.parentid AND hn.name='collectionobjects_common:objectNameList' AND (hn.pos=0))
 LEFT OUTER JOIN objectnamegroup ong ON (ong.id=hn.id)
 LEFT OUTER JOIN collectionobjects_common_briefdescriptions bd ON (bd.id=cc.id AND (bd.pos=0))
@@ -174,7 +185,7 @@ LEFT OUTER JOIN (SELECT
                 LEFT OUTER JOIN structureddategroup sdg ON (h3.id=sdg.id)
                 LEFT OUTER JOIN objectexit_anthropology_newownerlist xan ON (xan.id=xc.id)
                 WHERE rcx.objectdocumenttype='ObjectExit'
-                GROUP BY rcx.subjectcsid) oe ON oe.subjectcsid=h1.name
+                GROUP BY rcx.subjectcsid) oe ON oe.subjectcsid=h.name
 LEFT OUTER JOIN (SELECT
                 STRING_AGG(DISTINCT ac.acquisitionreferencenumber,'␥') AS "accnumber",
                 STRING_AGG(DISTINCT sad1.datedisplaydate, '␥') AS "accdate",
@@ -195,7 +206,7 @@ LEFT OUTER JOIN (SELECT
                 LEFT OUTER JOIN acquisitiondonorgroup adg ON (adg.id = h2.id)
                 LEFT OUTER JOIN acquisitions_common_acquisitionsources acs ON (acs.id=ac.id)
                 WHERE rcac.objectdocumenttype='Acquisition'
-                GROUP BY rcac.subjectcsid) acc ON acc.subjectcsid=h1.name
+                GROUP BY rcac.subjectcsid) acc ON acc.subjectcsid=h.name
 LEFT OUTER JOIN (SELECT
                 STRING_AGG(DISTINCT getdispl(oppl.objectproductionplace),'␥') AS "prodplaces",
                 STRING_AGG(DISTINCT utils.placename_hierarchy.place_hierarchy,'␥') AS "prodplacehier",
@@ -207,12 +218,9 @@ LEFT OUTER JOIN (SELECT
                 LEFT OUTER JOIN hierarchy pcsidopp ON (pcopp.id=pcsidopp.id)
                 LEFT OUTER JOIN utils.placename_hierarchy ON (pcsidopp.name=utils.placename_hierarchy.placecsid)
                 GROUP BY ccppl.id) prodpl ON prodpl.ccid=cc.id
-WHERE (oe.exitReason NOT LIKE '%recataloged%' OR oe.exitReason IS NULL)
-and h1.name IN (SELECT rc.objectcsid FROM relations_common rc
-				WHERE rc.objectdocumenttype = 'CollectionObject'
-				AND rc.subjectdocumenttype = 'Group'
-				AND rc.subjectcsid = $P{groupcsid})
-GROUP BY cc.id, h1.name, fcp.item, ong.objectname, bd.item, cp.pahmatmslegacydepartment, cp.sortableobjectnumber,
+WHERE $P!{whereclause}
+AND (oe.exitReason NOT LIKE '%recataloged%' OR oe.exitReason IS NULL)
+GROUP BY cc.id, h.name, fcp.item, ong.objectname, bd.item, cp.pahmatmslegacydepartment, cp.sortableobjectnumber,
 ug.usage, cp.iscomponent, cp.pahmafieldlocverbatim, scd.datedisplaydate, spd.datedisplaydate, placename_hierarchy.place_hierarchy
 ORDER BY cp.sortableobjectnumber]]>
 	</queryString>
