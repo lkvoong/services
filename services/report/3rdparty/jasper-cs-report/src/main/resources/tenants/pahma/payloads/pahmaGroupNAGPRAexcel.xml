@@ -13,7 +13,9 @@
       <forDocType>Group</forDocType>
       <forDocType>CollectionObject</forDocType>
     </forDocTypes>
-    <forRoles/>
+    <forRoles>
+        <roleDisplayName>+ can see valuations</roleDisplayName>
+    </forRoles>
     <outputMIME>application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</outputMIME>
   </ns2:reports_common>
 </document>
