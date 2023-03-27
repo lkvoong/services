@@ -14,7 +14,7 @@
   bd.item AS objDesc,
   STRING_AGG(DISTINCT GETDISPL(apg.assocpeople), '; ') AS culture,
   GETDISPL(fcp.item) AS fieldCollPlace,
-  (SELECT 'https://webapps.cspace.berkeley.edu/pahma/imageserver/blobs/' || mc.blobcsid || '/derivatives/Medium/content' 
+  (SELECT 'https://webapps' || case when get_deplname() ~ 'qa' then '-qa' else '' end || '.cspace.berkeley.edu/pahma/imageserver/blobs/' || mc.blobcsid || '/derivatives/Medium/content' 
     FROM relations_common rcmc
     LEFT OUTER JOIN hierarchy hmc ON (hmc.name = rcmc.subjectcsid)
     LEFT OUTER JOIN media_common mc ON (hmc.id = mc.id)

@@ -48,7 +48,7 @@ END AS fullLoc,
   WHERE hcoc.name = rccc.objectcsid
   ORDER BY hccc.pos DESC
   LIMIT 1) AS latestConditionNote,
-(SELECT 'https://webapps.cspace.berkeley.edu/pahma/imageserver/blobs/' || mc.blobcsid || '/derivatives/Medium/content' 
+(SELECT 'https://webapps' || case when get_deplname() ~ 'qa' then '-qa' else '' end || '.cspace.berkeley.edu/pahma/imageserver/blobs/' || mc.blobcsid || '/derivatives/Medium/content' 
   FROM relations_common rcmc
   LEFT OUTER JOIN hierarchy hmc ON (rcmc.subjectcsid = hmc.name)
   LEFT OUTER JOIN media_common mc ON (hmc.id = mc.id)
