@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <document name="report">
   <ns2:reports_common xmlns:ns2="http://collectionspace.org/services/report">
-    <name>DHN Accessions</name>
-    <filename>ucjepsDHNaccessions.jrxml</filename>
-    <notes>Lists DHN accession records.  Runs on all records only. Does not require parameters. Produces an MS Excel (.xlsx) file.</notes>
+    <name>All Media Unlinked to CollObj (TSV)</name>
+    <filename>ucjepsAllMediaUnlinked2CollObj_tsv.jrxml</filename>
+    <notes>Report of all media not linked to a collection object.  Runs on all records only. Does not require parameters. Produces a tab-separated text (.tsv) file.</notes>
     <supportsNoContext>true</supportsNoContext>
     <supportsDocList>false</supportsDocList>
     <supportsGroup>false</supportsGroup>
     <supportsSingleDoc>false</supportsSingleDoc>
     <supportsParams>false</supportsParams>
     <forDocTypes>
-      <forDocType/>
+      <forDocType>Media</forDocType>
     </forDocTypes>
     <forRoles/>
+    <outputMIME>text/tab-separated-values</outputMIME>
     <supportsOutputMIMEList>
-      <outputMIME>application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</outputMIME>
-      <outputMIME>text/csv</outputMIME>
+      <outputMIME>text/tab-separated-values</outputMIME>
     </supportsOutputMIMEList>
-    <outputMIME>application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</outputMIME>
   </ns2:reports_common>
 </document>

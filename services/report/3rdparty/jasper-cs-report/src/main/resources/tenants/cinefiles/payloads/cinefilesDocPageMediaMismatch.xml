@@ -3,21 +3,17 @@
   <ns2:reports_common xmlns:ns2="http://collectionspace.org/services/report">
     <name>Document Page and Media Mismatches</name>
     <filename>cinefilesCollObjPageMediaMismatch.jrxml</filename>
-    <notes>Lists Documents that have a Number of Pages count different from number of scans.</notes>
-    <supportsSingleDoc>false</supportsSingleDoc>
+    <notes>Lists Documents that have a Number of Pages count different from number of scans.  Runs on all records only. Does not require parameters. Produces a CSV (.csv) file.</notes>
+    <supportsNoContext>true</supportsNoContext>
     <supportsDocList>false</supportsDocList>
     <supportsGroup>false</supportsGroup>
-    <supportsNoContext>true</supportsNoContext>
+    <supportsSingleDoc>false</supportsSingleDoc>
     <supportsParams>false</supportsParams>
+    <forDocTypes/>
+    <forRoles/>
     <outputMIME>text/csv</outputMIME>
     <supportsOutputMIMEList>
       <outputMIME>text/csv</outputMIME>
     </supportsOutputMIMEList>
-    <forDocTypes>
-      <forDocType>CollectionObject</forDocType>
-    </forDocTypes>
-    <forRoles>
-      <forRole/>
-    </forRoles>
   </ns2:reports_common>
 </document>
