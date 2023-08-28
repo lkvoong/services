@@ -2,7 +2,7 @@
 <document name="report">
   <ns2:reports_common xmlns:ns2="http://collectionspace.org/services/report">
     <name>Document Page and Media Mismatches</name>
-    <filename>cinefilesCollObjPageMediaMismatch.jrxml</filename>
+    <filename>cinefilesDocPageMediaMismatch.jrxml</filename>
     <notes>Lists Documents that have a Number of Pages count different from number of scans.  Runs on all records only. Does not require parameters. Produces a CSV (.csv) file.</notes>
     <supportsNoContext>true</supportsNoContext>
     <supportsDocList>false</supportsDocList>
