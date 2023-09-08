@@ -32,7 +32,7 @@
 	</parameter>
 	<queryString>
 		<![CDATA[select
-		'<a href="https://ucbg.collectionspace.org/cspace/ucbg/record/uoc/' || huoc.name || '">' ||
+		'<a href="https://' || get_deplname() || '.collectionspace.org/cspace/ucbg/record/uoc/' || huoc.name || '">' ||
                 case
                         when uoc.referencenumber is null or uoc.referencenumber = ''
                         then '<i>' || uoc.title || '</i>'
