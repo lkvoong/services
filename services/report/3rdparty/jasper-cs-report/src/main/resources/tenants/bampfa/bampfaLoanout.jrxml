@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.5.final using JasperReports Library version 6.20.5-3efcf2e67f959db3888d79f73dde2dbd7acb4f8e  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BAMPFA Loans Out Report" pageWidth="612" pageHeight="792" columnCount="2" printOrder="Horizontal" columnWidth="265" leftMargin="36" rightMargin="36" topMargin="18" bottomMargin="36" uuid="99a4177b-8f84-4d4f-b05f-684ef3e7e1b8">
+	<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+	<parameter name="csid" class="java.lang.String" isForPrompting="false">
+		<parameterDescription><![CDATA[Object CSID]]></parameterDescription>
+	</parameter>
+	<parameter name="groupcsid" class="java.lang.String" isForPrompting="false">
+		<parameterDescription><![CDATA[Group CSID]]></parameterDescription>
+	</parameter>
+	<parameter name="csidlist" class="java.lang.String" isForPrompting="false">
+		<parameterDescription><![CDATA[CSID List]]></parameterDescription>
+	</parameter>
+	<parameter name="objcsids" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[$P{csidlist} != null ? ("'" + $P{csidlist}.replaceAll(",", "','") + "'") : ""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="wherecsid" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[$P{csid} != null ? ("h.name = '" + $P{csid} + "'") : ""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="wheregroup" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[$P{groupcsid} != null ? ("h.name IN (SELECT objectcsid FROM relations_common WHERE objectdocumenttype = 'CollectionObject' AND subjectcsid = '" + $P{groupcsid} + "')") : ""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="wherelist" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[$P{csidlist} != null ? ("h.name IN (" + $P{objcsids} + ")") : ""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="whereclause" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[$P{wherecsid} + $P{wheregroup} + $P{wherelist}]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[with 
+exhibitions as (
+select
+        id,
+        case when loanoutnote ~ 'TITLE 1:'
+            then
+                concat_ws(', ', 
+                    regexp_replace(loanoutnote, '^.*TITLE 1: ([^\r\n]+)[\r\n]*.*$', '<i>\1</i>'),
+                    regexp_replace(loanoutnote, '^.*VENUE 1: ([^\r\n]+)[\r\n]*.*$', '\1'),
+                    regexp_replace(loanoutnote, '^.*EXHIB DATES 1: ([^\r\n]+)[\r\n]*.*$', '\1'))
+            else null END as exh1,
+        case when loanoutnote ~ 'TITLE 2:'
+            then
+                concat_ws(', ', 
+                    regexp_replace(loanoutnote, '^.*TITLE 2: ([^\r\n]+)[\r\n]*.*$', '<i>\1</i>'),
+                    regexp_replace(loanoutnote, '^.*VENUE 2: ([^\r\n]+)[\r\n]*.*$', '\1'),
+                    regexp_replace(loanoutnote, '^.*EXHIB DATES 2: ([^\r\n]+)[\r\n]*.*$', '\1'))
+            else null END as exh2,
+        case when loanoutnote ~ 'TITLE 3:'
+            then
+                concat_ws(', ', 
+                    regexp_replace(loanoutnote, '^.*TITLE 3: ([^\r\n]+)[\r\n]*.*$', '<i>\1</i>'),
+                    regexp_replace(loanoutnote, '^.*VENUE 3: ([^\r\n]+)[\r\n]*.*$', '\1'),
+                    regexp_replace(loanoutnote, '^.*EXHIB DATES 3: ([^\r\n]+)[\r\n]*.*$', '\1'))
+            else null END as exh3,
+        case when loanoutnote ~ 'TITLE 4:'
+            then
+                concat_ws(', ', 
+                    regexp_replace(loanoutnote, '^.*TITLE 4: ([^\r\n]+)[\r\n]*.*$', '<i>\1</i>'),
+                    regexp_replace(loanoutnote, '^.*VENUE 4: ([^\r\n]+)[\r\n]*.*$', '\1'),
+                    regexp_replace(loanoutnote, '^.*EXHIB DATES 4: ([^\r\n]+)[\r\n]*.*$', '\1'))
+            else null END as exh4,
+        case when loanoutnote ~ 'TITLE 5:'
+            then
+                concat_ws(', ', 
+                    regexp_replace(loanoutnote, '^.*TITLE 5: ([^\r\n]+)[\r\n]*.*$', '<i>\1</i>'),
+                    regexp_replace(loanoutnote, '^.*VENUE 5: ([^\r\n]+)[\r\n]*.*$', '\1'),
+                    regexp_replace(loanoutnote, '^.*EXHIB DATES 5: ([^\r\n]+)[\r\n]*.*$', '\1'))
+            else null END as exh5
+from loansout_common
+),
+
+framed as (
+select
+        id,
+        case when specialconditionsofloan ~ 'FRAMED 1:'
+                then regexp_replace(specialconditionsofloan, '^.*FRAMED 1: ([^\r\n]+)[\r\n]*.*$', '\1')
+                else null END as fr1,
+        case when specialconditionsofloan ~ 'FRAMED 2:'
+                then regexp_replace(specialconditionsofloan, '^.*FRAMED 2: ([^\r\n]+)[\r\n]*.*$', '\1')
+                else null END as fr2,
+        case when specialconditionsofloan ~ 'FRAMED 3:'
+                then regexp_replace(specialconditionsofloan, '^.*FRAMED 3: ([^\r\n]+)[\r\n]*.*$', '\1')
+                else null END as fr3,
+        case when specialconditionsofloan ~ 'FRAMED 4:'
+                then regexp_replace(specialconditionsofloan, '^.*FRAMED 4: ([^\r\n]+)[\r\n]*.*$', '\1')
+                else null END as fr4,
+        case when specialconditionsofloan ~ 'FRAMED 5:'
+                then regexp_replace(specialconditionsofloan, '^.*FRAMED 5: ([^\r\n]+)[\r\n]*.*$', '\1')
+                else null END as fr5
+from loansout_common
+),
+
+loan as (
+    select
+        lc.id as loan_id,
+        hlc.name as loan_csid,
+        coalesce(lc.loanoutnumber, '') as loan_number,
+        coalesce(to_char(lc.loanoutdate, 'MM/DD/YYYY'), '')  || 
+            case when lc.loanoutdate is not null and lc.loanreturndate is not null
+                 then ' - ' || to_char(lc.loanreturndate, 'MM/DD/YYYY')
+                 else coalesce(to_char(lc.loanreturndate, 'MM/DD/YYYY'), '') end as loan_dates,
+        getdispl(lc.borrower) as borrower,
+	coalesce(length(left(f.fr1, 1)), 0)
+            + coalesce(length(left(f.fr2, 1)), 0) + coalesce(length(left(f.fr3, 1)), 0)
+            + coalesce(length(left(f.fr4, 1)), 0) + coalesce(length(left(f.fr5, 1)), 0) as frlen,
+	'<li>' || nullif(concat_ws('<li>', f.fr1, f.fr2, f.fr3, f.fr4, f.fr5), '') as is_framed,
+        regexp_replace(lc.specialconditionsofloan, '^.*ADD''L COSTS: ([^\r\n]+)[\r\n]*.*$', '\1') as addl_costs,
+        regexp_replace(lc.specialconditionsofloan, '^.*CONDITIONS: ([^\r\n]+)[\r\n]*.*$', '\1') as conditions,
+	coalesce(length(left(e.exh1, 1)), 0)
+            + coalesce(length(left(e.exh2, 1)), 0) + coalesce(length(left(e.exh3, 1)), 0)
+            + coalesce(length(left(e.exh4, 1)), 0) + coalesce(length(left(e.exh5, 1)), 0) as exhlen,
+	'<li>' || nullif(concat_ws('<li>', e.exh1, e.exh2, e.exh3, e.exh4, e.exh5), '') as exhibitions
+    from loansout_common lc
+    join hierarchy hlc on (lc.id = hlc.id)
+    join exhibitions e on (lc.id = e.id)
+    join framed f on (lc.id = f.id)
+),
+
+comments as (
+select
+        hlsg.parentid as loan_id,
+        getdispl(lsg.loangroup) as loan_group,
+        string_agg(
+                coalesce(getdispl(lsg.loanstatus), '') || coalesce(' ' || to_char(lsg.loanstatusdate, 'MM/DD/YYYY'), '') ||
+                        coalesce(': ' || lsg.loanstatusnote, ''),
+                '; '
+                order by loanstatusdate) as comments
+    from loanstatusgroup lsg
+    join hierarchy hlsg on (lsg.id = hlsg.id)
+group by hlsg.parentid, getdispl(lsg.loangroup)
+),
+    
+items as (
+    select
+        coc.id as object_id,
+        hcoc.name as object_csid,
+        coc.objectnumber as object_number,
+        coalesce(nullif(artist.name, ''), 'N/A') || '<p>' ||
+            title.title || '<p>' ||
+            coalesce(coc.physicaldescription, 'N/A') || '<p>' ||
+            coalesce(dimensions.summary, 'N/A') || '<p>' ||
+            coc.objectnumber as object_summary,
+        (select 'https://webapps' || case when get_deplname() ~ 'qa' then '-qa' else '' end ||
+                '.cspace.berkeley.edu/bampfa/imageserver/blobs/' || m.blobcsid || '/derivatives/Thumbnail/content' as filepath
+            from relations_common r
+            left outer join hierarchy hm on (
+                hm.name = r.subjectcsid and r.objectdocumenttype = 'CollectionObject')
+            left outer join media_common m on (hm.id = m.id)
+            left outer join media_bampfa mb on (m.id = mb.id)
+            left outer join misc mm on (m.id = mm.id)
+            left outer join collectionspace_core c on (m.id = c.id)
+            where r.objectcsid = hcoc.name
+                and mb.primarydisplay is true
+                and mm.lifecyclestate != 'deleted'
+            order by c.updatedat desc limit 1 ) as imagefilepath
+    from collectionobjects_common coc
+    join hierarchy hcoc on (coc.id = hcoc.id)
+    left outer join (
+        select coc.id, ptg.termname as name
+        from collectionobjects_common coc
+        left outer join hierarchy hoppg on (
+            coc.id = hoppg.parentid
+            and hoppg.primarytype = 'bampfaObjectProductionPersonGroup'
+            and hoppg.pos = 0)
+        left outer join bampfaobjectproductionpersongroup oppg on (hoppg.id = oppg.id)
+        left outer join persons_common pc on (oppg.bampfaobjectproductionperson = pc.refname)
+        left outer join hierarchy hptg on (
+            pc.id = hptg.parentid
+            and hptg.primarytype = 'personTermGroup'
+            and hptg.pos = 0)
+        left outer join persontermgroup ptg on (hptg.id = ptg.id)
+        ) artist on (coc.id = artist.id)
+    left outer join (
+        select c.id,
+            case when b.bampfaformattedtitle is not null
+                then '<i>' || trim(b.bampfaformattedtitle) || '</i>'
+                else '<i>' || trim(b.bampfatitle) || '</i>' end as title
+        from collectionobjects_common c
+        left outer join hierarchy hb on (c.id = hb.parentid and hb.primarytype = 'bampfaTitleGroup' and hb.pos = 0)
+        left outer join bampfatitlegroup b on (hb.id = b.id)
+        ) title on (coc.id = title.id)
+    left outer join (
+        select coc.id, array_to_string(array_agg(m.dimensionsummary order by hm.pos), '; ') as summary
+        from collectionobjects_common coc
+        left outer join hierarchy hm on (coc.id = hm.parentid and hm.primarytype = 'measuredPartGroup' and hm.pos < 2)
+        left outer join measuredpartgroup m on (hm.id = m.id)
+        group by coc.id
+        ) dimensions on (coc.id = dimensions.id)
+)
+
+select
+    'Loan ' || l.loan_number as loan_number,
+    '<b>Status: </b>' || coalesce(getdispl(b.loanstatus), '') ||
+            case when getdispl(b.loanstatus) = 'Declined' then coalesce(': ' || b.loanstatusnote, '') else '' end  ||
+            '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' ||
+            '<b>Dates: </b>'  || coalesce(l.loan_dates, '') ||
+            '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' ||
+            '<b>Borrower: </b>' || coalesce(l.borrower, '') ||
+        '<br><br><b>Exhibitions: </b>' || coalesce(l.exhibitions, '') ||
+        '<br><br><b>Comments: </b>' || 
+            '<li><b>Registration: </b>' || coalesce(r.comments, '') ||
+            '<li><b>Curatorial: </b>' || coalesce(c.comments, '') ||
+            '<li><b>Director: </b>' || coalesce(d.comments, '') ||
+        '<br><br><b>Currently Framed: </b>' || coalesce(l.is_framed, '') ||
+        '<br><br><b>Additional Costs: </b>' || coalesce(l.addl_costs, '') ||
+        '<br><br><b>Conditions: </b>' || coalesce(l.conditions, '') ||
+        '<br><br><b>Status: </b>' || coalesce(getdispl(b.loanstatus), '') ||
+            case when getdispl(b.loanstatus) = 'Declined' then coalesce(': ' || b.loanstatusnote, '') else '' end  ||
+        '<br><br><b>Loan Objects: </b>' as loan_summary,
+    i.object_summary,
+    i.imagefilepath as image_filepath
+from loan l
+left outer join hierarchy hb on (l.loan_id = hb.parentid and hb.primarytype = 'loanStatusGroup')
+left outer join loanstatusgroup b on (hb.id = b.id)
+left outer join comments r on (l.loan_id = r.loan_id and r.loan_group = 'Registration')
+left outer join comments c on (l.loan_id = c.loan_id and c.loan_group = 'Curatorial')
+left outer join comments d on (l.loan_id = d.loan_id and d.loan_group = 'Director')
+left outer join relations_common rc on (l.loan_csid = rc.subjectcsid and rc.objectdocumenttype = 'CollectionObject')
+left outer join items i on (rc.objectcsid = i.object_csid)
+
+where l.loan_csid = $P{csid}
+and getdispl(b.loangroup) = 'BAMPFA']]>
+	</queryString>
+	<field name="loan_number" class="java.lang.String"/>
+	<field name="loan_summary" class="java.lang.String"/>
+	<field name="object_summary" class="java.lang.String"/>
+	<field name="image_filepath" class="java.lang.String"/>
+	<title>
+		<band height="370" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<image>
+				<reportElement x="0" y="0" width="50" height="50" uuid="dcd326c4-0a51-4d9c-ba77-028095c7dd74"/>
+				<imageExpression><![CDATA["https://raw.githubusercontent.com/cspace-deployment/services/master/services/report/3rdparty/jasper-cs-report/src/main/resources/tenants/bampfa/images/bampfaLogo2.svg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="50" y="0" width="440" height="30" uuid="993b3b5a-36f6-436a-9162-c37c065a1040"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OUTGOING LOANS REPORT]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="50" y="35" width="440" height="20" uuid="1f391a49-c44f-4ffd-89b9-d8000852c8c4"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{loan_number}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="68" width="540" height="300" stretchType="RelativeToTallestObject" isPrintWhenDetailOverflows="true" uuid="a4b62053-2e07-4fb6-9d22-4aff9adc9f4b"/>
+				<textElement markup="html"/>
+				<textFieldExpression><![CDATA[$F{loan_summary}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="110" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="100" height="100" uuid="f825aeff-d6a5-46ca-9103-0352dd206806"/>
+				<imageExpression><![CDATA[$F{image_filepath}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="100" y="0" width="165" height="100" uuid="2bb60ed9-0e01-4839-8da7-1597dab80a86">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c0f498ec-cdcb-4276-9c88-7f9601f07c97"/>
+				</reportElement>
+				<textElement markup="html"/>
+				<textFieldExpression><![CDATA[$F{object_summary}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="32" splitType="Stretch">
+			<textField pattern="M/d/yyyy">
+				<reportElement x="0" y="1" width="270" height="20" uuid="fbfb706e-50d0-4b36-be9f-d03bc9496cda"/>
+				<textElement textAlignment="Left" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="470" y="1" width="40" height="20" uuid="cf109523-7d8d-4af4-9556-4693362f6bf7"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="510" y="1" width="30" height="20" uuid="83ebfc27-490d-4631-b3d6-b607a68956e1"/>
+				<textElement textAlignment="Left" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[" of " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
+
