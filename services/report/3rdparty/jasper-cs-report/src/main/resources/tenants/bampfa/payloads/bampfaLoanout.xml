@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<document name="report">
+  <ns2:reports_common xmlns:ns2="http://collectionspace.org/services/report">
+    <name>Outgoing Loan</name>
+    <filename>bampfaLoanout.jrxml</filename>
+    <forDocTypes>
+      <forDocType>Loanout</forDocType>
+    </forDocTypes>
+    <supportsSingleDoc>true</supportsSingleDoc>
+    <supportsDocList>false</supportsDocList>
+    <supportsGroup>false</supportsGroup>
+    <supportsNoContext>false</supportsNoContext>
+    <supportsParams>false</supportsParams>
+    <supportsOutputMIMEList>
+      <outputMIME>application/vnd.openxmlformats-officedocument.wordprocessingml.document</outputMIME>
+    </supportsOutputMIMEList>
+    <outputMIME>application/vnd.openxmlformats-officedocument.wordprocessingml.document</outputMIME>
+    <notes></notes>
+  </ns2:reports_common>
+</document>
