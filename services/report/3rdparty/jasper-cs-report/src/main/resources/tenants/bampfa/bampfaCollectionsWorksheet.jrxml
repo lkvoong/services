@@ -2,6 +2,9 @@
 <!-- Created with Jaspersoft Studio version 6.20.5.final using JasperReports Library version 6.20.5-3efcf2e67f959db3888d79f73dde2dbd7acb4f8e  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bampfaCollectionsWorksheet" language="groovy" pageWidth="612" pageHeight="792" columnWidth="558" leftMargin="27" rightMargin="27" topMargin="20" bottomMargin="20" uuid="73f0dc23-1df9-45b6-a0a1-979b2bfe0f35">
 	<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+	<property name="net.sf.jasperreports.default.font.name" value="Helvetica"/>
+	<property name="net.sf.jasperreports.default.pdf.font.name" value="Helvetica"/>
+	<property name="net.sf.jasperreports.default.font.size" value="10"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
@@ -14,7 +17,6 @@
 	<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
-
 
 	<parameter name="csid" class="java.lang.String" isForPrompting="false">
 		<parameterDescription><![CDATA[Object CSID]]></parameterDescription>
@@ -84,7 +86,6 @@
             left outer join misc mm on (m.id = mm.id)
             left outer join collectionspace_core c on (m.id = c.id)
             where r.objectcsid = h.name
-                and mb.primarydisplay is true
                 and mm.lifecyclestate != 'deleted'
             order by c.updatedat desc limit 1 ) as imagefilepath
 from
@@ -181,7 +182,7 @@ WHERE $P!{whereclause}]]>
 			<staticText>
 				<reportElement mode="Opaque" x="0" y="0" width="558" height="36" forecolor="#FFFFFF" backcolor="#8F8D8D" uuid="d0bbf58f-b503-48fb-815d-dc9a48c1b537"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="18" isBold="true"/>
+					<font fontName="Helvetica" size="18" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Berkeley Art Museum and Pacific Film Archive]]></text>
 			</staticText>
@@ -194,7 +195,7 @@ WHERE $P!{whereclause}]]>
 					<rightPen lineWidth="0.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="16" isBold="false"/>
+					<font fontName="Helvetica" size="16" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Art Collection - Collections Worksheet]]></text>
 			</staticText>
@@ -207,112 +208,112 @@ WHERE $P!{whereclause}]]>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Right">
-					<font size="12" isBold="true"/>
+					<font fontName="Helvetica" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Classification]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="110" y="10" width="150" height="22" uuid="205008f3-3b10-407c-8abe-79fcc6248188"/>
+				<reportElement x="108" y="10" width="150" height="22" uuid="205008f3-3b10-407c-8abe-79fcc6248188"/>
 				<textElement textAlignment="Left">
-					<font size="12"/>
+					<font fontName="Helvetica" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{itemclass}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="34" width="100" height="22" uuid="c3d6da51-7d29-4130-ac4d-b704f15dfbb8"/>
 				<textElement textAlignment="Right">
-					<font size="12" isBold="true"/>
+					<font fontName="Helvetica" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Accession #]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="110" y="34" width="150" height="22" uuid="f658c866-d609-4168-a4e5-ad538d0bf3bf"/>
+				<reportElement x="108" y="34" width="150" height="22" uuid="f658c866-d609-4168-a4e5-ad538d0bf3bf"/>
 				<textElement textAlignment="Left">
-					<font size="12"/>
+					<font fontName="Helvetica" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{idnumber}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="270" y="10" width="130" height="22" uuid="5ea0f055-803d-4585-87c5-a5060b22f26a"/>
 				<textElement textAlignment="Left">
-					<font size="12" isBold="true"/>
+					<font fontName="Helvetica" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Other Numbers]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement x="270" y="34" width="130" height="22" uuid="76a99507-2b41-4119-82a4-483713e3d352"/>
 				<textElement textAlignment="Left">
-					<font size="12" isBold="false"/>
+					<font fontName="Helvetica" size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{othernumber}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="58" width="100" height="22" uuid="ff93ac2c-1673-4842-b23f-f53a7c9dfa42"/>
 				<textElement textAlignment="Right">
-					<font size="12" isBold="true"/>
+					<font fontName="Helvetica" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Artist]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement x="108" y="58" width="292" height="22" uuid="dc5a30e1-58a3-4e21-880b-d6c757e892a7"/>
 				<textElement textAlignment="Left">
-					<font size="12"/>
+					<font fontName="Helvetica" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{artistcalc}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="82" width="100" height="22" uuid="03c06d79-87c6-47ac-a4e4-b27939f10d46"/>
 				<textElement textAlignment="Right">
-					<font size="12" isBold="true"/>
+					<font fontName="Helvetica" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Origin or Place]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement x="108" y="82" width="292" height="22" uuid="62e67930-b242-48db-8754-a9f84749fd08"/>
 				<textElement textAlignment="Left">
-					<font size="12"/>
+					<font fontName="Helvetica" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{artistorigin}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="130" width="100" height="22" uuid="4e0e4f32-2c98-4e97-a5c6-2e24c2d86abe"/>
 				<textElement textAlignment="Right">
-					<font size="12" isBold="true"/>
+					<font fontName="Helvetica" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Date of Death]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement x="108" y="130" width="292" height="22" uuid="86b756e2-82b2-4f88-a85c-ecac3dc964d7"/>
 				<textElement textAlignment="Left">
-					<font size="12"/>
+					<font fontName="Helvetica" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{artistdeathdate}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="154" width="100" height="22" uuid="099aa00e-ee0a-401c-b253-cc9d3d901525"/>
 				<textElement textAlignment="Right">
-					<font size="12" isBold="true"/>
+					<font fontName="Helvetica" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Dates Active]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement x="108" y="154" width="292" height="22" uuid="8a882a67-5a15-468c-981b-479809448ce0"/>
 				<textElement textAlignment="Left">
-					<font size="12"/>
+					<font fontName="Helvetica" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{datesactive}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="106" width="100" height="22" uuid="f89eab43-d58d-44bc-a36f-f6d1050d1f03"/>
 				<textElement textAlignment="Right">
-					<font size="12" isBold="true"/>
+					<font fontName="Helvetica" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Date of Birth]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement x="108" y="106" width="292" height="22" uuid="c45dd467-c2ea-4215-bd0b-bcb2c40e4391"/>
 				<textElement textAlignment="Left">
-					<font size="12"/>
+					<font fontName="Helvetica" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{artistbirthdate}]]></textFieldExpression>
 			</textField>
@@ -321,14 +322,14 @@ WHERE $P!{whereclause}]]>
 					<staticText>
 						<reportElement x="0" y="178" width="100" height="22" uuid="a57b45cc-725c-4e6d-913d-f3764b8589c5"/>
 						<textElement textAlignment="Right">
-							<font size="12" isBold="true"/>
+							<font fontName="Helvetica" size="10" isBold="true"/>
 						</textElement>
 						<text><![CDATA[Title]]></text>
 					</staticText>
 					<textField isBlankWhenNull="true">
 						<reportElement x="108" y="178" width="450" height="22" uuid="f60df71d-eb19-4cb6-a1a3-7606d6281d54"/>
 						<textElement textAlignment="Left" markup="html">
-							<font size="12" isBold="false"/>
+							<font fontName="Helvetica" size="10" isBold="false"/>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{title}]]></textFieldExpression>
 					</textField>
@@ -338,14 +339,14 @@ WHERE $P!{whereclause}]]>
 				<staticText>
 					<reportElement x="0" y="226" width="100" height="22" uuid="d92e8b88-5d5c-4266-8863-ef5c33bdbfb6"/>
 					<textElement textAlignment="Right">
-						<font size="12" isBold="true"/>
+						<font fontName="Helvetica" size="10" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Date Made]]></text>
 				</staticText>
 				<textField isBlankWhenNull="true">
 					<reportElement x="108" y="226" width="450" height="22" uuid="5f098566-f397-4013-965d-bb9f7d6bc400"/>
 					<textElement textAlignment="Left">
-						<font size="12"/>
+						<font fontName="Helvetica" size="10"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{datemade}]]></textFieldExpression>
 				</textField>
@@ -354,14 +355,14 @@ WHERE $P!{whereclause}]]>
 				<staticText>
 					<reportElement x="0" y="250" width="100" height="22" uuid="5bbb9cee-17a2-4620-b5f3-c4da02e2469f"/>
 					<textElement textAlignment="Right">
-						<font size="12" isBold="true"/>
+						<font fontName="Helvetica" size="10" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Materials]]></text>
 				</staticText>
 				<textField isBlankWhenNull="true">
 					<reportElement x="108" y="250" width="450" height="22" uuid="0914cecd-862f-4f66-8cb4-379038fc8d9c"/>
 					<textElement textAlignment="Left">
-						<font size="12"/>
+						<font fontName="Helvetica" size="10"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{materials}]]></textFieldExpression>
 				</textField>
@@ -370,14 +371,14 @@ WHERE $P!{whereclause}]]>
 				<textField isBlankWhenNull="true">
 					<reportElement x="108" y="274" width="450" height="22" uuid="8700f8d7-a41d-4829-b675-b0aff98cab78"/>
 					<textElement textAlignment="Left">
-						<font size="12"/>
+						<font fontName="Helvetica" size="10"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{measurement}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="0" y="274" width="100" height="22" uuid="f69df523-106a-4e7d-8250-a17f4bcccb1f"/>
 					<textElement textAlignment="Right">
-						<font size="12" isBold="true"/>
+						<font fontName="Helvetica" size="10" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Measurement]]></text>
 				</staticText>
@@ -386,14 +387,14 @@ WHERE $P!{whereclause}]]>
 				<textField isBlankWhenNull="true">
 					<reportElement x="108" y="298" width="450" height="22" uuid="106548ed-1bba-4439-b9d5-606ddafda6a8"/>
 					<textElement textAlignment="Left">
-						<font size="12"/>
+						<font fontName="Helvetica" size="10"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{signature}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="0" y="298" width="100" height="22" uuid="6b642b41-484b-44b1-b7d0-a7ca770b1ca5"/>
 					<textElement textAlignment="Right">
-						<font size="12" isBold="true"/>
+						<font fontName="Helvetica" size="10" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Signature]]></text>
 				</staticText>
@@ -402,14 +403,14 @@ WHERE $P!{whereclause}]]>
 				<staticText>
 					<reportElement x="0" y="322" width="100" height="22" uuid="2ae9ac3e-d1b6-4085-a60c-b073edc2e8e7"/>
 					<textElement textAlignment="Right">
-						<font size="12" isBold="true"/>
+						<font fontName="Helvetica" size="10" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Credit Line]]></text>
 				</staticText>
 				<textField isBlankWhenNull="true">
 					<reportElement x="108" y="322" width="450" height="22" uuid="3b634388-6e0b-44e3-b8b5-0ad6bed9244c"/>
 					<textElement textAlignment="Left">
-						<font size="12"/>
+						<font fontName="Helvetica" size="10"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{creditline}]]></textFieldExpression>
 				</textField>
@@ -417,49 +418,49 @@ WHERE $P!{whereclause}]]>
 			<staticText>
 				<reportElement x="0" y="346" width="100" height="22" uuid="fecab5f2-1418-4b80-8f3d-55c3cdb4909e"/>
 				<textElement textAlignment="Right">
-					<font size="12" isBold="true"/>
+					<font fontName="Helvetica" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Date Acquired]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement x="108" y="346" width="450" height="22" uuid="0bdaa4ca-27ce-44a7-b663-8b5ac7a07ac9"/>
 				<textElement>
-					<font size="12"/>
+					<font fontName="Helvetica" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{dateacquired}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="370" width="100" height="22" uuid="d0646ba8-5cc2-4bc3-8dd6-dc1bf091da86"/>
 				<textElement textAlignment="Right">
-					<font size="12" isBold="true"/>
+					<font fontName="Helvetica" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Source]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement x="108" y="370" width="450" height="22" uuid="733cd6bd-4cbc-408a-823b-fff2bc74ba7a"/>
 				<textElement>
-					<font size="12"/>
+					<font fontName="Helvetica" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{acquisitionsource}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="394" width="100" height="22" uuid="a7e715ae-5147-47e1-a778-85284a6a4cff"/>
 				<textElement textAlignment="Right">
-					<font size="12" isBold="true"/>
+					<font fontName="Helvetica" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Provenance]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement x="108" y="394" width="450" height="22" uuid="770e1e78-c231-4898-b578-c0813977f367"/>
 				<textElement>
-					<font size="12"/>
+					<font fontName="Helvetica" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{provenance}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="418" width="100" height="22" uuid="494ffd2a-d0e6-4e9f-ab9c-4aed70218fb8"/>
 				<textElement textAlignment="Right">
-					<font size="12" isBold="true"/>
+					<font fontName="Helvetica" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cataloger]]></text>
 			</staticText>
@@ -468,21 +469,21 @@ WHERE $P!{whereclause}]]>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement>
-					<font size="12"/>
+					<font fontName="Helvetica" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cataloger}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="350" y="418" width="100" height="22" uuid="cc797c45-65cb-464d-90e6-43ef238bd564"/>
 				<textElement textAlignment="Right">
-					<font size="12" isBold="true"/>
+					<font fontName="Helvetica" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cataloger Date]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement key="" x="458" y="418" width="100" height="22" uuid="b1b27d7f-05b9-43f9-b32d-8597f5019713"/>
 				<textElement textAlignment="Left">
-					<font size="12"/>
+					<font fontName="Helvetica" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{catalogdate}]]></textFieldExpression>
 			</textField>
@@ -491,77 +492,77 @@ WHERE $P!{whereclause}]]>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Right">
-					<font size="12" isBold="true"/>
+					<font fontName="Helvetica" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cataloger Notes]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement x="108" y="442" width="450" height="22" uuid="912ffc86-8f5a-4916-9f2c-16dc642b4063"/>
 				<textElement>
-					<font size="12"/>
+					<font fontName="Helvetica" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{catalognote}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="466" width="100" height="22" uuid="a2f9a362-c2ee-4e02-a1f9-18f3c8ce7963"/>
 				<textElement textAlignment="Right">
-					<font size="12" isBold="true"/>
+					<font fontName="Helvetica" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Initial Value]]></text>
 			</staticText>
 			<textField pattern="###0" isBlankWhenNull="true">
 				<reportElement x="108" y="466" width="113" height="22" uuid="10ccbe2c-db1f-4f7f-bc23-b2f3e61bf9c2"/>
 				<textElement>
-					<font size="12"/>
+					<font fontName="Helvetica" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{initialvalue}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="490" width="100" height="22" uuid="9587b7aa-beaf-4806-88f0-e71305fcffc2"/>
 				<textElement textAlignment="Right">
-					<font size="12" isBold="true"/>
+					<font fontName="Helvetica" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Current Value]]></text>
 			</staticText>
 			<textField pattern="###0" isBlankWhenNull="true">
 				<reportElement x="108" y="490" width="122" height="22" uuid="8306db19-3d71-4eb4-a74a-9fa85128bea8"/>
 				<textElement>
-					<font size="12"/>
+					<font fontName="Helvetica" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{currentvalue}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="221" y="466" width="134" height="22" uuid="6dc6be9e-278d-49d1-91f7-56f73e97a3da"/>
 				<textElement textAlignment="Right">
-					<font size="12" isBold="true"/>
+					<font fontName="Helvetica" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Current Value Source]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement x="363" y="466" width="195" height="22" uuid="62374fa9-5a9c-4495-8126-c154e611af7a"/>
 				<textElement>
-					<font size="12"/>
+					<font fontName="Helvetica" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{currentvaluesource}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="230" y="490" width="125" height="22" uuid="f242c3f8-2687-46b8-8486-a26283a40a63"/>
 				<textElement textAlignment="Right">
-					<font size="12" isBold="true"/>
+					<font fontName="Helvetica" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Current Value Date]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement x="363" y="490" width="195" height="22" uuid="39c3f2be-8c1e-43d5-834d-95462318069d"/>
 				<textElement>
-					<font size="12"/>
+					<font fontName="Helvetica" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{currentvaluedate}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="514" width="100" height="120" uuid="0793077b-a8d0-4832-9980-07660c91336e"/>
 				<textElement textAlignment="Right">
-					<font size="12" isBold="true"/>
+					<font fontName="Helvetica" size="10" isBold="true"/>
 				</textElement>
                                 <text><![CDATA[General Notes
 or Comments]]></text>
@@ -569,27 +570,26 @@ or Comments]]></text>
 			<textField isBlankWhenNull="true">
 				<reportElement x="108" y="514" width="450" height="120" uuid="eb949950-35c5-46ab-8923-dd3af257755a"/>
 				<textElement>
-					<font size="12"/>
+					<font fontName="Helvetica" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{notescomments}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="202" width="100" height="22" uuid="f012725f-7bce-4001-ba92-08a422dab994"/>
 				<textElement textAlignment="Right">
-					<font size="12" isBold="true"/>
+					<font fontName="Helvetica" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Series]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement x="108" y="202" width="450" height="22" uuid="4854c5ee-5205-43ec-8a40-3e5bb3d96428"/>
 				<textElement textAlignment="Left">
-					<font size="12" isBold="false"/>
+					<font fontName="Helvetica" size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{seriestitle}]]></textFieldExpression>
 			</textField>
 			<image>
 				<reportElement x="410" y="10" width="144" height="144" uuid="98548d85-accb-4a88-8a62-5e1e8ef4b6bf">
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<imageExpression><![CDATA[$F{imagefilepath}]]></imageExpression>
 			</image>
@@ -600,12 +600,16 @@ or Comments]]></text>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<staticText>
 				<reportElement x="0" y="1" width="279" height="30" uuid="032b8b26-7fb7-491c-a2d7-13941576a99f"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Helvetica" size="10"/>
+				</textElement>
 				<text><![CDATA[BAMPFA - ]]></text>
 			</staticText>
 			<textField pattern="M/d/yyyy">
 				<reportElement x="279" y="1" width="279" height="30" uuid="0d0914fc-108b-4d99-b2f2-8a6cf78542e7"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Helvetica" size="10"/>
+				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 		</band>
