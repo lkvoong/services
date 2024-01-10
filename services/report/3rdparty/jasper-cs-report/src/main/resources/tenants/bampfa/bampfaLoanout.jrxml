@@ -2,8 +2,6 @@
 <!-- Created with Jaspersoft Studio version 6.20.5.final using JasperReports Library version 6.20.5-3efcf2e67f959db3888d79f73dde2dbd7acb4f8e  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BAMPFA Loans Out Report" columnCount="4" printOrder="Horizontal" pageWidth="612" pageHeight="792" columnWidth="131" columnSpacing="5" leftMargin="36" rightMargin="36" topMargin="18" bottomMargin="36" uuid="99a4177b-8f84-4d4f-b05f-684ef3e7e1b8">
 	<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
-	<property name="net.sf.jasperreports.default.font.name" value="Helvetica"/>
-	<property name="net.sf.jasperreports.default.pdf.font.name" value="Helvetica"/>
 	<property name="net.sf.jasperreports.default.font.size" value="10"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
@@ -232,7 +230,6 @@ where l.loan_csid = $P{csid}]]>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<imageExpression><![CDATA["https://raw.githubusercontent.com/lkvoong/services/CSC-1960/services/report/3rdparty/jasper-cs-report/src/main/resources/tenants/bampfa/images/bampfaLogo5.png"]]></imageExpression>
 				<imageExpression><![CDATA["https://raw.githubusercontent.com/cspace-deployment/services/master/services/report/3rdparty/jasper-cs-report/src/main/resources/tenants/bampfa/images/bampfaLogo5.png"]]></imageExpression>
 			</image>
 			<staticText>
@@ -241,7 +238,7 @@ where l.loan_csid = $P{csid}]]>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
-					<font fontName="Helvetica" size="18" isBold="true"/>
+					<font size="18" isBold="true"/>
 				</textElement>
 				<text><![CDATA[OUTGOING LOANS REPORT]]></text>
 			</staticText>
@@ -251,7 +248,7 @@ where l.loan_csid = $P{csid}]]>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
-					<font fontName="Helvetica" size="16"/>
+					<font size="16"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{loan_number}]]></textFieldExpression>
 			</textField>
@@ -261,7 +258,7 @@ where l.loan_csid = $P{csid}]]>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement markup="html">
-					<font fontName="Helvetica" size="10"/>
+					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{loan_summary}]]></textFieldExpression>
 			</textField>
@@ -285,7 +282,7 @@ where l.loan_csid = $P{csid}]]>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
 				<textElement markup="html">
-					<font fontName="Helvetica" size="10"/>
+					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{object_summary}]]></textFieldExpression>
 			</textField>
@@ -296,21 +293,21 @@ where l.loan_csid = $P{csid}]]>
 			<textField pattern="M/d/yyyy">
 				<reportElement x="0" y="1" width="270" height="20" uuid="fbfb706e-50d0-4b36-be9f-d03bc9496cda"/>
 				<textElement textAlignment="Left" verticalAlignment="Bottom">
-					<font fontName="Helvetica" size="10"/>
+					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="470" y="1" width="40" height="20" uuid="cf109523-7d8d-4af4-9556-4693362f6bf7"/>
 				<textElement textAlignment="Right" verticalAlignment="Bottom">
-					<font fontName="Helvetica" size="10"/>
+					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
 				<reportElement x="510" y="1" width="30" height="20" uuid="83ebfc27-490d-4631-b3d6-b607a68956e1"/>
 				<textElement textAlignment="Left" verticalAlignment="Bottom">
-					<font fontName="Helvetica" size="10"/>
+					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[" of " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
