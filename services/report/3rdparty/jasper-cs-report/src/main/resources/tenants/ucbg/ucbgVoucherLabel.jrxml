@@ -5,11 +5,22 @@
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="botgarden-prod-via-tunnel"/>
-	<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
-	<property name="com.jaspersoft.studio.unit." value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageHeight" value="inch"/>
-	<property name="com.jaspersoft.studio.unit.pageWidth" value="inch"/>
+        <property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+        <property name="net.sf.jasperreports.default.font.name" value="Helvetica"/>
+        <property name="net.sf.jasperreports.default.pdf.font.name" value="Helvetica"/>
+        <property name="net.sf.jasperreports.default.font.size" value="10"/>
+        <property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+        <property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+        <property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+        <property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+        <property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+        <property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+        <property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+        <property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+        <property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+        <property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+        <property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+        <property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 	<queryString>
 		<![CDATA[select * from findvoucherlabels()]]>
 	</queryString>
@@ -61,8 +72,9 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$F{gardeninfo}]]></textFieldExpression>
 				</textField>
-				<textField isBlankWhenNull="true">
-					<reportElement x="0" y="65" width="267" height="14" isPrintWhenDetailOverflows="true" uuid="22c892fc-d10c-4d02-a0f0-199e8fc76d7b">
+
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement positionType="Float" x="0" y="65" width="267" height="14" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="22c892fc-d10c-4d02-a0f0-199e8fc76d7b">
 						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					</reportElement>
 					<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
@@ -80,7 +92,7 @@
 					<textFieldExpression><![CDATA[$F{annotation}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-					<reportElement x="0" y="86" width="267" height="14" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="caa74580-08c5-4fe1-8315-8e20d28e80ee">
+					<reportElement positionType="Float" x="0" y="86" width="267" height="14" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="caa74580-08c5-4fe1-8315-8e20d28e80ee">
 						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 						<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					</reportElement>
