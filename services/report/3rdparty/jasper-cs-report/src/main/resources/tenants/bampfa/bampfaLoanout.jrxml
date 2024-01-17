@@ -87,7 +87,7 @@ loanstatus as (
         h.parentid as loan_id,
         string_agg(
             coalesce(getdispl(s.loanstatus), '') ||
-            coalesce(' on ' || to_char(s.loanstatusdate, 'MM/DD/YYYY'), '') ||
+            coalesce(' on ' || to_char((s.loanstatusdate::timestamp at time zone 'America/New_York' at time zone 'UTC')::date, 'MM/DD/YYYY'), '') ||
             case when getdispl(s.loanstatus) = 'Declined'
                 then coalesce(': ' || s.loanstatusnote, '') else '' end,
             '<br>&nbsp;&nbsp;* ' order by loanstatusdate desc) as loanstatus
@@ -102,10 +102,10 @@ loan as (
         lc.id as loan_id,
         hlc.name as loan_csid,
         coalesce(lc.loanoutnumber, '') as loan_number,
-        coalesce(to_char(lc.loanoutdate, 'MM/DD/YYYY'), '')  ||
+        coalesce(to_char((lc.loanoutdate::timestamp at time zone 'America/New_York' at time zone 'UTC')::date, 'MM/DD/YYYY'), '')  ||
             case when lc.loanoutdate is not null and lc.loanreturndate is not null
-                 then ' - ' || to_char(lc.loanreturndate, 'MM/DD/YYYY')
-                 else coalesce(to_char(lc.loanreturndate, 'MM/DD/YYYY'), '') end as loan_dates,
+                 then ' - ' || to_char((lc.loanreturndate::timestamp at time zone 'America/New_York' at time zone 'UTC')::date, 'MM/DD/YYYY')
+                 else coalesce(to_char((lc.loanreturndate::timestamp at time zone 'America/New_York' at time zone 'UTC')::date, 'MM/DD/YYYY'), '') end as loan_dates,
         getdispl(lc.borrower) as borrower,
         case when s.loanstatus ~ '<br>' then '<br>&nbsp;&nbsp;* ' || s.loanstatus
              else coalesce(s.loanstatus, '') end as loan_status,
@@ -126,7 +126,7 @@ select
         hlsg.parentid as loan_id,
         getdispl(lsg.loangroup) as loan_group,
         string_agg(
-                coalesce(getdispl(lsg.loanstatus), '') || coalesce(' ' || to_char(lsg.loanstatusdate, 'MM/DD/YYYY'), '') ||
+                coalesce(getdispl(lsg.loanstatus), '') || coalesce(' ' || to_char((lsg.loanstatusdate::timestamp at time zone 'America/New_York' at time zone 'UTC')::date, 'MM/DD/YYYY'), '') ||
                         coalesce(': ' || lsg.loanstatusnote, ''),
                 '; '
                 order by loanstatusdate) as comments
