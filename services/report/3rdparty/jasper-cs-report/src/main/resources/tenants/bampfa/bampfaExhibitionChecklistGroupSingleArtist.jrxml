@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bampfaExhibitionChecklistGroup" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0ab8c86a-1229-415f-be1b-6ffb7c15b660">
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bampfaExhibitionChecklistGroupSingleArtist" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0ab8c86a-1229-415f-be1b-6ffb7c15b660">
 	<parameter name="groupcsid" class="java.lang.String">
 		<defaultValueExpression><![CDATA["d0b6211b-8f83-4639-b441"]]></defaultValueExpression>
 	</parameter>
@@ -22,7 +19,7 @@
    replace(mpg.dimensionsummary, '-', ' ') measurementSummary,
    cob.creditline,
    sdg.datedisplaydate dateMade,
-   (SELECT 'https://webapps' || case when get_deplname() ~ 'qa' then '-qa' else '' end || '.cspace.berkeley.edu/bampfa/imageserver/blobs/' || mc.blobcsid || '/derivatives/Medium/content'
+   (SELECT 'https://webapps' || case when get_deplname() ~ 'qa' then '-qa' else '' end || '.cspace.berkeley.edu/bampfa/imageserver/blobs/' || mc.blobcsid || '/derivatives/Thumbnail/content'
     FROM relations_common rcmc
     LEFT OUTER JOIN hierarchy hmc ON (hmc.name = rcmc.subjectcsid)
     LEFT OUTER JOIN media_common mc ON (hmc.id = mc.id)
@@ -97,7 +94,7 @@ order by sdg.dateearliestscalarvalue, btg.bampfaformattedtitle, accnNumberSort]]
 			</staticText>
 			<image>
 				<reportElement x="0" y="0" width="72" height="60" uuid="1220223e-942a-4027-954c-2676ef7ce1bc"/>
-				<imageExpression><![CDATA["https://raw.githubusercontent.com/cspace-deployment/services/master/services/report/3rdparty/jasper-cs-report/src/main/resources/tenants/bampfa/images/bampfaLogo2.svg"]]></imageExpression>
+                                <imageExpression><![CDATA["https://raw.githubusercontent.com/cspace-deployment/services/master/services/report/3rdparty/jasper-cs-report/src/main/resources/tenants/bampfa/images/bampfaLogo5.png"]]></imageExpression>
 			</image>
 		</band>
 	</title>
