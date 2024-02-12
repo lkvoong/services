@@ -75,7 +75,7 @@
    cg.catalognote catalognote,
    to_char(date(cg.catalogdate + interval '8 hours'), 'MM/dd/yyyy') catalogdate,
    (select 'https://webapps' || case when get_deplname() ~ 'qa' then '-qa' else '' end ||
-                '.cspace.berkeley.edu/bampfa/imageserver/blobs/' || m.blobcsid || '/derivatives/Thumbnail/content' as filepath
+                '.cspace.berkeley.edu/bampfa/imageserver/blobs/' || m.blobcsid || '/derivatives/Medium/content' as filepath
             from relations_common r
             left outer join hierarchy hm on (
                 hm.name = r.subjectcsid and r.objectdocumenttype = 'CollectionObject')
