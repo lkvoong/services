@@ -16,19 +16,17 @@
 		<defaultValueExpression><![CDATA[35]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select 'Count: '||to_char(count(*), '999999') accnno, 'a' sortkey
-from collectionobjects_common co1
-join collectionobjects_botgarden cob on (co1.id=cob.id)
-join collectionspace_core core on (core.id=co1.id and core.tenantid=35)
-join misc  on (misc.id = co1.id and misc.lifecyclestate <> 'deleted')
-where cob.deadflag='false'
+		<![CDATA[select 'Count: ' || to_char(count(*), '999999') accnno, 'a' sortkey
+from collectionobjects_common coc
+join collectionobjects_botgarden cob on (coc.id = cob.id)
+join misc on (misc.id = coc.id and misc.lifecyclestate <> 'deleted')
+where cob.deadflag = 'false'
 union
-select co1.objectnumber accnno, 'b' sortkey
-from collectionobjects_common co1
-join collectionobjects_botgarden cob on (co1.id=cob.id)
-join collectionspace_core core on (core.id=co1.id and core.tenantid=35)
-join misc  on (misc.id = co1.id and misc.lifecyclestate <> 'deleted')
-where cob.deadflag='false'
+select coc.objectnumber accnno, 'b' sortkey
+from collectionobjects_common coc
+join collectionobjects_botgarden cob on (coc.id = cob.id)
+join misc on (misc.id = coc.id and misc.lifecyclestate <> 'deleted')
+where cob.deadflag = 'false'
 order by sortkey, accnno]]>
 	</queryString>
 	<field name="accnno" class="java.lang.String"/>
