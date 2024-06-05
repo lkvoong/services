@@ -16,34 +16,35 @@
 		<defaultValueExpression><![CDATA[35]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select 'Taxonomic Count: '||to_char( count(distinct
-case when (tig.taxon is not null and tig.taxon <> '' and tig.hybridflag = 'false')
-     then regexp_replace(tig.taxon, '^.*\)''(.*)''$', '\1')
-     when tig.hybridflag = 'true' then findhybridaffinname(tig.id)
-end), '999999') accnno, 'a' sortkey, ' ' determination
-from collectionobjects_common co1
-join collectionobjects_botgarden cob on (co1.id=cob.id)
-join collectionspace_core core on (core.id=co1.id and core.tenantid=35)
-join misc  on (misc.id = co1.id and misc.lifecyclestate <> 'deleted')
-
-left outer join hierarchy htig
-     on (co1.id = htig.parentid and htig.pos = 0 and htig.name = 'collectionobjects_naturalhistory:taxonomicIdentGroupList')
+		<![CDATA[select
+    'Taxonomic Count: ' || to_char(count(distinct case
+        when (tig.taxon is not null and tig.taxon <> '' and tig.hybridflag = 'false') then getdispl(tig.taxon)
+        when tig.hybridflag = 'true' then findhybridaffinname(tig.id) end), '999999') accnno,
+    'a' sortkey,
+    ' ' determination
+from collectionobjects_common coc
+join collectionobjects_botgarden cob on (coc.id = cob.id)
+join misc  on (misc.id = coc.id and misc.lifecyclestate <> 'deleted')
+left outer join hierarchy htig on (
+    coc.id = htig.parentid
+    and htig.pos = 0
+    and htig.name = 'collectionobjects_naturalhistory:taxonomicIdentGroupList')
 left outer join taxonomicIdentGroup tig on (tig.id = htig.id)
-
-where cob.deadflag='false'
+where cob.deadflag = 'false'
 union
-select co1.objectnumber accnno, 'b' sortkey,
-findhybridaffinname(tig.id) Determination
-from collectionobjects_common co1
-join collectionobjects_botgarden cob on (co1.id=cob.id)
-join collectionspace_core core on (core.id=co1.id and core.tenantid=35)
-join misc  on (misc.id = co1.id and misc.lifecyclestate <> 'deleted')
-
-left outer join hierarchy htig
-     on (co1.id = htig.parentid and htig.pos = 0 and htig.name = 'collectionobjects_naturalhistory:taxonomicIdentGroupList')
+select
+    coc.objectnumber accnno,
+    'b' sortkey,
+    findhybridaffinname(tig.id) determination
+from collectionobjects_common coc
+join collectionobjects_botgarden cob on (coc.id = cob.id)
+join misc  on (misc.id = coc.id and misc.lifecyclestate <> 'deleted')
+left outer join hierarchy htig on (
+    coc.id = htig.parentid
+    and htig.pos = 0
+    and htig.name = 'collectionobjects_naturalhistory:taxonomicIdentGroupList')
 left outer join taxonomicIdentGroup tig on (tig.id = htig.id)
-
-where cob.deadflag='false'
+where cob.deadflag = 'false'
 order by sortkey, accnno]]>
 	</queryString>
 	<field name="accnno" class="java.lang.String"/>
