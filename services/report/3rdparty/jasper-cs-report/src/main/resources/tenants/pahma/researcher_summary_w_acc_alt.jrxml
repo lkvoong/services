@@ -38,12 +38,10 @@ JOIN group_obj_acq goa ON (hgc.name = goa.groupcsid)
 JOIN hierarchy hcc ON (goa.objectcsid = hcc.name)
 JOIN collectionobjects_common cc ON (hcc.id = cc.id)
 LEFT OUTER JOIN collectionobjects_pahma cp ON (cc.id = cp.id)
-
 LEFT OUTER JOIN hierarchy hong ON (cc.id = hong.parentid
 	AND hong.primarytype = 'objectNameGroup'
 	AND hong.pos = 0)
 LEFT OUTER JOIN objectnamegroup ong ON (hong.id = ong.id)
-
 LEFT OUTER JOIN collectionobjects_common_briefdescriptions bd ON (bd.id = cc.id
 	AND bd.pos = 0)
 LEFT OUTER JOIN collectionobjects_pahma_pahmafieldcollectionplacelist fcp ON (cc.id = fcp.id
