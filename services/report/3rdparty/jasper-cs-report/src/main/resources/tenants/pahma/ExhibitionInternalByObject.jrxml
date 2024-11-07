@@ -6,86 +6,169 @@
 		<defaultValueExpression><![CDATA["bd0c5831-06fa-458f-b686"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT
-ec.exhibitionnumber AS exhNum,
-ec.title AS exhTitle,
-coc.objectnumber AS musNum,
-cp.sortableobjectnumber AS sortableObjNum,  
-ong.objectname AS objName,
-STRING_AGG(DISTINCT ac.acquisitionreferencenumber, '; ') AS accNum,
-STRING_AGG(DISTINCT GETDISPL(apg.assocpeople), '; ') AS culture,
-STRING_AGG(DISTINCT(CASE 
-  WHEN dsg.value = 0 OR dsg.value IS NULL OR dsg.measurementunit IS NULL THEN ''
-  WHEN mpg.measuredpart IS NULL AND dsg.dimension IS NULL THEN dsg.value::numeric || ' ' || dsg.measurementunit
-  WHEN mpg.measuredpart IS NULL THEN dsg.dimension || ' ' || dsg.value::numeric || ' ' || dsg.measurementunit
-  WHEN dsg.dimension IS NULL THEN mpg.measuredpart || '— ' || dsg.value::numeric || ' ' || dsg.measurementunit
-  ELSE mpg.measuredpart || '— ' || dsg.dimension || ' ' || dsg.value::numeric || ' ' || dsg.measurementunit
-END), '; ') AS dimensions,
-STRING_AGG(DISTINCT GETDISPL(mg.material)
-  || CASE WHEN (mg.materialcomponent IS NOT NULL OR mg.materialcomponentnote IS NOT NULL) THEN ' (' ELSE '' END
-  || CASE WHEN (mg.materialcomponent IS NOT NULL AND mg.materialcomponent <>'') THEN mg.materialcomponent ELSE '' END
-  || CASE WHEN (mg.materialcomponent IS NOT NULL AND mg.materialcomponentnote IS NOT NULL) THEN ', ' ELSE '' END
-  || CASE WHEN (mg.materialcomponentnote IS NOT NULL AND mg.materialcomponentnote <>'') THEN mg.materialcomponentnote ELSE '' END
-  || CASE WHEN (mg.materialcomponent IS NOT NULL OR mg.materialcomponentnote IS NOT NULL) THEN ')' ELSE '' END, '; ') AS materials,
-CASE WHEN (ca.computedcrate IS NOT NULL)
-  THEN GETDISPL(coc.computedcurrentlocation) || '—' || GETDISPL(ca.computedcrate)
-  ELSE GETDISPL(coc.computedcurrentlocation)
-END AS fullLoc,
-(SELECT ccg.condition 
-  FROM relations_common rccg
-  LEFT OUTER JOIN hierarchy hcc ON (rccg.subjectcsid = hcc.name)
-  LEFT OUTER JOIN misc mcc ON (hcc.id = mcc.id AND mcc.lifecyclestate <> 'deleted')
-  LEFT OUTER JOIN hierarchy hccg ON (hcc.id = hccg.parentid AND hccg.primarytype = 'conditionCheckGroup')
-  LEFT OUTER JOIN conditioncheckgroup ccg ON (hccg.id = ccg.id)
-  WHERE hcoc.name = rccg.objectcsid
-  ORDER BY hcc.pos DESC
-  LIMIT 1) AS latestCondition,
-(SELECT ccc.conditionchecknote
-  FROM relations_common rccc
-  LEFT OUTER JOIN hierarchy hccc ON (rccc.subjectcsid = hccc.name)
-  LEFT OUTER JOIN conditionchecks_common ccc on (hccc.id = ccc.id)
-  LEFT OUTER JOIN misc mccc ON (hccc.id = mccc.id AND mccc.lifecyclestate <> 'deleted')
-  WHERE hcoc.name = rccc.objectcsid
-  ORDER BY hccc.pos DESC
-  LIMIT 1) AS latestConditionNote,
-(SELECT 'https://webapps' || case when get_deplname() ~ 'qa' then '-qa' else '' end || '.cspace.berkeley.edu/pahma/imageserver/blobs/' || mc.blobcsid || '/derivatives/Medium/content' 
-  FROM relations_common rcmc
-  LEFT OUTER JOIN hierarchy hmc ON (rcmc.subjectcsid = hmc.name)
-  LEFT OUTER JOIN media_common mc ON (hmc.id = mc.id)
-  LEFT OUTER JOIN media_pahma mp ON (mc.id = mp.id AND mp.primarydisplay = 'true')
-  LEFT OUTER JOIN misc mmc ON (mmc.id = mc.id AND mmc.lifecyclestate <> 'deleted')
-  WHERE hcoc.name = rcmc.objectcsid AND rcmc.subjectdocumenttype = 'Media'
-  LIMIT 1) AS imageFilepath
-FROM collectionobjects_common coc
-LEFT OUTER JOIN collectionobjects_pahma cp ON (coc.id = cp.id)
-LEFT OUTER JOIN collectionobjects_anthropology ca ON (coc.id = ca.id)
-JOIN hierarchy hcoc ON (coc.id = hcoc.id)
-JOIN relations_common rccoc ON (hcoc.name = rccoc.objectcsid AND rccoc.subjectdocumenttype = 'Exhibition')
-JOIN hierarchy hec ON (rccoc.subjectcsid = hec.name)
-LEFT OUTER JOIN exhibitions_common ec ON (hec.id = ec.id)
-LEFT OUTER JOIN hierarchy hong ON (coc.id = hong.parentid AND hong.primarytype = 'objectNameGroup' AND (hong.pos = 0 OR hong.pos IS NULL))
-LEFT OUTER JOIN objectnamegroup ong ON (ong.id = hong.id)
-LEFT OUTER JOIN relations_common rcac ON (hcoc.name = rcac.objectcsid AND rcac.subjectdocumenttype = 'Acquisition')
-LEFT OUTER JOIN hierarchy hac ON (hac.name = rcac.subjectcsid AND (hac.pos = 0 OR hac.pos IS NULL))
-LEFT OUTER JOIN acquisitions_common ac ON (hac.id = ac.id)
-LEFT OUTER JOIN hierarchy hapg ON (hapg.parentid = coc.id AND hapg.primarytype = 'assocPeopleGroup')
-LEFT OUTER JOIN assocpeoplegroup apg ON (apg.id = hapg.id)
-LEFT OUTER JOIN hierarchy hmpg ON (coc.id = hmpg.parentid AND hmpg.primarytype = 'measuredPartGroup')
-LEFT OUTER JOIN measuredpartgroup mpg ON (mpg.id=hmpg.id)
-LEFT OUTER JOIN hierarchy hdsg ON (mpg.id = hdsg.parentid AND hdsg.primarytype = 'dimensionSubGroup')
-LEFT OUTER JOIN dimensionsubgroup dsg ON (dsg.id = hdsg.id AND dsg.measurementunit <> 'pixels' AND dsg.measurementunit <> 'bits')
-LEFT OUTER JOIN hierarchy hmg ON (hmg.parentid = coc.id AND hmg.primarytype = 'materialGroup')
-LEFT OUTER JOIN materialgroup mg ON (mg.id = hmg.id)
-WHERE hec.name = $P{csid}
-GROUP BY
-  ec.exhibitionnumber,
-  ec.title, 
-  coc.objectnumber,
-  cp.sortableobjectnumber,
-  ong.objectname, 
-  coc.computedcurrentlocation,
-  ca.computedcrate,
-  hcoc.name
+		<![CDATA[WITH
+exh_objs AS (
+SELECT
+  r.subjectcsid AS exh_csid,
+  e.exhibitionnumber AS exh_num,
+  e.title AS exh_title,
+  r.objectcsid AS obj_csid,
+  c.id AS obj_id,
+  c.objectnumber AS obj_num,
+  COALESCE(GETDISPL(c.computedcurrentlocation), '') AS curr_location
+FROM exhibitions_common e
+JOIN misc me ON e.id = me.id
+JOIN hierarchy he ON e.id = he.id
+LEFT OUTER JOIN relations_common r
+  ON he.name = r.subjectcsid
+  AND r.objectdocumenttype = 'CollectionObject'
+LEFT OUTER JOIN hierarchy hc ON r.objectcsid = hc.name
+LEFT OUTER JOIN collectionobjects_common c ON hc.id = c.id
+LEFT OUTER JOIN misc mc ON c.id = mc.id
+WHERE he.name = $P{csid}
+AND me.lifecyclestate <> 'deleted'
+AND mc.lifecyclestate <> 'deleted'
+),
+
+acquisitions AS (
+SELECT
+  eo.obj_csid,
+  STRING_AGG(DISTINCT a.acquisitionreferencenumber, '; ') AS acq_nums
+FROM exh_objs eo
+JOIN relations_common r
+  ON eo.obj_csid = r.objectcsid
+  AND r.subjectdocumenttype = 'Acquisition'
+JOIN hierarchy ha ON ha.name = r.subjectcsid
+JOIN acquisitions_common a ON ha.id = a.id
+GROUP BY 1
+),
+
+cultures AS (
+SELECT 
+  eo.obj_csid,
+  STRING_AGG(DISTINCT GETDISPL(apg.assocpeople), '; ') AS cultures
+FROM exh_objs eo
+JOIN hierarchy hapg
+  ON eo.obj_id = hapg.parentid
+  AND hapg.primarytype = 'assocPeopleGroup'
+JOIN assocpeoplegroup apg ON apg.id = hapg.id
+WHERE apg.assocpeople IS NOT NULL
+GROUP BY 1
+),
+
+dimensions AS (
+SELECT
+  eo.obj_csid,
+  STRING_AGG(DISTINCT
+    COALESCE(
+      mpg.measuredpart || '— ', '') 
+      || COALESCE(dsg.dimension || ' ', '') 
+      || dsg.value::numeric || ' ' || dsg.measurementunit,
+    '; ' ) AS dimensions
+FROM exh_objs eo
+JOIN hierarchy hmpg
+  ON eo.obj_id = hmpg.parentid
+  AND hmpg.primarytype = 'measuredPartGroup'
+JOIN measuredpartgroup mpg ON hmpg.id = mpg.id
+JOIN hierarchy hdsg
+  ON mpg.id = hdsg.parentid
+  AND hdsg.primarytype = 'dimensionSubGroup'
+JOIN dimensionsubgroup dsg ON dsg.id = hdsg.id
+WHERE dsg.value <> 0
+AND dsg.measurementunit <> 'pixels'
+AND dsg.measurementunit <> 'bits'
+GROUP BY 1
+),
+
+materials AS (
+SELECT
+  eo.obj_csid,
+  STRING_AGG(DISTINCT
+    GETDISPL(mg.material)
+      || COALESCE(
+        ' (' 
+          || NULLIF(COALESCE(mg.materialcomponent, '') || COALESCE(', ' || NULLIF(mg.materialcomponentnote, ''), ''), '')
+          || ')',
+        ''), 
+    '; ') AS materials
+FROM exh_objs eo
+JOIN hierarchy hmg
+  ON eo.obj_id = hmg.parentid
+  AND hmg.primarytype = 'materialGroup'
+JOIN materialgroup mg ON mg.id = hmg.id
+WHERE mg.material IS NOT NULL
+GROUP BY 1
+),
+
+latest_conditions AS (
+SELECT DISTINCT ON (eo.obj_csid)
+  eo.obj_csid,
+  cc.conditioncheckassessmentdate AS cond_date,
+  ccg.condition,
+  cc.conditionchecknote AS condition_note
+FROM exh_objs eo
+JOIN relations_common r
+  ON eo.obj_csid = r.objectcsid
+  AND r.subjectdocumenttype = 'Conditioncheck'
+JOIN hierarchy hcc ON r.subjectcsid = hcc.name
+JOIN conditionchecks_common cc ON hcc.id = cc.id
+JOIN hierarchy hccg
+   ON cc.id = hccg.parentid
+  AND hccg.primarytype = 'conditionCheckGroup'
+JOIN conditioncheckgroup ccg ON hccg.id = ccg.id
+ORDER BY 1, 2 DESC
+),
+
+imagefilepaths AS (
+SELECT DISTINCT ON (eo.obj_csid)
+  eo.obj_csid,
+  csc.updatedat,
+  'https://webapps' || CASE WHEN GET_DEPLNAME() ~ 'qa' THEN '-qa' ELSE '' END
+    || '.cspace.berkeley.edu/pahma/imageserver/blobs/'
+    || mc.blobcsid || '/derivatives/Medium/content' AS imagefilepath
+FROM exh_objs eo
+JOIN relations_common r ON eo.obj_csid = r.objectcsid
+JOIN hierarchy hmc ON r.subjectcsid = hmc.name
+JOIN media_common mc ON hmc.id = mc.id
+JOIN media_pahma mp ON mc.id = mp.id
+JOIN misc mmc ON mc.id = mmc.id
+JOIN collectionspace_core csc ON mc.id = csc.id
+WHERE r.subjectdocumenttype = 'Media'
+AND mp.primarydisplay IS TRUE
+AND mmc.lifecyclestate <> 'deleted'
+ORDER BY 1, 2 DESC
+)
+
+SELECT
+  eo.exh_num AS exhNum,
+  eo.exh_title AS exhTitle,
+  eo.obj_num AS musNum,
+  cp.sortableobjectnumber AS sortableObjNum,
+  ong.objectname AS objName,
+  a.acq_nums AS accNums,
+  c.cultures AS cultures,
+  d.dimensions AS dimensions,
+  m.materials AS materials,
+  eo.curr_location || COALESCE('—' || GETDISPL(ca.computedcrate), '') AS fullLoc,
+  lc.condition AS latestCondition,
+  lc.condition_note AS latestConditionNote,
+  i.imagefilepath AS imageFilepath
+
+FROM exh_objs eo
+  LEFT OUTER JOIN collectionobjects_pahma cp ON eo.obj_id = cp.id
+  LEFT OUTER JOIN hierarchy hong
+    ON eo.obj_id = hong.parentid
+    AND hong.primarytype = 'objectNameGroup'
+    AND hong.pos = 0
+  LEFT OUTER JOIN objectnamegroup ong ON hong.id = ong.id
+  LEFT OUTER JOIN acquisitions a ON eo.obj_csid = a.obj_csid
+  LEFT OUTER JOIN cultures c ON eo.obj_csid = c.obj_csid
+  LEFT OUTER JOIN dimensions d ON eo.obj_csid = d.obj_csid
+  LEFT OUTER JOIN materials m ON eo.obj_csid = m.obj_csid
+  LEFT OUTER JOIN collectionobjects_anthropology ca ON eo.obj_id = ca.id
+  LEFT OUTER JOIN latest_conditions lc ON eo.obj_csid = lc.obj_csid
+  LEFT OUTER JOIN imagefilepaths i ON eo.obj_csid = i.obj_csid
+
 ORDER BY cp.sortableobjectnumber]]>
 	</queryString>
 	<field name="exhNum" class="java.lang.String"/>
@@ -93,8 +176,8 @@ ORDER BY cp.sortableobjectnumber]]>
 	<field name="musNum" class="java.lang.String"/>
 	<field name="sortableObjNum" class="java.lang.String"/>
 	<field name="objName" class="java.lang.String"/>
-	<field name="accNum" class="java.lang.String"/>
-	<field name="culture" class="java.lang.String"/>
+	<field name="accNums" class="java.lang.String"/>
+	<field name="cultures" class="java.lang.String"/>
 	<field name="dimensions" class="java.lang.String"/>
 	<field name="materials" class="java.lang.String"/>
 	<field name="fullLoc" class="java.lang.String"/>
@@ -174,7 +257,7 @@ ORDER BY cp.sortableobjectnumber]]>
 				<textElement>
 					<font size="9"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{culture}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{cultures}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="-10" y="39" width="92" height="12" uuid="8ba5425b-b804-47e9-af60-824f31e9fd1b">
@@ -252,7 +335,7 @@ ORDER BY cp.sortableobjectnumber]]>
 				<textElement>
 					<font size="9"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{accNum}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{accNums}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="85" y="71" width="340" height="12" uuid="528f169e-a027-4c5f-83e3-2cd6ffb731fd">
