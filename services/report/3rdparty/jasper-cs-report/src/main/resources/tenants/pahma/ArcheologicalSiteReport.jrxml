@@ -15,41 +15,51 @@
 		<defaultValueExpression><![CDATA["b6d49fa9-788a-477a-993e"]]></defaultValueExpression>
 	</parameter>
 	<queryString language="SQL">
-		<![CDATA[SELECT
-	GETDISPL(cc.computedcurrentlocation) AS currLocation,
-	ocg.objectCount AS objectCount,
+		<![CDATA[WITH objs AS (
+SELECT DISTINCT ON (cc.id)
+	rc.subjectcsid as csid,
+	cc.id,
+	cc.objectnumber,
+	ocg.objectcount,
+	GETDISPL(cc.computedcurrentlocation) AS computedcurrentlocation
+FROM relations_common rc
+JOIN hierarchy hcc ON (rc.objectcsid = hcc.name
+	AND rc.objectdocumenttype = 'CollectionObject')
+JOIN collectionobjects_common cc ON (hcc.id = cc.id)
+LEFT OUTER JOIN hierarchy hocg ON (cc.id = hocg.parentid
+	AND hocg.primarytype = 'objectCountGroup')
+LEFT OUTER JOIN objectcountgroup ocg ON (hocg.id = ocg.id
+	AND GETDISPL(ocg.objectcounttype) = 'piece count')
+WHERE rc.subjectcsid = $P{csid}
+ORDER by cc.id, ocg.objectcountdate DESC NULLS LAST
+)
+SELECT
+	objs.computedcurrentlocation AS currLocation,
+	objs.objectCount AS objectCount,
 	ptg.termname AS site,
 	GETDISPL(fcp.item) AS fieldcollectionplace,
 	COALESCE(gc.scopenote, '') AS scopeNote,
-	cc.objectnumber AS objectNumber,
+	objs.objectnumber AS objectNumber,
 	cp.sortableobjectnumber,
 	COALESCE(ong.objectName, '') AS objectName,
 	COALESCE(bd.item, '') AS description
 FROM groups_common gc
 LEFT OUTER JOIN hierarchy hgc ON (gc.id = hgc.id)
-JOIN relations_common rc ON (hgc.name = rc.subjectcsid
-	AND rc.objectdocumenttype = 'CollectionObject')
-LEFT OUTER JOIN hierarchy hcc ON (hcc.name = rc.objectcsid)
-LEFT OUTER JOIN collectionobjects_common cc ON (hcc.id = cc.id)
-LEFT OUTER JOIN collectionobjects_pahma cp ON (cc.id = cp.id)
-LEFT OUTER JOIN collectionobjects_common_briefdescriptions bd ON (cc.id = bd.id
+LEFT OUTER JOIN objs ON (hgc.name = objs.csid)
+LEFT OUTER JOIN collectionobjects_pahma cp ON (objs.id = cp.id)
+LEFT OUTER JOIN collectionobjects_common_briefdescriptions bd ON (objs.id = bd.id
 	AND bd.pos = 0)
-LEFT OUTER JOIN hierarchy hong ON (cc.id = hong.parentid
+LEFT OUTER JOIN hierarchy hong ON (objs.id = hong.parentid
 	AND hong.primarytype = 'objectNameGroup'
 	AND hong.pos = 0)
 JOIN objectnamegroup ong ON (hong.id = ong.id)
-LEFT OUTER JOIN hierarchy hocg ON (cc.id = hocg.parentid
-	AND hocg.primarytype = 'objectCountGroup'
-	AND hocg.pos = 0)
-LEFT OUTER JOIN objectcountgroup ocg ON (hocg.id = ocg.id)
-LEFT OUTER JOIN collectionobjects_pahma_pahmafieldcollectionplacelist fcp ON (cc.id = fcp.id)
+LEFT OUTER JOIN collectionobjects_pahma_pahmafieldcollectionplacelist fcp ON (objs.id = fcp.id)
 LEFT OUTER JOIN places_common pc ON (fcp.item = pc.refname)
 LEFT OUTER JOIN hierarchy hpc ON (pc.id = hpc.parentid
 	AND hpc.primarytype = 'placeTermGroup')
 LEFT OUTER JOIN placetermgroup ptg ON (hpc.id = ptg.id)
-JOIN misc m ON (cc.id = m.id
+JOIN misc m ON (m.id = objs.id
 	AND m.lifecyclestate <> 'deleted')
-WHERE hgc.name = $P{csid}
 ORDER BY ptg.termname, cp.sortableobjectnumber]]>
 	</queryString>
 	<field name="currLocation" class="java.lang.String"/>

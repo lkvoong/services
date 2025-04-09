@@ -5,66 +5,82 @@
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Tunnel to CSpace Prod"/>
 	<parameter name="groupcsid" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT
+		<![CDATA[WITH objs AS (
+SELECT DISTINCT ON (cc.id)
+	rc.subjectcsid AS csid,
+	rc.objectcsid AS objcsid,
+	cc.id,
+	cc.objectnumber,
+	ocg.objectcount
+FROM relations_common rc
+JOIN hierarchy hcc ON (rc.objectcsid = hcc.name
+	AND rc.objectdocumenttype = 'CollectionObject')
+JOIN collectionobjects_common cc ON (hcc.id = cc.id)
+LEFT OUTER JOIN hierarchy hocg ON (cc.id = hocg.parentid
+	AND hocg.primarytype = 'objectCountGroup')
+LEFT OUTER JOIN objectcountgroup ocg ON (hocg.id = ocg.id
+	AND GETDISPL(ocg.objectcounttype) = 'piece count')
+JOIN misc m on (cc.id = m.id)
+WHERE rc.subjectcsid = $P{groupcsid}
+AND m.lifecyclestate != 'deleted'
+ORDER by cc.id, ocg.objectcountdate DESC NULLS LAST
+),
+
+imgs AS (
+SELECT DISTINCT ON (objs.objcsid)
+	objs.objcsid AS objcsid,
+	'https://webapps'
+	|| CASE WHEN get_deplname() ~ 'qa' THEN '-qa' ELSE '' END
+	|| '.cspace.berkeley.edu/pahma/imageserver/blobs/'
+	|| mc.blobcsid
+	|| '/derivatives/Medium/content' AS imgfilepath
+FROM objs
+LEFT OUTER JOIN relations_common rcmc on (objs.objcsid = rcmc.objectcsid)
+LEFT OUTER JOIN hierarchy hmc ON (rcmc.subjectcsid = hmc.name
+	AND rcmc.subjectdocumenttype = 'Media')
+LEFT OUTER JOIN media_common mc ON (hmc.id = mc.id)
+LEFT OUTER JOIN media_pahma mp ON (mc.id = mp.id)
+LEFT OUTER JOIN misc mmc ON (mc.id = mmc.id
+	AND mmc.lifecyclestate <> 'deleted')
+LEFT OUTER JOIN collectionspace_core csc ON (mc.id = csc.id)
+ORDER BY objs.objcsid, COALESCE(mp.primarydisplay::integer, 0) DESC, csc.updatedat DESC
+),
+
+cultures AS (
+SELECT objs.id, STRING_AGG(DISTINCT GETDISPL(apg.assocpeople), '; ') AS culture
+FROM objs
+LEFT OUTER JOIN hierarchy hapg ON (objs.id = hapg.parentid
+	AND hapg.primarytype = 'assocPeopleGroup') 
+LEFT OUTER JOIN assocpeoplegroup apg ON (hapg.id = apg.id)
+GROUP BY objs.id
+)
+
+SELECT
 	gc.title AS groupTitle,
-	cc.objectnumber AS museumNum,
-	ocg.objectCount AS objCount,
+	objs.objectnumber AS museumNum,
+	objs.objectcount AS objCount,
 	cp.sortableobjectnumber AS sortableObjNum,
 	ong.objectName AS objName,
 	bd.item AS objDesc,
-	STRING_AGG(DISTINCT GETDISPL(apg.assocpeople), '; ') AS culture,
+	cultures.culture AS culture,
 	GETDISPL(fcp.item) AS fieldCollPlace,
-	(	SELECT 
-			'https://webapps' 
-			|| CASE WHEN get_deplname() ~ 'qa' THEN '-qa' ELSE '' END 
-			|| '.cspace.berkeley.edu/pahma/imageserver/blobs/' 
-			|| mc.blobcsid 
-			|| '/derivatives/Medium/content' 
-		FROM relations_common rcmc
-		LEFT OUTER JOIN hierarchy hmc ON (rcmc.subjectcsid = hmc.name
-			AND rcmc.subjectdocumenttype = 'Media'
-			AND rcmc.objectdocumenttype = 'CollectionObject')
-		LEFT OUTER JOIN media_common mc ON (hmc.id = mc.id)
-		LEFT OUTER JOIN media_pahma mp ON (mc.id = mp.id)
-		LEFT OUTER JOIN misc mmc ON (mc.id = mmc.id
-			AND mmc.lifecyclestate <> 'deleted')
-		LEFT OUTER JOIN collectionspace_core csc ON (mc.id = csc.id)
-		WHERE rcmc.objectcsid = hcc.name
-		ORDER BY COALESCE(mp.primarydisplay::integer, 0) DESC, csc.updatedat DESC LIMIT 1) AS imageFilepath
+	imgs.imgfilepath AS imageFilepath
 FROM groups_common gc
 JOIN hierarchy hgc ON (gc.id = hgc.id)
-LEFT OUTER JOIN relations_common rc ON (hgc.name = rc.subjectcsid
-	AND rc.objectdocumenttype = 'CollectionObject')
-LEFT OUTER JOIN hierarchy hcc on (rc.objectcsid = hcc.name)
-LEFT OUTER JOIN collectionobjects_common cc on (hcc.id = cc.id)
-LEFT OUTER JOIN collectionobjects_pahma cp ON (cc.id = cp.id)
-LEFT OUTER JOIN hierarchy hong ON (cc.id = hong.parentid
+LEFT OUTER JOIN objs ON (hgc.name = objs.csid)
+LEFT OUTER JOIN imgs ON (objs.objcsid = imgs.objcsid)
+LEFT OUTER JOIN cultures ON (objs.id = cultures.id)
+LEFT OUTER JOIN hierarchy hong ON (objs.id = hong.parentid
 	AND hong.primarytype = 'objectNameGroup'
 	AND (hong.pos = 0 OR hong.pos IS NULL))
 LEFT OUTER JOIN objectnamegroup ong ON (hong.id = ong.id)
-LEFT OUTER JOIN hierarchy hapg ON (cc.id = hapg.parentid
-	AND hapg.primarytype = 'assocPeopleGroup')
-LEFT OUTER JOIN assocpeoplegroup apg ON (hapg.id = apg.id)
-LEFT OUTER JOIN hierarchy hocg ON (cc.id = hocg.parentid
-	AND hocg.primarytype = 'objectCountGroup'
-	AND hocg.pos = 0)
-LEFT OUTER JOIN objectcountgroup ocg ON (hocg.id = ocg.id)
-LEFT OUTER JOIN collectionobjects_common_briefdescriptions bd ON (cc.id = bd.id
+LEFT OUTER JOIN collectionobjects_common_briefdescriptions bd ON (objs.id = bd.id
 	AND bd.pos = 0)
-LEFT OUTER JOIN collectionobjects_pahma_pahmafieldcollectionplacelist fcp ON (cc.id = fcp.id
+LEFT OUTER JOIN collectionobjects_pahma cp ON (objs.id = cp.id)
+LEFT OUTER JOIN collectionobjects_pahma_pahmafieldcollectionplacelist fcp ON (objs.id = fcp.id
 	AND (fcp.pos = 0 OR fcp.pos IS NULL))
-JOIN misc m ON (cc.id = m.id
+JOIN misc m ON (objs.id = m.id
 	AND m.lifecyclestate <> 'deleted')
-WHERE hgc.name = $P{groupcsid}
-GROUP BY
-	gc.title,
-	cc.objectnumber,
-	ocg.objectCount,
-	ong.objectname,
-	bd.item,
-	fcp.item,
-	cp.sortableobjectnumber,
-	hcc.name
 ORDER BY cp.sortableobjectnumber]]>
 	</queryString>
 	<field name="groupTitle" class="java.lang.String"/>
