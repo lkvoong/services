@@ -19,34 +19,48 @@
 		<defaultValueExpression><![CDATA["/"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT
-	hcc.name AS csid,
-        COALESCE(GETDISPL(cc.computedcurrentlocation) || ': ' || GETDISPL(ca.computedcrate),
-                GETDISPL(cc.computedcurrentlocation)) AS storageLocation,
-        COALESCE(REPLACE(GETDISPL(cc.computedcurrentlocation), ' ', '0') || '0' || REPLACE(GETDISPL(ca.computedcrate), ' ', '0'),
-                REPLACE(GETDISPL(cc.computedcurrentlocation), ' ', '0')) AS locationKey,
-	GETDISPL(ca.computedcrate) AS computedCrate,
-	cc.objectnumber AS objectNumber,
-	cp.sortableobjectnumber AS sortableObjectNumber,
-	ocg.objectCount AS objectCount,
-	ong.objectName AS objectName,
-	ocg.objectCountNote AS countNote
+		<![CDATA[WITH objs AS (
+SELECT DISTINCT ON (cc.id)
+	hcc.name as csid,
+	cc.id,
+	cc.objectnumber,
+	cp.sortableobjectnumber,
+	ocg.objectcount,
+	ocg.objectcountnote,
+	GETDISPL(cc.computedcurrentlocation) AS computedcurrentlocation,
+	REPLACE(GETDISPL(cc.computedcurrentlocation), ' ', '0') AS sortablecurrentlocation,
+	GETDISPL(ca.computedcrate) AS computedcrate,
+	REPLACE(GETDISPL(ca.computedcrate), ' ', '0') AS sortablecrate
 FROM collectionobjects_common cc
-JOIN hierarchy hcc ON (cc.id = hcc.id)
-LEFT OUTER JOIN collectionobjects_pahma cp ON (cc.id = cp.id)
+JOIN hierarchy hcc on (cc.id = hcc.id)
+LEFT OUTER JOIN collectionobjects_pahma cp on (cc.id = cp.id)
 LEFT OUTER JOIN collectionobjects_anthropology ca ON (cc.id = ca.id)
-LEFT OUTER JOIN hierarchy hong ON (cc.id = hong.parentid
+LEFT OUTER JOIN hierarchy hocg ON (cc.id = hocg.parentid
+	AND hocg.primarytype = 'objectCountGroup')
+LEFT OUTER JOIN objectcountgroup ocg ON (hocg.id = ocg.id
+	AND GETDISPL(ocg.objectcounttype) = 'piece count')
+WHERE REPLACE(GETDISPL(cc.computedcurrentlocation), ' ', '0') >= REPLACE($P{startLocDispl}, ' ', '0')
+AND REPLACE(GETDISPL(cc.computedcurrentlocation), ' ', '0') <= REPLACE($P{endLocDispl}, ' ', '0')
+ORDER by cc.id, ocg.objectcountdate DESC NULLS LAST
+)
+
+SELECT
+	objs.csid AS csid,
+	objs.computedcurrentlocation || COALESCE(': ' || objs.computedcrate, '') AS storageLocation,
+	objs.sortablecurrentlocation || COALESCE(objs.sortablecrate, '') AS locationKey,
+	objs.computedcrate AS computedCrate,
+	objs.objectnumber AS objectNumber,
+	objs.sortableobjectnumber AS sortableObjectNumber,
+	objs.objectcount AS objectCount,
+	ong.objectname AS objectName,
+	objs.objectcountnote AS countNote
+FROM objs
+LEFT OUTER JOIN hierarchy hong ON (objs.id = hong.parentid
 	AND hong.primarytype = 'objectNameGroup'
 	AND hong.pos = 0)
 LEFT OUTER JOIN objectnamegroup ong ON (ong.id = hong.id)
-LEFT OUTER JOIN hierarchy hocg ON (cc.id = hocg.parentid
-	AND hocg.primarytype = 'objectCountGroup'
-	AND hocg.pos = 0)
-LEFT OUTER JOIN objectcountgroup ocg ON (hocg.id = ocg.id)
-JOIN misc m ON (cc.id = m.id
+JOIN misc m ON (objs.id = m.id
 	AND m.lifecyclestate <> 'deleted')
-WHERE REPLACE(GETDISPL(cc.computedcurrentlocation), ' ', '0') >= REPLACE($P{startLocDispl}, ' ', '0')
-AND REPLACE(GETDISPL(cc.computedcurrentlocation), ' ', '0') <= REPLACE($P{endLocDispl}, ' ', '0')
 ORDER BY locationKey, sortableObjectNumber, objectName DESC]]>
 	</queryString>
 	<field name="csid" class="java.lang.String"/>

@@ -7,44 +7,54 @@
 		<defaultValueExpression><![CDATA["0cca1640-6014-4b3e-8453"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT
+		<![CDATA[WITH objs AS (
+SELECT DISTINCT ON (cc.id)
+	rc.subjectcsid AS csid,
+	cc.id,
+	cc.objectnumber,
+	ocg.objectcount
+FROM relations_common rc
+JOIN hierarchy hcc ON (rc.objectcsid = hcc.name
+	AND rc.objectdocumenttype = 'CollectionObject')
+JOIN collectionobjects_common cc ON (hcc.id = cc.id)
+LEFT OUTER JOIN hierarchy hocg ON (cc.id = hocg.parentid
+	AND hocg.primarytype = 'objectCountGroup')
+LEFT OUTER JOIN objectcountgroup ocg ON (hocg.id = ocg.id
+	AND GETDISPL(ocg.objectcounttype) = 'piece count')
+WHERE rc.subjectcsid = $P{csid}
+ORDER by cc.id, ocg.objectcountdate DESC NULLS LAST
+)
+
+SELECT
 	ac.acquisitionreferencenumber AS accessionnumber,
 	aa.acquisitionDescription,
 	hac.name AS csid,
-	cc.objectnumber AS "Museum No.",
+	objs.objectnumber AS "Museum No.",
 	cp.sortableobjectnumber AS "sort",
 	ong.objectName AS "Name",
 	bd.item AS "Description",
 	GETDISPL(fcp.item) AS "Site",
-	ocg.objectCount AS objectcount,
+	objs.objectCount AS objectcount,
 	GETDISPL(apg.assocpeople) AS culturalgroup
 FROM acquisitions_common ac
 JOIN hierarchy hac ON (ac.id = hac.id)
-JOIN relations_common rc ON (hac.name = rc.subjectcsid
-	AND rc.objectdocumenttype = 'CollectionObject')
-JOIN hierarchy hcc ON (rc.objectcsid = hcc.name)
-JOIN collectionobjects_common cc ON (hcc.id = cc.id)
-LEFT OUTER JOIN collectionobjects_pahma cp ON (cc.id = cp.id)
+LEFT OUTER JOIN objs ON (hac.name = objs.csid)
+LEFT OUTER JOIN collectionobjects_pahma cp ON (objs.id = cp.id)
 LEFT OUTER JOIN acquisitions_anthropology aa ON (ac.id = aa.id)
-LEFT OUTER JOIN hierarchy hong ON (cc.id = hong.parentid
+LEFT OUTER JOIN hierarchy hong ON (objs.id = hong.parentid
 	AND hong.primarytype = 'objectNameGroup'
 	AND hong.pos = 0)
 LEFT OUTER JOIN objectnamegroup ong ON (hong.id = ong.id)
-LEFT OUTER JOIN hierarchy hapg ON (cc.id = hapg.parentid
+LEFT OUTER JOIN hierarchy hapg ON (objs.id = hapg.parentid
 	AND hapg.primarytype = 'assocPeopleGroup')
 	AND hapg.pos = 0
 LEFT OUTER JOIN assocpeoplegroup apg ON (apg.id = hapg.id)
-LEFT OUTER JOIN hierarchy hocg ON (cc.id = hocg.parentid
-	AND hocg.primarytype = 'objectCountGroup'
-	AND hocg.pos = 0)
-LEFT OUTER JOIN objectcountgroup ocg ON (hocg.id = ocg.id)
-LEFT OUTER JOIN collectionobjects_common_briefdescriptions bd ON (cc.id = bd.id
+LEFT OUTER JOIN collectionobjects_common_briefdescriptions bd ON (objs.id = bd.id
 	AND bd.pos = 0)
-LEFT OUTER JOIN collectionobjects_pahma_pahmafieldcollectionplacelist fcp ON (cc.id = fcp.id
+LEFT OUTER JOIN collectionobjects_pahma_pahmafieldcollectionplacelist fcp ON (objs.id = fcp.id
 	AND fcp.pos = 0)
-JOIN misc m ON (cc.id = m.id
+JOIN misc m ON (m.id = objs.id
 	AND m.lifecyclestate <> 'deleted')
-WHERE hac.name = $P{csid}
 ORDER BY cp.sortableobjectnumber]]>
 	</queryString>
 	<field name="accessionnumber" class="java.lang.String"/>
