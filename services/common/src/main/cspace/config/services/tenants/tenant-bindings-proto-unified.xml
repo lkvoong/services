@@ -740,6 +740,19 @@
 					<types:key>report</types:key>
 					<types:value>borrowing_receipt</types:value>
 				</types:item>
+				<types:item>
+					<types:key>report</types:key>
+					<types:value>exhibition_checklist</types:value>
+				</types:item>
+
+				<types:item>
+					<types:key>report</types:key>
+					<types:value>contact_person</types:value>
+				</types:item>
+				<types:item>
+					<types:key>report</types:key>
+					<types:value>contact_org</types:value>
+				</types:item>
 			</service:properties>
 			<service:object xmlns:service="http://collectionspace.org/services/config/service" name="Report"
 				version="1.0">
@@ -1191,6 +1204,7 @@
 							"collectionobjects_common:objectStatusList",
 							"collectionobjects_common:otherNumberList",
 							"collectionobjects_common:ownersContributionNote",
+							"collectionobjects_common:publishedRelatedLinkGroupList",
 							"collectionobjects_common:publishToList",
 							"collectionobjects_common:responsibleDepartments",
 							"collectionobjects_common:rightsGroupList.rightStatement",

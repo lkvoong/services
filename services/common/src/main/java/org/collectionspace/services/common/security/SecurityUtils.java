@@ -52,6 +52,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.jboss.resteasy.spi.HttpRequest;
 import org.opensaml.core.xml.XMLObject;
+import org.opensaml.core.xml.schema.XSAny;
 import org.opensaml.core.xml.schema.XSString;
 import org.opensaml.saml.saml2.core.Assertion;
 import org.opensaml.saml.saml2.core.Attribute;
@@ -73,13 +74,20 @@ public class SecurityUtils {
     public static final String BASE16_ENCODING = "HEX";
     public static final String RFC2617_ENCODING = "RFC2617";
 
+    private static final List<Object> DEFAULT_SAML_ASSERTION_SSO_ID_PROBES = new ArrayList<>();
     private static final List<Object> DEFAULT_SAML_ASSERTION_USERNAME_PROBES = new ArrayList<>();
 
     static {
+        // Set up default probes for SSO ID in a SAML assertion.
+
+        DEFAULT_SAML_ASSERTION_SSO_ID_PROBES.add(new AssertionNameIDProbeType());
+
+        // Set up default probes for CSpace username in a SAML assertion.
+
         DEFAULT_SAML_ASSERTION_USERNAME_PROBES.add(new AssertionNameIDProbeType());
 
         String[] attributeNames = new String[]{
-            "urn:oid:0.9.2342.19200300.100.1.3",
+            "urn:oid:0.9.2342.19200300.100.1.3", // https://www.educause.edu/fidm/attributes
             "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress",
             "email",
             "mail"
@@ -363,7 +371,7 @@ public class SecurityUtils {
             if (probe instanceof AssertionNameIDProbeType) {
                 String subjectNameID = assertion.getSubject().getNameID().getValue();
 
-                if (subjectNameID != null && subjectNameID.contains("@")) {
+                if (subjectNameID != null) {
                     candidateUsernames.add(subjectNameID);
                 }
             } else if (probe instanceof AssertionAttributeProbeType) {
@@ -376,7 +384,53 @@ public class SecurityUtils {
             }
         }
 
-        return candidateUsernames;
+        // Filter out values that don't look like an email.
+
+        Set<String> filteredCandidateUsernames = new LinkedHashSet<>();
+
+        for (String username : candidateUsernames) {
+            if (username.contains("@")) {
+                filteredCandidateUsernames.add(username);
+            }
+        }
+
+        return filteredCandidateUsernames;
+    }
+
+    /*
+     * Retrieve the SSO ID from a SAML assertion.
+     */
+    public static String getSamlAssertionSsoId(Assertion assertion, AssertionProbesType assertionProbes) {
+        List<Object> probes = null;
+
+        if (assertionProbes != null) {
+            probes = assertionProbes.getNameIdOrAttribute();
+        }
+
+        if (probes == null || probes.size() == 0) {
+            probes = DEFAULT_SAML_ASSERTION_SSO_ID_PROBES;
+        }
+
+        for (Object probe : probes) {
+            String ssoId = null;
+
+            if (probe instanceof AssertionNameIDProbeType) {
+                ssoId = assertion.getSubject().getNameID().getValue();
+            } else if (probe instanceof AssertionAttributeProbeType) {
+                String attributeName = ((AssertionAttributeProbeType) probe).getName();
+                List<String> values = getSamlAssertionAttributeValues(assertion, attributeName);
+
+                if (values != null && values.size() > 0) {
+                    ssoId = values.get(0);
+                }
+            }
+
+            if (ssoId != null) {
+                return ssoId;
+            }
+        }
+
+        return null;
     }
 
     private static List<String> getSamlAssertionAttributeValues(Assertion assertion, String attributeName) {
@@ -391,13 +445,31 @@ public class SecurityUtils {
 
                     if (attributeValues != null) {
                         for (XMLObject value : attributeValues) {
+                        	/*
+                        	 	NOTE: SAML 2.0 attribute values will either be sent explicitly 
+                        	 	as a string and typed XSString by OpenSAML, or it will be sent untyped and
+                        	 	typed XSAny. Which it is depends on a configuration setting on the
+                        	 	identity provider side, and either is acceptable according to
+                        	 	the SAML 2.0 spec (https://docs.oasis-open.org/security/saml/v2.0/saml-core-2.0-os.pdf
+                        	 	Section 2.7.3.1.1 Element <AttributeValue>, line 1236) 
+                        	 */
                             if (value instanceof XSString) {
                                 XSString stringValue = (XSString) value;
                                 String candidateValue = stringValue.getValue();
 
-                                if (candidateValue != null && candidateValue.contains("@")) {
+                                if (candidateValue != null) {
                                     values.add(candidateValue);
                                 }
+                            }
+                            else if(value instanceof XSAny) {
+                            	String candidateValue = ((XSAny) value).getTextContent();
+                            	
+                            	if (candidateValue != null) {
+                                    values.add(candidateValue);
+                                }
+                            }
+                            else {
+                            	logger.warn(attributeName);
                             }
                         }
                     }
@@ -406,5 +478,36 @@ public class SecurityUtils {
         }
 
         return values;
+    }
+
+    public static void logSamlAssertions(List<Assertion> assertions) {
+        logger.info("Received {} SAML assertion(s)", assertions.size());
+
+        for (Assertion assertion : assertions) {
+            String nameId = assertion.getSubject().getNameID().getValue();
+
+            logger.info("NameID: {}", nameId);
+
+            for (AttributeStatement statement : assertion.getAttributeStatements()) {
+                for (Attribute attribute : statement.getAttributes()) {
+                    String attributeName = attribute.getName();
+                    List<String> stringValues = new ArrayList<>();
+                    List<XMLObject> attributeValues = attribute.getAttributeValues();
+
+                    if (attributeValues != null) {
+                        for (XMLObject value : attributeValues) {
+                            if (value instanceof XSString) {
+                                stringValues.add(((XSString) value).getValue());
+                            }
+                            else if (value instanceof XSAny) {
+                            	stringValues.add(((XSAny)value).getTextContent());
+                            }
+                        }
+                    }
+
+                    logger.info("Attribute: {}={}", attributeName, stringValues);
+                }
+            }
+        }
     }
 }

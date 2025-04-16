@@ -239,11 +239,18 @@
             <artifactId>org.collectionspace.services.uoc.service</artifactId>
             <version>${project.version}</version>
         </dependency>
+      <!-- legacy claim -->
         <dependency>
             <groupId>org.collectionspace.services</groupId>
             <artifactId>org.collectionspace.services.claim.service</artifactId>
             <version>${project.version}</version>
         </dependency>
+      <!-- new claim as of 8.1.0 -->
+      <dependency>
+        <groupId>org.collectionspace.services</groupId>
+        <artifactId>org.collectionspace.services.repatriationrequest.service</artifactId>
+        <version>${project.version}</version>
+      </dependency>
         <dependency>
             <groupId>org.collectionspace.services</groupId>
             <artifactId>org.collectionspace.services.exhibition.service</artifactId>
@@ -420,15 +427,56 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.collectionspace.services</groupId>
+            <artifactId>org.collectionspace.services.chronology.service</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.collectionspace.services</groupId>
+            <artifactId>org.collectionspace.services.dutyofcare.service</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.collectionspace.services</groupId>
+            <artifactId>org.collectionspace.services.nagprainventory.service</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.collectionspace.services</groupId>
+            <artifactId>org.collectionspace.services.summarydocumentation.service</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.collectionspace.services</groupId>
+            <artifactId>org.collectionspace.services.heldintrust.service</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.collectionspace.services</groupId>
+            <artifactId>org.collectionspace.services.consultation.service</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
           <groupId>org.collectionspace.services</groupId>
-          <artifactId>org.collectionspace.services.chronology.service</artifactId>
+          <artifactId>org.collectionspace.services.deaccession.service</artifactId>
           <version>${project.version}</version>
         </dependency>
-        <!--dependency>
+        <dependency>
+          <groupId>org.collectionspace.services</groupId>
+          <artifactId>org.collectionspace.services.exit.service</artifactId>
+          <version>${project.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.collectionspace.services</groupId>
-            <artifactId>org.collectionspace.services.query.service</artifactId>
-            <version>1.0</version>
-        </dependency-->
+            <artifactId>org.collectionspace.services.restrictedmedia.service</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+      <!--dependency>
+          <groupId>org.collectionspace.services</groupId>
+          <artifactId>org.collectionspace.services.query.service</artifactId>
+          <version>1.0</version>
+      </dependency-->
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>

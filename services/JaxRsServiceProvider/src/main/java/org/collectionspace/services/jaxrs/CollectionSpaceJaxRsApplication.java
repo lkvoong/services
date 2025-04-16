@@ -27,6 +27,11 @@ import org.collectionspace.services.account.TenantResource;
 import org.collectionspace.services.blob.BlobResource;
 import org.collectionspace.services.chronology.ChronologyAuthorityResource;
 import org.collectionspace.services.collectionobject.CollectionObjectResource;
+import org.collectionspace.services.consultation.ConsultationResource;
+import org.collectionspace.services.deaccession.DeaccessionResource;
+import org.collectionspace.services.dutyofcare.DutyofcareResource;
+import org.collectionspace.services.exit.ExitResource;
+import org.collectionspace.services.heldintrust.HeldInTrustResource;
 import org.collectionspace.services.id.IDResource;
 import org.collectionspace.services.insurance.InsuranceResource;
 import org.collectionspace.services.iterationreport.IterationreportResource;
@@ -37,6 +42,10 @@ import org.collectionspace.services.intake.IntakeResource;
 import org.collectionspace.services.index.IndexResource;
 import org.collectionspace.services.loanin.LoaninResource;
 import org.collectionspace.services.loanout.LoanoutResource;
+import org.collectionspace.services.repatriationrequest.RepatriationRequestResource;
+import org.collectionspace.services.nagprainventory.NagpraInventoryResource;
+import org.collectionspace.services.restrictedmedia.RestrictedMediaResource;
+import org.collectionspace.services.summarydocumentation.SummaryDocumentationResource;
 import org.collectionspace.services.transport.TransportResource;
 import org.collectionspace.services.uoc.UocResource;
 import org.collectionspace.services.valuationcontrol.ValuationcontrolResource;
@@ -81,7 +90,6 @@ import java.util.Set;
 
 
 
-//import org.collectionspace.services.common.FileUtils;
 import org.collectionspace.services.authorization.RoleResource;
 import org.collectionspace.services.common.NuxeoBasedResource;
 import org.collectionspace.services.common.ResourceMap;
@@ -99,8 +107,7 @@ import org.collectionspace.services.common.security.SecurityInterceptor;
  * $LastChangedRevision$
  * $LastChangedDate$
  */
-public class CollectionSpaceJaxRsApplication extends Application
-					implements ResourceMapHolder {
+public class CollectionSpaceJaxRsApplication extends Application implements ResourceMapHolder {
 
     private Set<Object> singletons = new HashSet<Object>();
     private Set<Class<?>> empty = new HashSet<Class<?>>();
@@ -108,9 +115,9 @@ public class CollectionSpaceJaxRsApplication extends Application
     private ServletContext servletContext = null;
 
     public CollectionSpaceJaxRsApplication() {
-    	//
-    	// Instantiate all our JaxRS resources
-    	//
+        //
+        // Instantiate all our JaxRS resources
+        //
         singletons.add(new SecurityInterceptor());
 
         singletons.add(new AccountResource());
@@ -144,6 +151,7 @@ public class CollectionSpaceJaxRsApplication extends Application
         addResourceToMapAndSingletons(new IntakeResource());
         addResourceToMapAndSingletons(new HitResource());
         addResourceToMapAndSingletons(new DimensionResource());
+        addResourceToMapAndSingletons(new DutyofcareResource());
         addResourceToMapAndSingletons(new RelationResource());
         addResourceToMapAndSingletons(new LoaninResource());
         addResourceToMapAndSingletons(new LoanoutResource());
@@ -161,11 +169,19 @@ public class CollectionSpaceJaxRsApplication extends Application
         addResourceToMapAndSingletons(new PropagationResource());
         addResourceToMapAndSingletons(new PottagResource());
         addResourceToMapAndSingletons(new ClaimResource());
+        addResourceToMapAndSingletons(new RepatriationRequestResource());
         addResourceToMapAndSingletons(new ReportResource());
         addResourceToMapAndSingletons(new PublicItemResource());
         addResourceToMapAndSingletons(new TransportResource());
         addResourceToMapAndSingletons(new IterationreportResource());
         addResourceToMapAndSingletons(new ChronologyAuthorityResource());
+        addResourceToMapAndSingletons(new NagpraInventoryResource());
+        addResourceToMapAndSingletons(new SummaryDocumentationResource());
+        addResourceToMapAndSingletons(new HeldInTrustResource());
+        addResourceToMapAndSingletons(new ConsultationResource());
+        addResourceToMapAndSingletons(new DeaccessionResource());
+        addResourceToMapAndSingletons(new ExitResource());
+        addResourceToMapAndSingletons(new RestrictedMediaResource());
 
         singletons.add(new IDResource());
 

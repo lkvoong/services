@@ -51,14 +51,14 @@
 		</exec>
 	</target>
 
-	<target name="install_node" depends="install_nvm" if="${cspace.ui.build}">
+	<target name="install_cspace_ui_node" depends="install_nvm" if="${cspace.ui.build}">
 		<exec executable="bash" failonerror="true">
 			<arg value="-c" />
 			<arg value='source "$HOME/.nvm/nvm.sh" &amp;&amp; nvm install ${cspace.ui.build.node.ver} &amp;&amp; nvm use ${cspace.ui.build.node.ver} &amp;&amp; nvm install-latest-npm' />
 		</exec>
 	</target>
 
-	<target name="build_cspace_ui_js" depends="ensure_staging_dir,ensure_source_dir,install_node" if="${cspace.ui.build}">
+	<target name="build_cspace_ui_js" depends="ensure_staging_dir,ensure_source_dir,install_cspace_ui_node" if="${cspace.ui.build}">
 		<exec executable="bash" failonerror="true">
 			<arg value="-c" />
 			<arg value="./build_js.sh ${cspace.ui.package.name} ${cspace.ui.build.branch} ${source.dir} ${staging.dir} ${cspace.ui.library.name} ${service.ui.library.name}"/>
@@ -155,7 +155,7 @@
 		</condition>
 	</target>
 
-	<target name="build_tenant_js" depends="check_build_tenant_js,ensure_staging_dir,ensure_source_dir,install_node" if="should.build.tenant.js">
+	<target name="build_tenant_js" depends="check_build_tenant_js,ensure_staging_dir,ensure_source_dir,install_cspace_ui_node" if="should.build.tenant.js">
 		<fail message="Build branch not found for ${tenant.shortname}. Set the tenant.ui.profile.plugin.build.branch property in ${basedir}/build.properties.">
 			<condition>
 				<not>
@@ -204,6 +204,7 @@
 		<filter token="UI_PROFILE_PLUGIN_LIBRARY_NAME" value="${tenant.ui.profile.plugin.library.name}" />
 		<filter token="BASENAME" value="${tenant.ui.basename}" />
 		<filter token="TENANT_ID" value="${resolved.tenant.id}" />
+		<filter token="TENANT_SHORTNAME" value="${tenant.shortname}" />
 
 		<copy todir="${jee.deploy.cspace}/${tenant.ui.webapp.dir}" failonerror="false" filtering="true" overwrite="true">
 			<fileset dir="${basedir}">

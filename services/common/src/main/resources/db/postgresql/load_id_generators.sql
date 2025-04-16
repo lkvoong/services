@@ -1090,3 +1090,291 @@ INSERT INTO id_generators
         SELECT  csid
         FROM    id_generators
         );
+
+-- DUTYOFCARE_REFERENCE_NUMBER
+
+INSERT INTO id_generators
+    (csid, displayname, description, priority, last_generated_id, id_generator_state)
+  SELECT
+     '6205cfe5-d144-4e89-b641-0e8e4b356f34',
+     'Duty of Care Reference Number',
+     'Identifies a dutyofcare.',
+     '9',
+     '',
+'<org.collectionspace.services.id.SettableIDGenerator>
+  <parts>
+    <org.collectionspace.services.id.StringIDGeneratorPart>
+      <initialValue>DC</initialValue>
+      <currentValue>DC</currentValue>
+    </org.collectionspace.services.id.StringIDGeneratorPart>
+    <org.collectionspace.services.id.YearIDGeneratorPart>
+      <currentValue></currentValue>
+    </org.collectionspace.services.id.YearIDGeneratorPart>
+    <org.collectionspace.services.id.StringIDGeneratorPart>
+      <initialValue>.</initialValue>
+      <currentValue>.</currentValue>
+    </org.collectionspace.services.id.StringIDGeneratorPart>
+    <org.collectionspace.services.id.NumericIDGeneratorPart>
+      <maxLength>6</maxLength>
+      <initialValue>1</initialValue>
+      <currentValue>-1</currentValue>
+    </org.collectionspace.services.id.NumericIDGeneratorPart>
+  </parts>
+</org.collectionspace.services.id.SettableIDGenerator>'
+  WHERE '6205cfe5-d144-4e89-b641-0e8e4b356f34' NOT IN
+        (
+        SELECT  csid
+        FROM    id_generators
+        );
+
+-- NAGPRAINVENTORY_REFERENCE_NUMBER
+
+INSERT INTO id_generators
+    (csid, displayname, description, priority, last_generated_id, id_generator_state)
+  SELECT
+     '500b27f0-2ad9-42ab-af0b-3452a4ad5d29',
+     'NAGPRA Inventory Report Reference Number',
+     'Identifies a nagprainventory.',
+     '9',
+     '',
+'<org.collectionspace.services.id.SettableIDGenerator>
+  <parts>
+    <org.collectionspace.services.id.StringIDGeneratorPart>
+      <initialValue>INV</initialValue>
+      <currentValue>INV</currentValue>
+    </org.collectionspace.services.id.StringIDGeneratorPart>
+    <org.collectionspace.services.id.YearIDGeneratorPart>
+      <currentValue></currentValue>
+    </org.collectionspace.services.id.YearIDGeneratorPart>
+    <org.collectionspace.services.id.StringIDGeneratorPart>
+      <initialValue>.</initialValue>
+      <currentValue>.</currentValue>
+    </org.collectionspace.services.id.StringIDGeneratorPart>
+    <org.collectionspace.services.id.NumericIDGeneratorPart>
+      <maxLength>6</maxLength>
+      <initialValue>1</initialValue>
+      <currentValue>-1</currentValue>
+    </org.collectionspace.services.id.NumericIDGeneratorPart>
+  </parts>
+</org.collectionspace.services.id.SettableIDGenerator>'
+  WHERE '500b27f0-2ad9-42ab-af0b-3452a4ad5d29' NOT IN
+        (
+        SELECT  csid
+        FROM    id_generators
+        );
+
+-- SUMMARY_DOCUMENTATION_REFERENCE_NUMBER
+
+INSERT INTO id_generators
+    (csid, displayname, description, priority, last_generated_id, id_generator_state)
+  SELECT
+     '54ab6096-11e0-44a3-9a41-06a87c1c1bdb',
+     'Summary Documentation Reference Number',
+     'Identifies a summary documentation.',
+     '9',
+     '',
+'<org.collectionspace.services.id.SettableIDGenerator>
+  <parts>
+    <org.collectionspace.services.id.StringIDGeneratorPart>
+      <initialValue>SD</initialValue>
+      <currentValue>SD</currentValue>
+    </org.collectionspace.services.id.StringIDGeneratorPart>
+    <org.collectionspace.services.id.YearIDGeneratorPart>
+      <currentValue></currentValue>
+    </org.collectionspace.services.id.YearIDGeneratorPart>
+    <org.collectionspace.services.id.StringIDGeneratorPart>
+      <initialValue>.</initialValue>
+      <currentValue>.</currentValue>
+    </org.collectionspace.services.id.StringIDGeneratorPart>
+    <org.collectionspace.services.id.NumericIDGeneratorPart>
+      <maxLength>6</maxLength>
+      <initialValue>1</initialValue>
+      <currentValue>-1</currentValue>
+    </org.collectionspace.services.id.NumericIDGeneratorPart>
+  </parts>
+</org.collectionspace.services.id.SettableIDGenerator>'
+  WHERE '54ab6096-11e0-44a3-9a41-06a87c1c1bdb' NOT IN
+        (
+        SELECT  csid
+        FROM    id_generators
+        );
+
+-- HELD_IN_TRUST_NUMBER
+
+INSERT INTO id_generators
+    (csid, displayname, description, priority, last_generated_id, id_generator_state)
+  SELECT
+     '6b5bc008-34f9-40be-bd49-0440ee9f262d',
+     'Held-in-Trust Number',
+     'Identifies a held-in-trust document.',
+     '9',
+     '',
+'<org.collectionspace.services.id.SettableIDGenerator>
+  <parts>
+    <org.collectionspace.services.id.StringIDGeneratorPart>
+      <initialValue>HIT</initialValue>
+      <currentValue>HIT</currentValue>
+    </org.collectionspace.services.id.StringIDGeneratorPart>
+    <org.collectionspace.services.id.YearIDGeneratorPart>
+      <currentValue></currentValue>
+    </org.collectionspace.services.id.YearIDGeneratorPart>
+    <org.collectionspace.services.id.StringIDGeneratorPart>
+      <initialValue>.</initialValue>
+      <currentValue>.</currentValue>
+    </org.collectionspace.services.id.StringIDGeneratorPart>
+    <org.collectionspace.services.id.NumericIDGeneratorPart>
+      <maxLength>6</maxLength>
+      <initialValue>1</initialValue>
+      <currentValue>-1</currentValue>
+    </org.collectionspace.services.id.NumericIDGeneratorPart>
+  </parts>
+</org.collectionspace.services.id.SettableIDGenerator>'
+  WHERE '6b5bc008-34f9-40be-bd49-0440ee9f262d' NOT IN
+        (
+        SELECT  csid
+        FROM    id_generators
+        );
+
+-- CONSULTATION_NUMBER
+
+INSERT INTO id_generators
+    (csid, displayname, description, priority, last_generated_id, id_generator_state)
+  SELECT
+     '48dfa8e6-6c18-4d6e-bb2d-bbc69cc2cb36',
+     'Consultation Number',
+     'Identifies a consultation document.',
+     '9',
+     '',
+'<org.collectionspace.services.id.SettableIDGenerator>
+  <parts>
+    <org.collectionspace.services.id.StringIDGeneratorPart>
+      <initialValue>CN</initialValue>
+      <currentValue>CN</currentValue>
+    </org.collectionspace.services.id.StringIDGeneratorPart>
+    <org.collectionspace.services.id.YearIDGeneratorPart>
+      <currentValue></currentValue>
+    </org.collectionspace.services.id.YearIDGeneratorPart>
+    <org.collectionspace.services.id.StringIDGeneratorPart>
+      <initialValue>.</initialValue>
+      <currentValue>.</currentValue>
+    </org.collectionspace.services.id.StringIDGeneratorPart>
+    <org.collectionspace.services.id.NumericIDGeneratorPart>
+      <maxLength>6</maxLength>
+      <initialValue>1</initialValue>
+      <currentValue>-1</currentValue>
+    </org.collectionspace.services.id.NumericIDGeneratorPart>
+  </parts>
+</org.collectionspace.services.id.SettableIDGenerator>'
+  WHERE '48dfa8e6-6c18-4d6e-bb2d-bbc69cc2cb36' NOT IN
+        (
+        SELECT  csid
+        FROM    id_generators
+        );
+
+-- DEACCESSION_NUMBER
+
+INSERT INTO id_generators
+    (csid, displayname, description, priority, last_generated_id, id_generator_state)
+  SELECT
+     '0b508d05-67df-4b63-b4ce-7319a3029baa',
+     'Deaccession Number',
+     'Identifies a deaccession document.',
+     '9',
+     '',
+'<org.collectionspace.services.id.SettableIDGenerator>
+  <parts>
+    <org.collectionspace.services.id.StringIDGeneratorPart>
+      <initialValue>DE</initialValue>
+      <currentValue>DE</currentValue>
+    </org.collectionspace.services.id.StringIDGeneratorPart>
+    <org.collectionspace.services.id.YearIDGeneratorPart>
+      <currentValue></currentValue>
+    </org.collectionspace.services.id.YearIDGeneratorPart>
+    <org.collectionspace.services.id.StringIDGeneratorPart>
+      <initialValue>.</initialValue>
+      <currentValue>.</currentValue>
+    </org.collectionspace.services.id.StringIDGeneratorPart>
+    <org.collectionspace.services.id.NumericIDGeneratorPart>
+      <maxLength>6</maxLength>
+      <initialValue>1</initialValue>
+      <currentValue>-1</currentValue>
+    </org.collectionspace.services.id.NumericIDGeneratorPart>
+  </parts>
+</org.collectionspace.services.id.SettableIDGenerator>'
+  WHERE '0b508d05-67df-4b63-b4ce-7319a3029baa' NOT IN
+        (
+        SELECT  csid
+        FROM    id_generators
+        );
+
+-- REPATRIATION_REQUEST_NUMBER
+
+INSERT INTO id_generators
+    (csid, displayname, description, priority, last_generated_id, id_generator_state)
+  SELECT
+     '7f6e2d67-b95a-4a0c-841c-5a00a9cd1db0',
+     'Repatriation Request Number',
+     'Identifies a repatriation request document.',
+     '9',
+     '',
+'<org.collectionspace.services.id.SettableIDGenerator>
+  <parts>
+    <org.collectionspace.services.id.StringIDGeneratorPart>
+      <initialValue>RR</initialValue>
+      <currentValue>RR</currentValue>
+    </org.collectionspace.services.id.StringIDGeneratorPart>
+    <org.collectionspace.services.id.YearIDGeneratorPart>
+      <currentValue></currentValue>
+    </org.collectionspace.services.id.YearIDGeneratorPart>
+    <org.collectionspace.services.id.StringIDGeneratorPart>
+      <initialValue>.</initialValue>
+      <currentValue>.</currentValue>
+    </org.collectionspace.services.id.StringIDGeneratorPart>
+    <org.collectionspace.services.id.NumericIDGeneratorPart>
+      <maxLength>6</maxLength>
+      <initialValue>1</initialValue>
+      <currentValue>-1</currentValue>
+    </org.collectionspace.services.id.NumericIDGeneratorPart>
+  </parts>
+</org.collectionspace.services.id.SettableIDGenerator>'
+  WHERE '7f6e2d67-b95a-4a0c-841c-5a00a9cd1db0' NOT IN
+        (
+        SELECT  csid
+        FROM    id_generators
+        );
+
+-- RESTRICTED_MEDIA_NUMBER
+
+INSERT INTO id_generators
+    (csid, displayname, description, priority, last_generated_id, id_generator_state)
+  SELECT
+     '17772cbd-8de1-4969-ac2e-c51798bc4e75',
+     'Restricted Media Number',
+     'Identifies a restricted media document.',
+     '9',
+     '',
+'<org.collectionspace.services.id.SettableIDGenerator>
+  <parts>
+    <org.collectionspace.services.id.StringIDGeneratorPart>
+      <initialValue>RMR</initialValue>
+      <currentValue>RMR</currentValue>
+    </org.collectionspace.services.id.StringIDGeneratorPart>
+    <org.collectionspace.services.id.YearIDGeneratorPart>
+      <currentValue></currentValue>
+    </org.collectionspace.services.id.YearIDGeneratorPart>
+    <org.collectionspace.services.id.StringIDGeneratorPart>
+      <initialValue>.</initialValue>
+      <currentValue>.</currentValue>
+    </org.collectionspace.services.id.StringIDGeneratorPart>
+    <org.collectionspace.services.id.NumericIDGeneratorPart>
+      <maxLength>6</maxLength>
+      <initialValue>1</initialValue>
+      <currentValue>-1</currentValue>
+    </org.collectionspace.services.id.NumericIDGeneratorPart>
+  </parts>
+</org.collectionspace.services.id.SettableIDGenerator>'
+  WHERE '17772cbd-8de1-4969-ac2e-c51798bc4e75' NOT IN
+        (
+        SELECT  csid
+        FROM    id_generators
+        );
