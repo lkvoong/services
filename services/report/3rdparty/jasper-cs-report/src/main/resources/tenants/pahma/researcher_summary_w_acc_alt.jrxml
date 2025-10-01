@@ -16,7 +16,7 @@
 		AND rca.subjectdocumenttype = 'Acquisition')
 	LEFT OUTER JOIN hierarchy hac ON (rca.subjectcsid = hac.name)
 	LEFT OUTER JOIN acquisitions_common ac ON (hac.id = ac.id)
-	WHERE rc.subjectcsid = '$P{groupcsid}'
+	WHERE rc.subjectcsid = $P{groupcsid}
 	AND rc.objectdocumenttype = 'CollectionObject'
 	GROUP BY 1, 2
 )
