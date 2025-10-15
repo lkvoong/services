@@ -6,20 +6,20 @@
 	<parameter name="groupcsid" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[WITH group_obj_acq AS (
-        SELECT
-                rc.subjectcsid AS groupcsid,
-                rc.objectcsid,
-                STRING_AGG(ac.acquisitionreferencenumber, ', ' order by acquisitionreferencenumber) AS acqNumber
-        FROM relations_common rc
-        LEFT OUTER JOIN relations_common rca ON rc.objectcsid = rca.objectcsid
-        LEFT OUTER JOIN hierarchy hac ON rca.subjectcsid = hac.name
-        LEFT OUTER JOIN acquisitions_common ac ON hac.id = ac.id
-        WHERE rc.subjectcsid = $P{groupcsid}
-        AND rc.subjectdocumenttype = 'Group'
-        AND rc.objectdocumenttype = 'CollectionObject'
-        AND rca.objectdocumenttype = 'CollectionObject'
-        AND rca.subjectdocumenttype = 'Acquisition'
-        GROUP BY 1, 2
+SELECT
+	rc.subjectcsid AS groupcsid,
+	rc.objectcsid,
+	STRING_AGG(ac.acquisitionreferencenumber, ', ' order by acquisitionreferencenumber) AS acqNumber
+FROM relations_common rc
+LEFT OUTER JOIN relations_common rca ON rc.objectcsid = rca.objectcsid
+LEFT OUTER JOIN hierarchy hac ON rca.subjectcsid = hac.name
+LEFT OUTER JOIN acquisitions_common ac ON hac.id = ac.id
+WHERE rc.subjectcsid = $P{groupcsid}
+AND rc.subjectdocumenttype = 'Group'
+AND rc.objectdocumenttype = 'CollectionObject'
+AND rca.objectdocumenttype = 'CollectionObject'
+AND rca.subjectdocumenttype = 'Acquisition'
+GROUP BY 1, 2
 )
 SELECT
 	gc.title AS groupTitle,
